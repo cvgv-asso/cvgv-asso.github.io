@@ -1,0 +1,21 @@
+#banner {
+    background-color: #1867a9;
+    color: #eeeeee;
+}
+
+
+#logo {
+    width: 150px;
+}
+
+#menu {
+    background-color: #3180c2;
+}
+
+#menu .nav-underline {
+    --bs-nav-underline-link-active-color: #eeeeee;
+}
+
+#sponsors img {
+    max-height: 150px;
+}
