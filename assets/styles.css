@@ -19,3 +19,7 @@
 #sponsors img {
     max-height: 120px;
 }
+
+#banner h1 {
+    font-weight: bold;
+}
