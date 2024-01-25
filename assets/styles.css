@@ -1,8 +1,21 @@
 #banner {
     background-color: #024e82;
-    color: #eeeeee;
 }
 
+#banner h1 {
+    color: #eeeeee;
+    text-shadow: #000 1px 1px 0;
+    font-size: 4rem;
+}
+
+#banner-mobile {
+    background-color: #024e82;
+}
+
+#banner-mobile h1 {
+    color: #eeeeee;
+    text-shadow: #000 1px 1px 0;
+}
 
 #logo {
     width: 100%;
