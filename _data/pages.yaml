@@ -3,11 +3,13 @@ toc:
       url: /
 
     - title: Voile Légère
+      url: /voile-legere
       children:
           - title: Compétition
             url: /voile-legere/competition.html
 
     - title: Habitable
+      url: /habitable
       children:
           - title: Défi Pilours - Sablaire
             url: /habitable/defi-pilours-sablaire.html
