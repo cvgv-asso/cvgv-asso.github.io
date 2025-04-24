@@ -133,25 +133,19 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
-                        {%- assign navbar = site.html_pages | where_exp:"item",
-                        "item.title != nil" | sort: "order" -%} {% for nav in
-                        navbar %}
-                        <li class="nav-item">
-                            <a
-                                class="nav-link{% if page.url == nav.url %} active{% endif %}"
-                                aria-current="page"
-                                href="{{ nav.url }}"
-                                >{{ nav.title }}</a
-                            >
-                        </li>
+                        {% for item in site.data.pages.toc %}
+                            {% if item.url != null %}
+                                <li class="nav-item">
+                                    <a class="nav-link{% if page.url == item.url %} active{% endif %}" aria-current="page" href="{{ item.url }}" >{{ item.title }}</a>
+                                </li>
+                            {% else %}
+                                <li class="nav-item">
+                                    <a class="nav-link" aria-current="page" href="#" >{{ item.title }}</a>
+                                </li>
+                            {% endif %}
                         {% endfor %}
                         <li class="nav-item">
-                            <a
-                                class="nav-link"
-                                aria-current="page"
-                                href="/assets/calendrier-2025.pdf"
-                                >Calendrier 2025</a
-                            >
+                            <a class="nav-link" aria-current="page" href="/assets/calendrier-2025.pdf" >Calendrier 2025</a>
                         </li>
                         <li class="nav-item">
                             <a

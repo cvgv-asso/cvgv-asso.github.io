@@ -1,0 +1,15 @@
+toc:
+    - title: Accueil
+      url: /
+
+    - title: Voile Légère
+      children:
+          - title: Compétition
+            url: /voile-legere/competition.html
+
+    - title: Habitable
+      children:
+          - title: Défi Pilours - Sablaire
+            url: /habitable/defi-pilours-sablaire.html
+          - title: Régates
+            url: /habitable/regates.html
