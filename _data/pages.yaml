@@ -17,6 +17,8 @@ toc:
     - title: Habitable
       url: /habitable
       children:
+          - title: Croisières
+            url: /habitable/croisieres.html
           - title: Défi Pilours - Sablaire
             url: /habitable/defi-pilours-sablaire.html
           - title: Régates
