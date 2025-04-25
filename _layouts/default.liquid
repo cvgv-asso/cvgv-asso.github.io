@@ -144,13 +144,32 @@
                                     </a>
                                 </li>
                             {% else %}
-                                <li class="nav-item dropdown">
+                                <li class="nav-item dropdown d-none d-lg-block">
                                     <a class="nav-link dropdown-toggle{% if page.url contains item.url %} active{% endif %}" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         {{ item.title }}
                                     </a>
                                     <ul class="dropdown-menu">
                                         {% for child in item.children %}
                                             <li><a class="dropdown-item{% if page.url == child.url %} active{% endif %}" href="{{ child.url }}">{{ child.title }}</a></li>
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+
+                                <li class="nav-item d-bock d-lg-none">
+                                    <a class="nav-link{% if page.url contains item.url %} active{% endif %}" href="#">
+                                        {{ item.title }}
+                                    </a>
+                                    <ul>
+                                        {% for child in item.children %}
+                                        <li class="nav-item">
+                                            <a
+                                                class="nav-link{% if page.url == child.url %} active{% endif %}"
+                                                {% if page.url == child.url %} aria-current="page"{% endif %}
+                                                href="{{ child.url }}"
+                                                >
+                                                    {{ child.title }}
+                                            </a>
+                                        </li>
                                         {% endfor %}
                                     </ul>
                                 </li>
