@@ -21,11 +21,16 @@
     background-color: #3180c2;
 }
 
-.navbar-nav .nav-link.active,
-.navbar-nav .show > .nav-link {
-    background-color: #024e82;
-    border-radius: 5px;
-    color: #ffffff;
+:root {
+    --cvgv-red: #db3737;
+}
+
+.dropdown-menu {
+    --bs-dropdown-link-active-bg: var(--cvgv-red);
+}
+
+.navbar {
+    --bs-navbar-active-color: var(--cvgv-red);
 }
 
 #sponsors img {
