@@ -17,15 +17,12 @@
     text-shadow: #000 1px 1px 0;
 }
 
-#logo {
-    width: 100%;
-}
-
 #menu {
     background-color: #3180c2;
 }
 
-.navbar-nav .nav-link.active, .navbar-nav .show > .nav-link {
+.navbar-nav .nav-link.active,
+.navbar-nav .show > .nav-link {
     background-color: #024e82;
     border-radius: 5px;
     color: #ffffff;
