@@ -1,0 +1,23 @@
+# Annonce affichée dans la barre de menu.
+
+# Mettre à false pour masquer l'annonce.
+actif: true
+
+message: "18 octobre 2026 : Finale du Championnat de Vendée Habitable"
+
+# bleu, rouge, vert, orange ou jaune.
+couleur: jaune
+
+# Nom d'une icône Font Awesome (https://fontawesome.com/search?ic=free) :
+# flag, trophy, triangle-exclamation, calendar, circle-info, sailboat…
+icone: flag
+
+# Page où trouver plus d'informations (facultatif).
+lien: /habitable/regates/finale-championnat-de-vendee-habitable.html
+texte_lien: "Plus d'informations"
+
+# Dernier jour d'affichage (facultatif) : l'annonce disparaît le lendemain.
+fin: 2026-10-18
+
+# true pour n'afficher l'annonce que sur la page d'accueil.
+accueil_seulement: false

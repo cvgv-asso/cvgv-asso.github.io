@@ -1,0 +1,58 @@
+{% comment %} Annonce configurée dans _data/annonce.yml. {% endcomment %}
+{% assign annonce = site.data.annonce %}
+{% assign today = site.time | date: "%Y-%m-%d" %}
+{% assign fin = annonce.fin | date: "%Y-%m-%d" %}
+{% if annonce.actif and annonce.message %}
+    {% unless annonce.fin and fin < today %}
+        {% unless annonce.accueil_seulement and page.url != "/" %}
+            {% assign couleurs = "bleu,rouge,vert,orange,jaune" | split: "," %}
+            {% if couleurs contains annonce.couleur %}
+                {% assign couleur = annonce.couleur %}
+            {% else %}
+                {% assign couleur = "bleu" %}
+            {% endif %}
+            {% if annonce.lien %}
+                {% assign tag = "a" %}
+            {% else %}
+                {% assign tag = "button" %}
+            {% endif %}
+            <{{ tag }}
+                class="annonce annonce-{{ couleur }} order-lg-last rounded-pill"
+                id="annonce"
+                {% if annonce.lien %}href="{{ annonce.lien }}"{% else %}type="button"{% endif %}
+                title="{{ annonce.message }}"
+                {% if annonce.fin %}data-fin="{{ fin }}"{% endif %}
+            >
+                {% if annonce.icone %}<i class="fa-solid fa-{{ annonce.icone }}"></i>{% endif %}
+                <span class="annonce-texte">{{ annonce.message }}</span>
+                {% if annonce.lien %}<span class="annonce-lien d-none d-xl-inline">{{ annonce.texte_lien | default: "Plus d'informations" }}</span>{% endif %}
+                {% if annonce.lien %}<i class="fa-solid fa-chevron-right"></i>{% endif %}
+            </{{ tag }}>
+            <script>
+                (function () {
+                    var annonce = document.getElementById("annonce");
+                    // Le site n'est reconstruit qu'à chaque modification :
+                    // on masque aussi l'annonce côté navigateur une fois la date passée.
+                    var fin = annonce.dataset.fin;
+                    var now = new Date();
+                    var today =
+                        now.getFullYear() +
+                        "-" +
+                        String(now.getMonth() + 1).padStart(2, "0") +
+                        "-" +
+                        String(now.getDate()).padStart(2, "0");
+                    if (fin && fin < today) {
+                        annonce.remove();
+                        return;
+                    }
+                    // Sans lien, un appui affiche le message en entier s'il est tronqué.
+                    if (annonce.tagName === "BUTTON") {
+                        annonce.addEventListener("click", function () {
+                            annonce.classList.toggle("annonce-ouverte");
+                        });
+                    }
+                })();
+            </script>
+        {% endunless %}
+    {% endunless %}
+{% endif %}

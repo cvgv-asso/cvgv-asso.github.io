@@ -72,10 +72,89 @@
     --bs-btn-active-border-color: #a70a16;
 }
 
+/* Annonce dans la barre de menu */
+
+.annonce {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex: 1 1 0;
+    min-width: 0;
+    margin-left: 0.75rem;
+    padding: 0.4rem 0.9rem;
+    border: 0;
+    font-size: 0.9rem;
+    font-weight: 500;
+    line-height: 1.3;
+    text-align: left;
+    text-decoration: none;
+    color: #fff;
+    background-color: var(--annonce-bg);
+    transition: filter 0.2s ease;
+}
+
+.annonce:hover,
+.annonce:focus-visible {
+    color: #fff;
+    filter: brightness(1.1);
+}
+
+.annonce-texte {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.annonce-ouverte .annonce-texte {
+    white-space: normal;
+}
+
+.annonce-lien {
+    flex-shrink: 0;
+    white-space: nowrap;
+    text-decoration: underline;
+}
+
+.annonce-bleu {
+    --annonce-bg: var(--cvgv-blue);
+}
+
+.annonce-rouge {
+    --annonce-bg: var(--cvgv-red);
+}
+
+.annonce-vert {
+    --annonce-bg: #157347;
+}
+
+.annonce-orange {
+    --annonce-bg: #c2410c;
+}
+
+.annonce-jaune {
+    --annonce-bg: #ffda00;
+}
+
+.annonce-jaune,
+.annonce-jaune:hover,
+.annonce-jaune:focus-visible {
+    color: #1d1d1d;
+}
+
 /* Grand écran : soulignement rouge animé */
 @media (min-width: 992px) {
+    #menu .navbar-collapse {
+        flex-shrink: 0;
+    }
+
     #menu .navbar-nav {
         align-items: center;
+    }
+
+    #menu .nav-link {
+        white-space: nowrap;
     }
 
     #menu .navbar-nav > .nav-item > .nav-link {
@@ -93,6 +172,10 @@
 
     #menu .btn-boutique {
         margin-left: 0.5rem;
+    }
+
+    .annonce {
+        flex: 0 1 auto;
     }
 }
 
