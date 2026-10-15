@@ -15,6 +15,14 @@
 #banner-mobile h1 {
     color: #eeeeee;
     text-shadow: #000 1px 1px 0;
+    font-size: clamp(1rem, 5vw, 1.5rem);
+    font-weight: bold;
+}
+
+#banner-mobile img {
+    width: 56px;
+    height: 56px;
+    flex-shrink: 0;
 }
 
 #menu {
@@ -61,7 +69,7 @@
 
 .defi-stats > div {
     border-left: 3px solid rgba(255, 255, 255, 0.4);
-    padding-left: 0.75rem;
+    padding-left: 0.5rem;
 }
 
 .defi-stats dt {
@@ -72,8 +80,9 @@
 
 .defi-stats dd {
     margin: 0;
-    font-size: 1.25rem;
+    font-size: clamp(0.95rem, 4.5vw, 1.25rem);
     font-weight: bold;
+    white-space: nowrap;
 }
 
 .defi-results .defi-rank {
