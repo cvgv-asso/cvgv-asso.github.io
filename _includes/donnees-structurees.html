@@ -1,0 +1,79 @@
+{% comment %}
+    Données structurées (schema.org) pour les moteurs de recherche :
+    le club sur l'accueil, et chaque régate comme événement sportif.
+{% endcomment %}
+{% capture club %}{
+    "@type": "SportsOrganization",
+    "name": "Club de Voile de Saint-Gilles-Croix-de-Vie",
+    "alternateName": "CVGV",
+    "sport": "Voile",
+    "url": "{{ site.url }}/",
+    "logo": "{{ site.url }}/android-chrome-512x512.png",
+    "email": "contact@cvgv.org",
+    "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Forum Port la Vie, Boulevard de l'Egalité",
+        "addressLocality": "Saint-Gilles-Croix-de-Vie",
+        "postalCode": "85800",
+        "addressRegion": "Vendée",
+        "addressCountry": "FR"
+    },
+    "sameAs": [
+        "https://www.facebook.com/clubvoilesaintgilles/",
+        "https://www.instagram.com/clubvoile_stgillesxdevie/"
+    ]
+}{% endcapture %}
+
+{% if page.url == "/" %}
+<script type="application/ld+json">
+{ "@context": "https://schema.org", {{ club | remove_first: "{" }}
+</script>
+
+{% elsif page.layout == "regate" %}
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "SportsEvent",
+    "name": {{ page.title | jsonify }},
+    {% if page.sous_titre %}"description": {{ page.sous_titre | jsonify }},{% endif %}
+    "sport": "Voile",
+    "startDate": "{{ page.debut | date: '%Y-%m-%d' }}",
+    "endDate": "{% if page.fin %}{{ page.fin | date: '%Y-%m-%d' }}{% else %}{{ page.debut | date: '%Y-%m-%d' }}{% endif %}",
+    "eventStatus": "https://schema.org/EventScheduled",
+    "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+    "location": {
+        "@type": "Place",
+        "name": {{ page.lieu | default: "Saint-Gilles-Croix-de-Vie" | jsonify }},
+        "address": { "@type": "PostalAddress", "addressLocality": {{ page.lieu | default: "Saint-Gilles-Croix-de-Vie" | remove: " (85)" | jsonify }}, "addressRegion": "Vendée", "addressCountry": "FR" }
+    },
+    {% if page.affiche %}"image": "{{ page.affiche | uri_escape | prepend: site.url }}",{% endif %}
+    "url": "{{ page.url | prepend: site.url }}",
+    "organizer": {{ club }}
+}
+</script>
+
+{% elsif page.url == "/habitable/regates.html" %}
+{% assign regates_seo = site.data["regates-habitables"].regates | sort: "debut" %}
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@graph": [{% for regate in regates_seo %}{% unless forloop.first %},{% endunless %}
+        {
+            "@type": "SportsEvent",
+            "name": {{ regate.nom | jsonify }},
+            "sport": "Voile",
+            "startDate": "{{ regate.debut | date: '%Y-%m-%d' }}",
+            "endDate": "{% if regate.fin %}{{ regate.fin | date: '%Y-%m-%d' }}{% else %}{{ regate.debut | date: '%Y-%m-%d' }}{% endif %}",
+            "eventStatus": "https://schema.org/EventScheduled",
+            "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+            "location": {
+                "@type": "Place",
+                "name": {{ regate.lieu | default: "Vendée" | jsonify }},
+                "address": { "@type": "PostalAddress", "addressLocality": {{ regate.lieu | default: "Vendée" | jsonify }}, "addressRegion": "Vendée", "addressCountry": "FR" }
+            },
+            "url": {% if regate.page contains "://" %}{{ regate.page | jsonify }}{% elsif regate.page %}{{ regate.page | prepend: site.url | jsonify }}{% else %}"{{ site.url }}/habitable/regates.html"{% endif %}
+        }{% endfor %}
+    ]
+}
+</script>
+{% endif %}

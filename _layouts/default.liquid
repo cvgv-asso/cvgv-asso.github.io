@@ -4,11 +4,54 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta
-            name="description"
-            content="Club de voile situé à Saint-Gilles-Croix-de-Vie (85)"
-        />
-        <title>{% if page.title and page.url != "/" %}{{ page.title }} | {% endif %}Club de Voile de Saint-Gilles-Croix-de-Vie</title>
+        {% comment %}
+            Référencement : titre, description et image propres à chaque page.
+            Une page peut définir « description » dans son en-tête ; sinon on en
+            construit une à partir de ses données (Défi, régates) ou on prend celle du club.
+        {% endcomment %}
+        {% assign nom_club = "Club de Voile de Saint-Gilles-Croix-de-Vie" %}
+        {% if page.url == "/" %}
+            {% assign titre_seo = nom_club | append: " (CVGV) : voile légère et habitable" %}
+        {% elsif page.title %}
+            {% assign titre_seo = page.title | append: " | CVGV" %}
+        {% else %}
+            {% assign titre_seo = nom_club %}
+        {% endif %}
+
+        {% if page.description %}
+            {% assign description_seo = page.description %}
+        {% elsif page.layout == "defi-pilours-sablaire" %}
+            {% capture description_seo %}Classement {{ page.year }} du Défi Pilours-Sablaire, de Saint-Gilles-Croix-de-Vie à l'île d'Yeu : temps réels, temps compensés et règlement.{% endcapture %}
+        {% elsif page.layout == "regate" %}
+            {% capture description_seo %}{{ page.title }} : {{ page.dates }}{% if page.lieu %} à {{ page.lieu | remove: " (85)" }}{% endif %}. Avis de course, inscription et tableau officiel.{% endcapture %}
+        {% else %}
+            {% assign description_seo = "Club de voile à Saint-Gilles-Croix-de-Vie (Vendée) : voile légère pour enfants, ados et adultes, compétition, croisières et régates habitables." %}
+        {% endif %}
+        {% assign description_seo = description_seo | strip_newlines | strip %}
+
+        {% if page.affiche %}
+            {% assign image_seo = page.affiche %}
+        {% else %}
+            {% assign image_seo = "/assets/partage.png" %}
+        {% endif %}
+        {% assign url_seo = page.url | replace: "index.html", "" | prepend: site.url %}
+
+        <title>{{ titre_seo }}</title>
+        <meta name="description" content="{{ description_seo | escape }}" />
+        <link rel="canonical" href="{{ url_seo }}" />
+        {% if page.noindex %}<meta name="robots" content="noindex, follow" />{% endif %}
+        <meta name="theme-color" content="#024e82" />
+
+        <!-- Partage sur les réseaux sociaux -->
+        <meta property="og:type" content="website" />
+        <meta property="og:locale" content="fr_FR" />
+        <meta property="og:site_name" content="{{ nom_club }}" />
+        <meta property="og:title" content="{% if page.url == '/' %}{{ nom_club }}{% else %}{{ page.title | default: nom_club | escape }}{% endif %}" />
+        <meta property="og:description" content="{{ description_seo | escape }}" />
+        <meta property="og:url" content="{{ url_seo }}" />
+        <meta property="og:image" content="{{ image_seo | uri_escape | prepend: site.url }}" />
+        <meta name="twitter:card" content="summary_large_image" />
+        {% include donnees-structurees.html %}
 
         <!-- Favicon -->
         <link
@@ -28,6 +71,8 @@
             sizes="16x16"
             href="/favicon-16x16.png"
         />
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="icon" type="image/svg+xml" href="/assets/logo.svg" />
         <link rel="manifest" href="/site.webmanifest" />
 
         <link

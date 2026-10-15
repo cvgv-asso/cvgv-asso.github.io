@@ -1,5 +1,6 @@
 ---
 layout: null
+sitemap: false
 title: Défi Pilours-Sablaire
 order: 5
 ---
@@ -10,7 +11,8 @@ order: 5
     <head>
         <meta charset="UTF-8" />
         <title>Défi Pilours-Sablaire</title>
-        <link rel="canonical" href="{{ latest.url }}" />
+        <meta name="robots" content="noindex, follow" />
+        <link rel="canonical" href="{{ latest.url | prepend: site.url }}" />
         <meta http-equiv="refresh" content="0; url={{ latest.url }}" />
     </head>
     <body>

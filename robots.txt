@@ -1,2 +1,10 @@
+---
+layout: null
+sitemap: false
+---
 User-agent: *
-Disallow: /assets
+# Les styles et images doivent rester accessibles : Google en a besoin pour
+# afficher les pages comme les visiteurs. Seuls les documents PDF sont exclus.
+Disallow: /assets/*.pdf$
+
+Sitemap: {{ "/sitemap.xml" | prepend: site.url }}
