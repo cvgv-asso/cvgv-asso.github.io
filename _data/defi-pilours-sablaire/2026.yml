@@ -1,0 +1,26 @@
+# Résultats du Défi Pilours-Sablaire 2026.
+# Une entrée par chrono, dans n'importe quel ordre : le classement est calculé
+# à partir du temps compensé.
+#   depart : "Sablaire" ou "Pilours"
+#   temps  : au format "2h18m00s", entre guillemets (sert au classement)
+
+- bateau: "Colibri"
+  modele: "First 31.7"
+  depart: "Pilours"
+  date: "04/10/2026"
+  temps_reel: "2h03m53s"
+  temps_compense: "1h56m23s"
+
+- bateau: "Soley"
+  modele: "Ofcet 6.50"
+  depart: "Sablaire"
+  date: "02/08/2026"
+  temps_reel: "2h05m46s"
+  temps_compense: "1h57m01s"
+
+- bateau: "Pilourson"
+  modele: "First 29"
+  depart: "Pilours"
+  date: "12/05/2026"
+  temps_reel: "3h01m32s"
+  temps_compense: "2h41m32s"

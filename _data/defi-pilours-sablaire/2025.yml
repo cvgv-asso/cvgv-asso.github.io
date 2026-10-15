@@ -1,0 +1,54 @@
+# Résultats du Défi Pilours-Sablaire 2025.
+# Une entrée par chrono, dans n'importe quel ordre : le classement est calculé
+# à partir du temps compensé.
+#   depart : "Sablaire" ou "Pilours"
+#   temps  : au format "2h18m00s", entre guillemets (sert au classement)
+
+- bateau: "Peter Pan"
+  modele: "First 210"
+  depart: "Sablaire"
+  date: "23/05/2025"
+  temps_reel: "2h18m00s"
+  temps_compense: "1h44m40s"
+
+- bateau: "Pilourson"
+  modele: "First 29"
+  depart: "Sablaire"
+  date: "03/08/2025"
+  temps_reel: "2h13m02s"
+  temps_compense: "1h51m42s"
+
+- bateau: "Pilourson"
+  modele: "First 29"
+  depart: "Sablaire"
+  date: "27/04/2025"
+  temps_reel: "2h16m39s"
+  temps_compense: "1h55m19s"
+
+- bateau: "Toutatis"
+  modele: "First 21.7"
+  depart: "Pilours"
+  date: "16/05/2025"
+  temps_reel: "2h32m06s"
+  temps_compense: "1h58m46s"
+
+- bateau: "Boisvinet"
+  modele: "First Class 8"
+  depart: "Sablaire"
+  date: "03/08/2025"
+  temps_reel: "2h14m07s"
+  temps_compense: "2h04m47s"
+
+- bateau: "Pilourson"
+  modele: "First 29"
+  depart: "Pilours"
+  date: "02/08/2025"
+  temps_reel: "4h01m58s"
+  temps_compense: "3h40m38s"
+
+- bateau: "Pilourson"
+  modele: "First 29"
+  depart: "Pilours"
+  date: "26/04/2025"
+  temps_reel: "4h05m10s"
+  temps_compense: "3h43m50s"

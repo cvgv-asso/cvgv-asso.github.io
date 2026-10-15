@@ -1,0 +1,123 @@
+---
+layout: default
+---
+
+{% comment %}
+    Résultats lus depuis _data/defi-pilours-sablaire/<année>.yml
+    (non publié lors du déploiement).
+{% endcomment %}
+{% assign year = page.year | append: "" %}
+{% assign results = site.data["defi-pilours-sablaire"][year] | sort: "temps_compense" %}
+{% assign result_pages = site.pages | where: "layout", "defi-pilours-sablaire" | sort: "year" | reverse %}
+
+<div class="container">
+    <div class="row py-3">
+        <h2>Défi Pilours-Sablaire</h2>
+    </div>
+    <div class="row">
+        <h3>Résultats {{ page.year }}</h3>
+        {% if results.size > 0 %}
+            <table class="table table-striped align-middle">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Bateau</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Temps réel</th>
+                        <th scope="col">Temps compensé</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for result in results %}
+                        <tr>
+                            <td>{{ forloop.index }}</td>
+                            <td>
+                                {% if result.depart == "Sablaire" %}
+                                    <i class="fa-solid fa-arrow-right" title="Sablaire / Pilours"></i>
+                                {% elsif result.depart == "Pilours" %}
+                                    <i class="fa-solid fa-arrow-left" title="Pilours / Sablaire"></i>
+                                {% endif %}
+                                {{ result.bateau }}{% if result.modele %} ({{ result.modele }}){% endif %}
+                            </td>
+                            <td>{{ result.date }}</td>
+                            <td>{{ result.temps_reel }}</td>
+                            <td>{{ result.temps_compense }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class="text-muted">Aucun résultat pour le moment.</p>
+        {% endif %}
+        {% if result_pages.size > 1 %}
+            <p>
+                Autres années :
+                {% for result_page in result_pages %}
+                    {% if result_page.year != page.year %}
+                        <a href="{{ result_page.url }}">{{ result_page.year }}</a>
+                    {% endif %}
+                {% endfor %}
+            </p>
+        {% endif %}
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 d-none d-xl-block d-xxl-block">
+            <img
+                src="/assets/defi-pilours-sablaire-trophee.webp"
+                alt="Trophée"
+                class="border border-dark"
+                width="100%"
+            />
+        </div>
+        <div class="col-xl-6">
+            <h3>Réglement</h3>
+
+            <h4>1. Période</h4>
+            <p>
+                Les chronos doivent être effectués du 1er février au 31 octobre
+            </p>
+
+            <h4>2. Parcours</h4>
+            <p>
+                De la bouée Pilours devant St Gilles à la bouée de la Sablaire
+                devant l'ile d'Yeu, ou inversement.
+            </p>
+
+            <h4>3. Participants</h4>
+            <p>
+                Tous bateaux monocoques ayant un certificat de jauge Osiris à
+                jour. Dérogation pour les croisiéristes qui pourront participer
+                sans certificat de jauge.
+            </p>
+
+            <h4>4. Classement</h4>
+            <p>
+                En temps compensé - temps/distance sans
+                <abbr title="Coefficient vent léger">CVL</abbr>.
+            </p>
+
+            <h4>5. Modalités de prise de temps</h4>
+            <p>
+                Chaque bateau doit se chronométrer et prouver sa performance en
+                photographiant son GPS et son chronomètre sur la même photo au
+                départ et à l'arrivée.<br />Envoyer les 2 photos à
+                valerie.naulet@orange.fr.<br />Passer à moins de 10 longueurs de
+                bateau de la bouée.
+            </p>
+
+            <h4>6. Remise des prix</h4>
+            <p>
+                Le vainqueur sera récompensé lors de la journée des bénévoles en
+                Novembre.
+            </p>
+
+            <h4>7. Trophée</h4>
+            <p>
+                Trophée sur lequel on indique le temps et le nom du vainqueur et
+                qui est remis en jeu chaque année.<br />
+                Après 3 victoires, le vainqueur garde le trophée définitivement.
+            </p>
+        </div>
+    </div>
+</div>
