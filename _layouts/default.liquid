@@ -82,37 +82,19 @@
     </head>
 
     <body>
-        <div class="py-5 d-none d-md-block" id="banner">
-            <header
-                class="container d-flex flex-wrap justify-content-center align-items-center"
-            >
-                <div class="col-md-3">
-                    <a
-                        href="/"
-                        class="d-flex align-items-center mb-3 mb-lg-0 me-lg-auto link-body-emphasis text-decoration-none"
-                    >
-                        <img src="/assets/logo.png" alt="Logo" class="img-fluid" />
-                    </a>
-                </div>
-                <div class="col-md-9 text-center">
-                    <h1>Club de Voile de Saint‑Gilles‑Croix‑de‑Vie</h1>
-                </div>
-            </header>
-        </div>
-
-        <div class="py-2 d-block d-md-none" id="banner-mobile">
-            <header class="container">
+        <header id="banner">
+            <div class="container py-2 py-md-3">
                 <a
                     href="/"
-                    class="d-flex align-items-center gap-3 text-decoration-none"
+                    class="d-flex align-items-center gap-3 gap-md-4 text-decoration-none"
                 >
-                    <img src="/assets/logo.png" alt="Logo" />
-                    <h1 class="mb-0">Club de Voile de Saint‑Gilles‑Croix‑de‑Vie</h1>
+                    <img src="/assets/logo.svg" alt="Logo du CVGV" />
+                    <h1 class="mb-0">Club de Voile de<br /> Saint‑Gilles‑Croix‑de‑Vie</h1>
                 </a>
-            </header>
-        </div>
+            </div>
+        </header>
 
-        <nav class="navbar navbar-expand-lg bg-light mb-4">
+        <nav class="navbar navbar-expand-lg sticky-top mb-4" id="menu">
             <div class="container">
                 <button
                     class="navbar-toggler"
@@ -121,9 +103,10 @@
                     data-bs-target="#navbarNav"
                     aria-controls="navbarNav"
                     aria-expanded="false"
-                    aria-label="Toggle navigation"
+                    aria-label="Ouvrir le menu"
                 >
                     <span class="navbar-toggler-icon"></span>
+                    <span class="ms-1 align-middle">Menu</span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
@@ -178,7 +161,7 @@
                         <li class="nav-item">
                             <div class="d-grid">
                                 <a
-                                    class="btn btn-primary"
+                                    class="btn btn-boutique"
                                     href="https://www.helloasso.com/associations/club-de-voile-de-saint-gilles-croix-de-vie/boutiques/85-a-l-ouest"
                                 >
                                         <i class="fa-solid fa-basket-shopping"></i>&nbsp;Boutique
