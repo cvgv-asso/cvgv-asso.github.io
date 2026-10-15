@@ -40,3 +40,60 @@
 #banner h1 {
     font-weight: bold;
 }
+
+/* Défi Pilours-Sablaire */
+
+.defi-banner {
+    background: linear-gradient(135deg, #024e82, #3180c2);
+    color: #fff;
+}
+
+.defi-banner h2 {
+    font-weight: bold;
+}
+
+.defi-banner-kicker {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.85rem;
+    opacity: 0.85;
+}
+
+.defi-stats > div {
+    border-left: 3px solid rgba(255, 255, 255, 0.4);
+    padding-left: 0.75rem;
+}
+
+.defi-stats dt {
+    font-weight: normal;
+    font-size: 0.8rem;
+    opacity: 0.85;
+}
+
+.defi-stats dd {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.defi-results .defi-rank {
+    width: 3rem;
+    font-weight: bold;
+}
+
+.defi-results .defi-winner > td {
+    background-color: #fff8e1;
+}
+
+.defi-gold {
+    color: #d4a017;
+}
+
+#reglement {
+    --bs-accordion-active-bg: #e7f0f8;
+    --bs-accordion-active-color: #024e82;
+}
+
+#reglement .accordion-header {
+    margin: 0;
+}

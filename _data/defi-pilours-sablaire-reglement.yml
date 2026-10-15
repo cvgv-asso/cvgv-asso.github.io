@@ -1,0 +1,23 @@
+# Règlement du Défi Pilours-Sablaire, affiché en accordéon sur les pages de résultats.
+# Le texte accepte du HTML.
+
+- titre: "Période"
+  texte: "Les chronos doivent être effectués du 1er février au 31 octobre."
+
+- titre: "Parcours"
+  texte: "De la bouée Pilours devant St Gilles à la bouée de la Sablaire devant l'île d'Yeu, ou inversement."
+
+- titre: "Participants"
+  texte: "Tous bateaux monocoques ayant un certificat de jauge Osiris à jour. Dérogation pour les croisiéristes qui pourront participer sans certificat de jauge."
+
+- titre: "Classement"
+  texte: 'En temps compensé - temps/distance sans <abbr title="Coefficient vent léger">CVL</abbr>.'
+
+- titre: "Modalités de prise de temps"
+  texte: 'Chaque bateau doit se chronométrer et prouver sa performance en photographiant son GPS et son chronomètre sur la même photo au départ et à l''arrivée.<br />Envoyer les 2 photos à <a href="mailto:valerie.naulet@orange.fr">valerie.naulet@orange.fr</a>.<br />Passer à moins de 10 longueurs de bateau de la bouée.'
+
+- titre: "Remise des prix"
+  texte: "Le vainqueur sera récompensé lors de la journée des bénévoles en novembre."
+
+- titre: "Trophée"
+  texte: "Trophée sur lequel on indique le temps et le nom du vainqueur et qui est remis en jeu chaque année.<br />Après 3 victoires, le vainqueur garde le trophée définitivement."
