@@ -203,23 +203,35 @@
     font-weight: bold;
 }
 
-/* Défi Pilours-Sablaire */
+/* Bandeau de page (Défi, Régates…) */
 
-.defi-banner {
+.page-banner {
     background: linear-gradient(135deg, #024e82, #3180c2);
     color: #fff;
 }
 
-.defi-banner h2 {
+.page-banner h2 {
     font-weight: bold;
 }
 
-.defi-banner-kicker {
+.page-banner-kicker {
     text-transform: uppercase;
     letter-spacing: 0.08em;
     font-size: 0.85rem;
     opacity: 0.85;
 }
+
+.page-countdown {
+    background-color: rgba(255, 255, 255, 0.15);
+    font-size: 0.9rem;
+}
+
+.page-countdown-time {
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+}
+
+/* Défi Pilours-Sablaire */
 
 .defi-stats > div {
     border-left: 3px solid rgba(255, 255, 255, 0.4);
@@ -236,16 +248,6 @@
     margin: 0;
     font-size: clamp(0.95rem, 4.5vw, 1.25rem);
     font-weight: bold;
-    white-space: nowrap;
-}
-
-.defi-countdown {
-    background-color: rgba(255, 255, 255, 0.15);
-    font-size: 0.9rem;
-}
-
-.defi-countdown-time {
-    font-variant-numeric: tabular-nums;
     white-space: nowrap;
 }
 
@@ -269,4 +271,172 @@
 
 #reglement .accordion-header {
     margin: 0;
+}
+
+/* Régates : frise chronologique */
+
+.regate {
+    display: grid;
+    grid-template-columns: 3.5rem 1fr;
+    gap: 0 1rem;
+}
+
+.regate-date {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 3.5rem;
+    border-radius: 0.5rem;
+    background-color: #e7f0f8;
+    color: var(--cvgv-blue);
+    line-height: 1.1;
+}
+
+.regate-jour {
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+
+.regate-mois {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+}
+
+.regate-contenu {
+    position: relative;
+    padding: 0 0 1.75rem 1.25rem;
+    border-left: 3px solid #dbe5ef;
+}
+
+.regate:last-child .regate-contenu {
+    padding-bottom: 0;
+}
+
+.regate-contenu::before {
+    content: "";
+    position: absolute;
+    top: 0.45rem;
+    left: -0.5rem;
+    width: 0.8rem;
+    height: 0.8rem;
+    border-radius: 50%;
+    border: 3px solid #fff;
+    background-color: #9db8d3;
+    box-shadow: 0 0 0 2px #dbe5ef;
+}
+
+.regate-nom {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.regate-nom a {
+    color: var(--cvgv-blue);
+    text-decoration: none;
+}
+
+.regate-nom a:hover {
+    color: var(--cvgv-red);
+}
+
+.regate-infos {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.25rem 0.75rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.regate-type,
+.regate-statut:not(:empty) {
+    padding: 0.1rem 0.6rem;
+    border-radius: 50rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.regate-type-entrainement {
+    background-color: #e7f0f8;
+    color: var(--cvgv-blue);
+}
+
+.regate-type-championnat {
+    background-color: #fde7e8;
+    color: #a70a16;
+}
+
+.regate-type-evenement {
+    background-color: #fff4cc;
+    color: #7a5a00;
+}
+
+.regate-liens {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.btn-doc {
+    --bs-btn-color: var(--cvgv-blue);
+    --bs-btn-border-color: #b9cde0;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: var(--cvgv-blue);
+    --bs-btn-hover-border-color: var(--cvgv-blue);
+    border-radius: 50rem;
+}
+
+/* Régate terminée : estompée */
+.regate-passee .regate-date,
+.regate-passee .regate-nom,
+.regate-passee .regate-liens {
+    opacity: 0.55;
+}
+
+.regate-passee .regate-statut {
+    background-color: #eceff1;
+    color: #5f6b76;
+}
+
+/* Sur mobile, les régates terminées restent compactes pour atteindre vite la prochaine */
+@media (max-width: 767.98px) {
+    .regate-passee .regate-liens {
+        display: none;
+    }
+
+    .regate-passee .regate-contenu {
+        padding-bottom: 1rem;
+    }
+}
+
+/* Prochaine régate ou régate en cours : mise en avant */
+.regate-prochaine .regate-date,
+.regate-en-cours .regate-date {
+    background-color: var(--cvgv-blue);
+    color: #fff;
+}
+
+.regate-prochaine .regate-contenu,
+.regate-en-cours .regate-contenu {
+    border-left-color: var(--cvgv-red);
+}
+
+.regate-prochaine .regate-contenu::before,
+.regate-en-cours .regate-contenu::before {
+    background-color: var(--cvgv-red);
+    box-shadow: 0 0 0 2px var(--cvgv-red);
+}
+
+.regate-prochaine .regate-statut,
+.regate-en-cours .regate-statut {
+    background-color: var(--cvgv-red);
+    color: #fff;
+}
+
+/* Le trait de la frise reste continu entre deux régates */
+.regate-passee + .regate-prochaine .regate-contenu,
+.regate-passee + .regate-en-cours .regate-contenu {
+    border-left-color: var(--cvgv-red);
 }

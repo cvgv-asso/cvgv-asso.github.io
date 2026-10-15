@@ -13,10 +13,10 @@ layout: default
 {% assign boats = results | map: "bateau" | uniq %}
 
 <div class="container">
-    <section class="defi-banner rounded-3 p-3 p-md-4 mb-3">
+    <section class="page-banner rounded-3 p-3 p-md-4 mb-3">
         <div class="d-md-flex justify-content-between align-items-start gap-3">
             <div>
-                <p class="defi-banner-kicker mb-1">
+                <p class="page-banner-kicker mb-1">
                     <i class="fa-solid fa-stopwatch"></i> Résultats {{ page.year }}
                 </p>
                 <h2 class="mb-3">Défi Pilours-Sablaire</h2>
@@ -51,7 +51,7 @@ layout: default
         {% endif %}
         {% comment %} Période du défi : du 1er février au 31 octobre inclus. {% endcomment %}
         <p
-            class="defi-countdown d-none align-items-center gap-2 rounded-pill px-3 py-1 mt-3 mb-0"
+            class="page-countdown d-none align-items-center gap-2 rounded-pill px-3 py-1 mt-3 mb-0"
             id="defi-countdown"
             data-start-month="2"
             data-start-day="1"
@@ -62,7 +62,7 @@ layout: default
             <span>
                 <span class="defi-countdown-label d-none d-sm-inline"></span>
                 <span class="defi-countdown-label-short d-sm-none"></span>
-                <strong class="defi-countdown-time"></strong>
+                <strong class="page-countdown-time"></strong>
             </span>
         </p>
     </section>
@@ -172,7 +172,7 @@ layout: default
         var el = document.getElementById("defi-countdown");
         var label = el.querySelector(".defi-countdown-label");
         var shortLabel = el.querySelector(".defi-countdown-label-short");
-        var time = el.querySelector(".defi-countdown-time");
+        var time = el.querySelector(".page-countdown-time");
         var d = el.dataset;
 
         function start(year) {

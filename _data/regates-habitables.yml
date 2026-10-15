@@ -1,0 +1,123 @@
+# Calendrier des régates habitables, affiché sur /habitable/regates.html.
+#
+# Pour chaque régate :
+#   nom       : nom affiché
+#   debut     : premier jour (AAAA-MM-JJ), sert au tri, au compte à rebours et au statut
+#   fin       : dernier jour (facultatif, sinon égal à debut)
+#   dates     : dates affichées en toutes lettres
+#   lieu      : port ou commune (facultatif)
+#   type      : entrainement, championnat ou evenement
+#   page      : page dédiée ou site externe (facultatif)
+#   documents : liste de { titre, lien } (facultatif)
+#   resultats : lien vers les résultats (facultatif)
+
+saison: 2026
+
+inscription:
+    saison: https://www.helloasso.com/associations/club-de-voile-de-saint-gilles-croix-de-vie/adhesions/inscription-annuelle-regate-habitable-reservee-aux-membres-du-cvgv
+    regate: https://www.helloasso.com/associations/club-de-voile-de-saint-gilles-croix-de-vie/adhesions/inscription-a-une-regate
+
+documents_entrainement: &documents_entrainement
+    - titre: Avis de course
+      lien: "/assets/habitable/regates/AC - Régates d'entrainements CVGV 2026.pdf"
+    - titre: Instructions de course
+      lien: "/assets/habitable/regates/IC - Régates d'entrainements CVGV 2026.pdf"
+    - titre: Parcours
+      lien: /assets/habitable/regates/Parcours Habitables CVGV 2026.pdf
+
+regates:
+    - nom: Régate d'entraînement - J1
+      debut: 2026-03-14
+      fin: 2026-03-15
+      dates: 14 et/ou 15 mars 2026
+      lieu: Saint-Gilles-Croix-de-Vie
+      type: entrainement
+      documents: *documents_entrainement
+
+    - nom: Régate d'entraînement - J2
+      debut: 2026-03-28
+      fin: 2026-03-29
+      dates: 28 et/ou 29 mars 2026
+      lieu: Saint-Gilles-Croix-de-Vie
+      type: entrainement
+      documents: *documents_entrainement
+
+    - nom: Régate d'entraînement - J3
+      debut: 2026-04-18
+      fin: 2026-04-19
+      dates: 18 et/ou 19 avril 2026
+      lieu: Saint-Gilles-Croix-de-Vie
+      type: entrainement
+      documents: *documents_entrainement
+
+    - nom: La Vendéenne de Bourgenay - 1ère manche du championnat habitable de Vendée
+      debut: 2026-04-12
+      dates: 12 avril 2026
+      lieu: Bourgenay (Talmont-Saint-Hilaire)
+      type: championnat
+      page: https://cdv85.fr/cvh/
+
+    - nom: S.R.I.N - 2ème manche du championnat habitable de Vendée
+      debut: 2026-04-26
+      dates: 26 avril 2026
+      lieu: Noirmoutier
+      type: championnat
+      page: https://cdv85.fr/cvh/
+
+    - nom: La Solocrucienne
+      debut: 2026-05-30
+      dates: 30 mai 2026
+      lieu: Saint-Gilles-Croix-de-Vie
+      type: evenement
+      page: /habitable/regates/solocrucienne.html
+
+    - nom: 18ème Trophée Femmes à la Barre
+      debut: 2026-06-06
+      fin: 2026-06-07
+      dates: 6 et 7 juin 2026
+      lieu: Saint-Gilles-Croix-de-Vie
+      type: evenement
+      page: /habitable/regates/femmes-a-la-barre.html
+
+    - nom: SNSablais (T.P.O 3) - 3ème manche du championnat habitable de Vendée
+      debut: 2026-06-14
+      dates: 14 juin 2026
+      lieu: Les Sables-d'Olonne
+      type: championnat
+      page: https://cdv85.fr/cvh/
+
+    - nom: Course Croisière des Ports Vendéens (CCPV)
+      debut: 2026-06-26
+      fin: 2026-07-01
+      dates: 26 juin au 1er juillet 2026
+      lieu: Ports vendéens
+      type: evenement
+      page: https://portsvendeens.fr/
+
+    - nom: Homard Cup - 4ème manche du championnat habitable de Vendée
+      debut: 2026-07-19
+      dates: 19 juillet 2026
+      lieu: L'Île-d'Yeu
+      type: championnat
+      page: https://cdv85.fr/cvh/
+
+    - nom: Régate d'entraînement - J4
+      debut: 2026-09-19
+      dates: 19 septembre 2026
+      lieu: Saint-Gilles-Croix-de-Vie
+      type: entrainement
+      documents: *documents_entrainement
+
+    - nom: La Gillocrucienne - 5ème manche du championnat habitable de Vendée
+      debut: 2026-09-20
+      dates: 20 septembre 2026
+      lieu: Saint-Gilles-Croix-de-Vie
+      type: championnat
+      page: /habitable/regates/gillocrucienne.html
+
+    - nom: Finale du championnat départemental habitable de Vendée
+      debut: 2026-10-18
+      dates: 18 octobre 2026
+      lieu: Saint-Gilles-Croix-de-Vie
+      type: championnat
+      page: /habitable/regates/finale-championnat-de-vendee-habitable.html

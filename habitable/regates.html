@@ -3,117 +3,164 @@ layout: default
 title: Régates Habitables
 order: 3
 ---
+
+{% comment %} Calendrier lu depuis _data/regates-habitables.yml. {% endcomment %}
+{% assign calendrier = site.data["regates-habitables"] %}
+{% assign regates = calendrier.regates | sort: "debut" %}
+{% assign mois = "janv.,févr.,mars,avr.,mai,juin,juil.,août,sept.,oct.,nov.,déc." | split: "," %}
+
 <div class="container">
+    <section class="page-banner rounded-3 p-3 p-md-4 mb-4">
+        <p class="page-banner-kicker mb-1">
+            <i class="fa-solid fa-sailboat"></i> Saison {{ calendrier.saison }}
+        </p>
+        <h2 class="mb-3">Régates habitables</h2>
+        <div class="d-flex flex-wrap gap-2">
+            <a class="btn btn-light" href="{{ calendrier.inscription.saison }}">
+                <i class="fa-solid fa-pen-to-square"></i> S'inscrire à la saison
+            </a>
+            <a class="btn btn-outline-light" href="{{ calendrier.inscription.regate }}">
+                S'inscrire à une régate
+            </a>
+        </div>
+        <p class="small mt-2 mb-0 opacity-75">
+            L'inscription à la saison complète est réservée aux membres du CVGV.
+        </p>
+        <p
+            class="page-countdown d-none align-items-center gap-2 rounded-pill px-3 py-1 mt-3 mb-0"
+            id="regates-countdown"
+        >
+            <i class="fa-solid fa-hourglass-half"></i>
+            <span>
+                <span class="regates-countdown-label"></span>
+                <strong class="page-countdown-time"></strong>
+            </span>
+        </p>
+    </section>
 
-    <div class="row py-5">
-
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Inscription</h5>
-                    <p>Vous avez la possibilité de vous inscrire à l'ensemble des journées de régates (<u>uniquement pour les membres du CVGV</u>) ou à la prochaine uniquement.</p>
-
-                    <p>
-                        <b>Je souhaite m'inscrire pour :</b>
-                        <br />
-
-                        <div style="text-align:center">
-                        <a class="btn btn-primary" href="https://www.helloasso.com/associations/club-de-voile-de-saint-gilles-croix-de-vie/adhesions/inscription-annuelle-regate-habitable-reservee-aux-membres-du-cvgv">la saison 2026 complète</a>
-                        <a class="btn btn-light" href="https://www.helloasso.com/associations/club-de-voile-de-saint-gilles-croix-de-vie/adhesions/inscription-a-une-regate">la prochaine régate uniquement</a>
-</div>
+    <h3 class="mb-3">Calendrier</h3>
+    <ol class="regates list-unstyled mb-5">
+        {% for regate in regates %}
+            {% assign debut = regate.debut | date: "%Y-%m-%d" %}
+            {% if regate.fin %}
+                {% assign fin = regate.fin | date: "%Y-%m-%d" %}
+            {% else %}
+                {% assign fin = debut %}
+            {% endif %}
+            {% assign index_mois = regate.debut | date: "%-m" | minus: 1 %}
+            {% assign externe = false %}
+            {% if regate.page contains "://" %}
+                {% assign externe = true %}
+            {% endif %}
+            <li class="regate" data-debut="{{ debut }}" data-fin="{{ fin }}" data-nom="{{ regate.nom }}">
+                <div class="regate-date" aria-hidden="true">
+                    <span class="regate-jour">{{ regate.debut | date: "%-d" }}</span>
+                    <span class="regate-mois">{{ mois[index_mois] }}</span>
+                </div>
+                <div class="regate-contenu">
+                    <h4 class="regate-nom">
+                        {% if regate.page %}
+                            <a href="{{ regate.page }}"{% if externe %} rel="external"{% endif %}>{{ regate.nom }}</a>
+                        {% else %}
+                            {{ regate.nom }}
+                        {% endif %}
+                    </h4>
+                    <p class="regate-infos">
+                        <span class="text-muted"><i class="fa-regular fa-calendar"></i> {{ regate.dates }}</span>
+                        {% if regate.lieu %}
+                            <span class="text-muted"><i class="fa-solid fa-location-dot"></i> {{ regate.lieu }}</span>
+                        {% endif %}
+                        {% case regate.type %}
+                            {% when "championnat" %}
+                                <span class="regate-type regate-type-championnat">Championnat</span>
+                            {% when "evenement" %}
+                                <span class="regate-type regate-type-evenement">Événement</span>
+                            {% else %}
+                                <span class="regate-type regate-type-entrainement">Entraînement</span>
+                        {% endcase %}
+                        <span class="regate-statut"></span>
                     </p>
+                    {% if regate.documents or regate.page or regate.resultats %}
+                        <div class="regate-liens">
+                            {% for document in regate.documents %}
+                                <a class="btn btn-sm btn-doc" href="{{ document.lien }}">
+                                    <i class="fa-regular fa-file-pdf"></i> {{ document.titre }}
+                                </a>
+                            {% endfor %}
+                            {% if regate.resultats %}
+                                <a class="btn btn-sm btn-doc" href="{{ regate.resultats }}">
+                                    <i class="fa-solid fa-trophy"></i> Résultats
+                                </a>
+                            {% endif %}
+                            {% if regate.page %}
+                                <a class="btn btn-sm btn-doc" href="{{ regate.page }}"{% if externe %} rel="external"{% endif %}>
+                                    {% if externe %}Site officiel <i class="fa-solid fa-arrow-up-right-from-square"></i>{% else %}Page dédiée <i class="fa-solid fa-chevron-right"></i>{% endif %}
+                                </a>
+                            {% endif %}
+                        </div>
+                    {% endif %}
                 </div>
-            </div>
-        </div>
-
-    </div>
-    <div class="row">
-
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Calendrier</h5>
-                    <div class="table-responsive">
-                        <table class="table table-striped align-middle">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Nom</th>
-                                    <th scope="col">Date</th>
-                                    <th scope="col">Documents</th>
-                                    <th scope="col">Résultats</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td scope="row">Régate d'entraînement - J1</td>
-                                    <td scope="row">14 et/ou 15 mars 2026</td>
-                                    <td scope="row">
-                                        <a class="btn btn-link" href="/assets/habitable/regates/AC - Régates d'entrainements CVGV 2026.pdf">Avis de course</a>
-                                        <a class="btn btn-link" href="/assets/habitable/regates/IC - Régates d'entrainements CVGV 2026.pdf">Instructions de course</a>
-                                        <a class="btn btn-link" href="/assets/habitable/regates/Parcours Habitables CVGV 2026.pdf">Parcours</a>
-                                    <td scope="row">-</td>
-                                </tr>
-                                <tr>
-                                    <td scope="row">Régate d'entraînement - J2</td>
-                                    <td scope="row">28 et/ou 29 mars 2026</td>
-                                    <td scope="row">
-                                        <a class="btn btn-link" href="/assets/habitable/regates/AC - Régates d'entrainements CVGV 2026.pdf">Avis de course</a>
-                                        <a class="btn btn-link" href="/assets/habitable/regates/IC - Régates d'entrainements CVGV 2026.pdf">Instructions de course</a>
-                                        <a class="btn btn-link" href="/assets/habitable/regates/Parcours Habitables CVGV 2026.pdf">Parcours</a>
-                                    </td>
-                                    <td scope="row">-</td>
-                                </tr>
-                                <tr>
-                                    <td scope="row">Régate d'entraînement - J3</td>
-                                    <td scope="row">18 et/ou 19 avril 2026</td>
-                                    <td scope="row">
-                                        <a class="btn btn-link" href="/assets/habitable/regates/AC - Régates d'entrainements CVGV 2026.pdf">Avis de course</a>
-                                        <a class="btn btn-link" href="/assets/habitable/regates/IC - Régates d'entrainements CVGV 2026.pdf">Instructions de course</a>
-                                        <a class="btn btn-link" href="/assets/habitable/regates/Parcours Habitables CVGV 2026.pdf">Parcours</a>
-                                    </td>
-                                    <td scope="row">-</td>
-                                </tr>
-                                <tr>
-                                    <td scope="row"><a href="/habitable/regates/solocrucienne.html">La Solocrucienne</a></td>
-                                    <td scope="row">30 mai 2026</td>
-                                    <td scope="row" colspan="2">Infos disponibles sur <a href="/habitable/regates/solocrucienne.html">la page dédiée</a></td>
-                                </tr>
-                                <tr>
-                                    <td scope="row"><a href="/habitable/regates/femmes-a-la-barre.html">18ème Trophée Femmes à la Barre</a></td>
-                                    <td scope="row">6 et 7 juin 2026</td>
-                                    <td scope="row" colspan="2">Infos disponibles sur <a href="/habitable/regates/femmes-a-la-barre.html">la page dédiée</a></td>
-                                </tr>
-                                <tr>
-                                    <td scope="row"><a href="https://portsvendeens.fr/">Course Croisière des Ports Vendéens (CCPV)</a></td>
-                                    <td scope="row">26 juin au 1er juillet 2026</td>
-                                    <td scope="row" colspan="2">Infos disponibles sur <a href="https://portsvendeens.fr/">le site officiel</a></td>
-                                </tr>
-                                <tr>
-                                    <td scope="row">Régate d'entraînement - J4</td>
-                                    <td scope="row">19 septembre 2026</td>
-                                    <td scope="row">
-                                        <a class="btn btn-link" href="/assets/habitable/regates/AC - Régates d'entrainements CVGV 2026.pdf">Avis de course</a>
-                                        <a class="btn btn-link" href="/assets/habitable/regates/IC - Régates d'entrainements CVGV 2026.pdf">Instructions de course</a>
-                                        <a class="btn btn-link" href="/assets/habitable/regates/Parcours Habitables CVGV 2026.pdf">Parcours</a>
-                                    </td>
-                                    <td scope="row">-</td>
-                                </tr>
-                                <tr>
-                                    <td scope="row"><a href="/habitable/regates/gillocrucienne.html">La Gillocrucienne - 5ème manche du championnat habitable de Vendée</a></td>
-                                    <td scope="row">20 septembre 2026</td>
-                                    <td scope="row" colspan="2">Infos disponibles sur <a href="/habitable/regates/gillocrucienne.html">la page dédiée</a></td>
-                                </tr>
-                                <tr>
-                                    <td scope="row"><a href="/habitable/regates/finale-championnat-de-vendee-habitable.html">Finale du championnat départemental habitable de Vendée</a></td>
-                                    <td scope="row">18 octobre 2026</td>
-                                    <td scope="row" colspan="2">Infos disponibles sur <a href="/habitable/regates/finale-championnat-de-vendee-habitable.html">la page dédiée</a></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-    </div>
+            </li>
+        {% endfor %}
+    </ol>
 </div>
+
+<script>
+    (function () {
+        function pad(n) {
+            return String(n).padStart(2, "0");
+        }
+
+        var now = new Date();
+        var today =
+            now.getFullYear() + "-" + pad(now.getMonth() + 1) + "-" + pad(now.getDate());
+
+        // Statut de chaque régate, calculé dans le navigateur pour rester à jour
+        // sans reconstruire le site.
+        var prochaine = null;
+        document.querySelectorAll(".regate").forEach(function (regate) {
+            var statut = regate.querySelector(".regate-statut");
+            if (regate.dataset.fin < today) {
+                regate.classList.add("regate-passee");
+                statut.textContent = "Terminée";
+            } else if (regate.dataset.debut <= today) {
+                regate.classList.add("regate-en-cours");
+                statut.textContent = "En cours";
+                prochaine = prochaine || regate;
+            } else if (!prochaine) {
+                regate.classList.add("regate-prochaine");
+                statut.innerHTML = '<i class="fa-solid fa-star"></i> Prochaine';
+                prochaine = regate;
+            }
+        });
+
+        var countdown = document.getElementById("regates-countdown");
+        var label = countdown.querySelector(".regates-countdown-label");
+        var time = countdown.querySelector(".page-countdown-time");
+
+        if (!prochaine) {
+            label.textContent = "Saison terminée, rendez-vous l'année prochaine !";
+        } else if (prochaine.classList.contains("regate-en-cours")) {
+            label.textContent = prochaine.dataset.nom + " : c'est aujourd'hui !";
+        } else {
+            var parts = prochaine.dataset.debut.split("-");
+            var debut = new Date(parts[0], parts[1] - 1, parts[2]);
+            label.textContent = "Prochaine régate dans";
+            var update = function () {
+                var s = Math.max(0, Math.floor((debut - new Date()) / 1000));
+                var days = Math.floor(s / 86400);
+                time.textContent =
+                    (days > 0 ? days + " j " : "") +
+                    pad(Math.floor((s % 86400) / 3600)) +
+                    "h" +
+                    pad(Math.floor((s % 3600) / 60)) +
+                    "m" +
+                    pad(s % 60) +
+                    "s";
+            };
+            update();
+            setInterval(update, 1000);
+        }
+        countdown.classList.replace("d-none", "d-inline-flex");
+    })();
+</script>
