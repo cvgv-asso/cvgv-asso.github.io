@@ -101,12 +101,12 @@ regates:
       type: championnat
       page: https://cdv85.fr/cvh/
 
-    - nom: Régate d'entraînement - J4
+    - nom: Trophée Jongh Nautic
       debut: 2026-09-19
       dates: 19 septembre 2026
       lieu: Saint-Gilles-Croix-de-Vie
-      type: entrainement
-      documents: *documents_entrainement
+      type: evenement
+      page: /habitable/regates/gillocrucienne.html
 
     - nom: La Gillocrucienne - 5ème manche du championnat habitable de Vendée
       debut: 2026-09-20
