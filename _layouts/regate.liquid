@@ -43,7 +43,13 @@ layout: default
         </a>
         <div class="regate-banner-corps{% unless page.affiche %} regate-sans-affiche{% endunless %}">
             {% if page.affiche %}
-                <a class="regate-affiche" href="{{ page.affiche }}" title="Agrandir l'affiche">
+                <a
+                    class="regate-affiche"
+                    href="{{ page.affiche }}"
+                    title="Agrandir l'affiche"
+                    data-bs-toggle="modal"
+                    data-bs-target="#affiche-apercu"
+                >
                     <img src="{{ page.affiche }}" alt="Affiche : {{ page.title }}" />
                     <span class="regate-affiche-zoom"><i class="fa-solid fa-magnifying-glass-plus"></i></span>
                 </a>
@@ -86,6 +92,35 @@ layout: default
             </div>
         </div>
     </section>
+
+    {% if page.affiche %}
+        {% comment %} Aperçu de l'affiche, ouvert par Bootstrap sans script supplémentaire. {% endcomment %}
+        <div
+            class="modal fade"
+            id="affiche-apercu"
+            tabindex="-1"
+            aria-labelledby="affiche-apercu-titre"
+            aria-hidden="true"
+        >
+            <div class="modal-dialog modal-dialog-centered modal-lg modal-fullscreen-sm-down">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="affiche-apercu-titre">{{ page.title }}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+                    </div>
+                    <div class="modal-body text-center">
+                        <img class="affiche-apercu-image" src="{{ page.affiche }}" alt="Affiche : {{ page.title }}" />
+                    </div>
+                    <div class="modal-footer">
+                        <a class="btn btn-doc" href="{{ page.affiche }}" target="_blank" rel="noopener">
+                            <i class="fa-solid fa-up-right-and-down-left-from-center"></i> Ouvrir en grand
+                        </a>
+                        <button type="button" class="btn btn-boutique" data-bs-dismiss="modal">Fermer</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
 
     {% if page.note %}
         <p class="regate-note">
