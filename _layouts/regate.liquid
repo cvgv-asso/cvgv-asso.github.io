@@ -7,6 +7,17 @@ layout: default
     title, sous_titre, dates, debut, fin, lieu, affiche, note,
     inscriptions, communications et tableau (voir les pages de habitable/regates/).
 {% endcomment %}
+{% comment %}
+    L'annulation est saisie dans le calendrier (_data/regates-habitables.yml).
+    Plusieurs régates du calendrier peuvent partager cette page (ex. deux jours) :
+    la page n'est annulée que si toutes le sont ; sinon on signale celles qui le sont.
+{% endcomment %}
+{% assign regates_page = site.data["regates-habitables"].regates | where: "page", page.url %}
+{% assign regates_annulees = regates_page | where: "annulee", true %}
+{% assign annulee = false %}
+{% if regates_annulees.size > 0 and regates_annulees.size == regates_page.size %}
+    {% assign annulee = true %}
+{% endif %}
 {% assign debut = page.debut | date: "%Y-%m-%d" %}
 {% if page.fin %}
     {% assign fin = page.fin | date: "%Y-%m-%d" %}
@@ -55,6 +66,9 @@ layout: default
                 </a>
             {% endif %}
             <div class="regate-banner-texte">
+                {% if annulee %}
+                    <p class="badge-annulee badge-annulee-grand mb-2"><i class="fa-solid fa-ban"></i> Régate annulée</p>
+                {% endif %}
                 <h1 class="h2 mb-1">{{ page.title }}</h1>
                 {% if page.sous_titre %}
                     <p class="regate-sous-titre mb-2">{{ page.sous_titre }}</p>
@@ -68,16 +82,17 @@ layout: default
             </div>
             <div class="regate-actions">
                 <div class="d-flex flex-wrap gap-2">
-                    {% for inscription in page.inscriptions %}
+                    {% unless annulee %}{% for inscription in page.inscriptions %}
                         {% capture url %}{% include lien.html lien=inscription.lien %}{% endcapture %}
                         <a class="btn btn-light" href="{{ url }}">
                             <i class="fa-solid fa-pen-to-square"></i> {{ inscription.titre | default: "S'inscrire" }}
                         </a>
-                    {% endfor %}
+                    {% endfor %}{% endunless %}
                     <a class="btn btn-outline-light" href="#tableau-officiel">
                         <i class="fa-solid fa-clipboard-list"></i> Tableau officiel
                     </a>
                 </div>
+{% unless annulee %}
                 <p
                     class="page-countdown d-none align-items-center gap-2 rounded-pill px-3 py-1 mt-3 mb-0"
                     id="regate-countdown"
@@ -90,6 +105,7 @@ layout: default
                         <strong class="page-countdown-time"></strong>
                     </span>
                 </p>
+                {% endunless %}
             </div>
         </div>
     </section>
@@ -121,6 +137,35 @@ layout: default
                 </div>
             </div>
         </div>
+    {% endif %}
+
+    {% if annulee %}
+        <div class="alerte-annulation" role="note">
+            <i class="fa-solid fa-ban"></i>
+            <div>
+                <strong>Cette régate est annulée.</strong>
+                {{ regates_annulees | map: "motif" | compact | uniq | join: " " }}
+            </div>
+        </div>
+    {% elsif regates_annulees.size > 0 %}
+        {% for regate in regates_annulees %}
+            <div class="alerte-annulation" role="note">
+                <i class="fa-solid fa-ban"></i>
+                <div>
+                    <strong>{{ regate.nom }} ({{ regate.dates }}) est annulée.</strong>
+                    {% if regate.motif %}{{ regate.motif }}{% endif %}
+                </div>
+            </div>
+        {% endfor %}
+        {% assign regates_maintenues = regates_page | where_exp: "regate", "regate.annulee != true" %}
+        {% for regate in regates_maintenues %}
+            <div class="alerte-maintenue" role="note">
+                <i class="fa-solid fa-circle-check"></i>
+                <div>
+                    <strong>{{ regate.nom }} ({{ regate.dates }}) est maintenue.</strong>
+                </div>
+            </div>
+        {% endfor %}
     {% endif %}
 
     {% if page.note %}
@@ -185,6 +230,9 @@ layout: default
 
         // Compte à rebours jusqu'au jour de la régate, à minuit.
         var countdown = document.getElementById("regate-countdown");
+        if (!countdown) {
+            return;
+        }
         var label = countdown.querySelector(".regate-countdown-label");
         var time = countdown.querySelector(".page-countdown-time");
         var debut = new Date(countdown.dataset.debut);

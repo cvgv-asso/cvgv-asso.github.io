@@ -30,6 +30,8 @@
 </script>
 
 {% elsif page.layout == "regate" %}
+{% assign regates_page = site.data["regates-habitables"].regates | where: "page", page.url %}
+{% assign regates_annulees = regates_page | where: "annulee", true %}
 <script type="application/ld+json">
 {
     "@context": "https://schema.org",
@@ -39,7 +41,7 @@
     "sport": "Voile",
     "startDate": "{{ page.debut | date: '%Y-%m-%d' }}",
     "endDate": "{% if page.fin %}{{ page.fin | date: '%Y-%m-%d' }}{% else %}{{ page.debut | date: '%Y-%m-%d' }}{% endif %}",
-    "eventStatus": "https://schema.org/EventScheduled",
+    "eventStatus": "https://schema.org/{% if regates_annulees.size > 0 and regates_annulees.size == regates_page.size %}EventCancelled{% else %}EventScheduled{% endif %}",
     "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
     "location": {
         "@type": "Place",
@@ -64,7 +66,7 @@
             "sport": "Voile",
             "startDate": "{{ regate.debut | date: '%Y-%m-%d' }}",
             "endDate": "{% if regate.fin %}{{ regate.fin | date: '%Y-%m-%d' }}{% else %}{{ regate.debut | date: '%Y-%m-%d' }}{% endif %}",
-            "eventStatus": "https://schema.org/EventScheduled",
+            "eventStatus": "https://schema.org/{% if regate.annulee %}EventCancelled{% else %}EventScheduled{% endif %}",
             "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
             "location": {
                 "@type": "Place",

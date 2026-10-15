@@ -10,6 +10,8 @@
 #   page      : page dédiée ou site externe (facultatif)
 #   documents : liste de { titre, lien } (facultatif)
 #   resultats : lien vers les résultats (facultatif)
+#   annulee   : true si la régate est annulée (facultatif)
+#   motif     : raison de l'annulation, affichée avec le badge (facultatif)
 
 # Saison et liens d'inscription : voir _data/club.yml.
 
@@ -74,6 +76,7 @@ regates:
       lieu: Saint-Gilles-Croix-de-Vie
       type: evenement
       page: /habitable/regates/femmes-a-la-barre.html
+      annulee: true
 
     - nom: SNSablais (T.P.O 3) - 3ème manche du championnat habitable de Vendée
       debut: 2026-06-14

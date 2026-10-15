@@ -211,7 +211,7 @@ description: "Club de voile à Saint-Gilles-Croix-de-Vie (Vendée) : voile lég�
 
 {% comment %} Régates à venir, pour la carte « Prochaine régate ». {% endcomment %}
 <script type="application/json" id="regates-donnees">
-[{% for regate in regates %}{% unless forloop.first %},{% endunless %}{"nom": {{ regate.nom | jsonify }}, "debut": "{{ regate.debut | date: '%Y-%m-%d' }}", "fin": "{% if regate.fin %}{{ regate.fin | date: '%Y-%m-%d' }}{% else %}{{ regate.debut | date: '%Y-%m-%d' }}{% endif %}", "dates": {{ regate.dates | jsonify }}, "lieu": {{ regate.lieu | jsonify }}, "page": {{ regate.page | default: "/habitable/regates.html" | jsonify }}}{% endfor %}]
+[{% for regate in regates %}{% unless forloop.first %},{% endunless %}{"nom": {{ regate.nom | jsonify }}, "debut": "{{ regate.debut | date: '%Y-%m-%d' }}", "fin": "{% if regate.fin %}{{ regate.fin | date: '%Y-%m-%d' }}{% else %}{{ regate.debut | date: '%Y-%m-%d' }}{% endif %}", "dates": {{ regate.dates | jsonify }}, "lieu": {{ regate.lieu | jsonify }}, "page": {{ regate.page | default: "/habitable/regates.html" | jsonify }}, "annulee": {% if regate.annulee %}true{% else %}false{% endif %}}{% endfor %}]
 </script>
 <script>
     (function () {
@@ -222,7 +222,7 @@ description: "Club de voile à Saint-Gilles-Croix-de-Vie (Vendée) : voile lég�
         var today = now.getFullYear() + "-" + pad(now.getMonth() + 1) + "-" + pad(now.getDate());
         var regates = JSON.parse(document.getElementById("regates-donnees").textContent);
         var regate = regates.find(function (r) {
-            return r.fin >= today;
+            return !r.annulee && r.fin >= today;
         });
         if (!regate) {
             return;

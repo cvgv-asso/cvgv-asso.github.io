@@ -53,7 +53,7 @@ description: "Calendrier des régates habitables du CVGV et du championnat de Ve
             {% if regate.page contains "://" %}
                 {% assign externe = true %}
             {% endif %}
-            <li class="regate" data-debut="{{ debut }}" data-fin="{{ fin }}" data-nom="{{ regate.nom }}">
+            <li class="regate{% if regate.annulee %} regate-annulee{% endif %}" data-debut="{{ debut }}" data-fin="{{ fin }}" data-nom="{{ regate.nom }}"{% if regate.annulee %} data-annulee="true"{% endif %}>
                 <div class="regate-date" aria-hidden="true">
                     <span class="regate-jour">{{ regate.debut | date: "%-d" }}</span>
                     <span class="regate-mois">{{ mois[index_mois] }}</span>
@@ -79,8 +79,15 @@ description: "Calendrier des régates habitables du CVGV et du championnat de Ve
                             {% else %}
                                 <span class="regate-type regate-type-entrainement">Entraînement</span>
                         {% endcase %}
-                        <span class="regate-statut"></span>
+                        {% if regate.annulee %}
+                            <span class="badge-annulee"><i class="fa-solid fa-ban"></i> Annulée</span>
+                        {% else %}
+                            <span class="regate-statut"></span>
+                        {% endif %}
                     </p>
+                    {% if regate.annulee and regate.motif %}
+                        <p class="regate-motif">{{ regate.motif }}</p>
+                    {% endif %}
                     {% if regate.documents or regate.page or regate.resultats %}
                         <div class="regate-liens">
                             {% for document in regate.documents %}
@@ -121,6 +128,10 @@ description: "Calendrier des régates habitables du CVGV et du championnat de Ve
         var prochaine = null;
         document.querySelectorAll(".regate").forEach(function (regate) {
             var statut = regate.querySelector(".regate-statut");
+            // Une régate annulée garde son badge « Annulée » et n'est jamais la prochaine.
+            if (regate.dataset.annulee) {
+                return;
+            }
             if (regate.dataset.fin < today) {
                 regate.classList.add("regate-passee");
                 statut.textContent = "Terminée";
