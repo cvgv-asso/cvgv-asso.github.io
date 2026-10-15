@@ -742,3 +742,223 @@ main:focus {
 .tableau-document-indisponible .tableau-titre {
     color: #5f6b76;
 }
+
+/* Accueil */
+
+.accueil-hero {
+    position: relative;
+    overflow: hidden;
+    padding: 1.5rem;
+}
+
+.accueil-hero > :not(.accueil-hero-decor) {
+    position: relative;
+    max-width: 46rem;
+}
+
+.accueil-titre {
+    font-size: clamp(1.4rem, 5vw, 2.4rem);
+    font-weight: bold;
+    line-height: 1.2;
+    margin-bottom: 0.75rem;
+}
+
+.accueil-accroche {
+    font-size: clamp(1.05rem, 3vw, 1.3rem);
+    margin-bottom: 1.25rem;
+}
+
+/* Grande rose des vents décorative, en filigrane */
+.accueil-hero-decor {
+    position: absolute;
+    right: -3rem;
+    bottom: -3rem;
+    font-size: 16rem;
+    color: rgba(255, 255, 255, 0.08);
+    transform: rotate(-15deg);
+    pointer-events: none;
+}
+
+@media (min-width: 768px) {
+    .accueil-hero {
+        padding: 3rem;
+    }
+
+    .accueil-hero-decor {
+        right: 2rem;
+        bottom: -4rem;
+        font-size: 22rem;
+    }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .accueil-hero-decor {
+        animation: rose-des-vents 60s linear infinite;
+    }
+
+    @keyframes rose-des-vents {
+        from {
+            transform: rotate(0deg);
+        }
+        to {
+            transform: rotate(360deg);
+        }
+    }
+}
+
+.accueil-section-titre {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--cvgv-blue);
+    margin-bottom: 1rem;
+}
+
+.accueil-section-titre::after {
+    content: "";
+    display: block;
+    width: 3rem;
+    height: 4px;
+    margin-top: 0.35rem;
+    border-radius: 2px;
+    background-color: var(--cvgv-red);
+}
+
+.accueil-section-titre-centre::after {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Cartes « À la une » */
+.carte-une {
+    display: flex;
+    flex-direction: column;
+    padding: 1.25rem 1.5rem;
+    border: 1px solid #dbe5ef;
+    border-left: 5px solid var(--cvgv-blue);
+    border-radius: 0.5rem;
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(2, 78, 130, 0.08);
+}
+
+.carte-une-defi {
+    border-left-color: var(--cvgv-red);
+}
+
+.carte-une-surtitre {
+    margin-bottom: 0.25rem;
+    font-size: 0.85rem;
+    font-weight: bold;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #5f6b76;
+}
+
+.carte-une-titre {
+    font-size: 1.35rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.carte-une-titre a {
+    color: var(--cvgv-blue);
+    text-decoration: none;
+}
+
+.carte-une-titre a:hover {
+    color: var(--cvgv-red);
+    text-decoration: underline;
+}
+
+.carte-une-infos {
+    margin-bottom: 0.75rem;
+    color: #5f6b76;
+}
+
+.carte-une-compteur {
+    align-self: flex-start;
+    padding: 0.3rem 0.9rem;
+    border-radius: 50rem;
+    background-color: #e7f0f8;
+    color: var(--cvgv-blue);
+}
+
+.carte-une-plus {
+    margin-top: auto;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.carte-une-plus:hover {
+    text-decoration: underline;
+}
+
+/* Tuiles « Nos activités » */
+.activite {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 1.25rem 0.75rem;
+    border: 1px solid #dbe5ef;
+    border-radius: 0.75rem;
+    background-color: #fff;
+    text-align: center;
+    text-decoration: none;
+    color: #212529;
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.activite:hover,
+.activite:focus-visible {
+    border-color: var(--cvgv-blue);
+    box-shadow: 0 6px 18px rgba(2, 78, 130, 0.15);
+    transform: translateY(-3px);
+}
+
+.activite-icone {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.25rem;
+    height: 3.25rem;
+    border-radius: 50%;
+    background-color: #e7f0f8;
+    color: var(--cvgv-blue);
+    font-size: 1.4rem;
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease;
+}
+
+.activite:hover .activite-icone,
+.activite:focus-visible .activite-icone {
+    background-color: var(--cvgv-blue);
+    color: #fff;
+}
+
+.activite-titre {
+    font-weight: bold;
+    color: var(--cvgv-blue);
+}
+
+.activite-section {
+    font-size: 0.85rem;
+    color: #5f6b76;
+}
+
+/* Cartes d'information (actualités, partenariat) */
+.carte-info {
+    padding: 1.25rem 1.5rem;
+    border-radius: 0.5rem;
+    background-color: #f2f7fb;
+}
+
+.carte-info-titre {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--cvgv-blue);
+    margin-bottom: 0.75rem;
+}

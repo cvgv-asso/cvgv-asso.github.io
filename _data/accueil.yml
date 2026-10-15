@@ -1,0 +1,43 @@
+# Tuiles « Nos activités » de la page d'accueil.
+# icone : nom d'une icône Font Awesome (https://fontawesome.com/search?ic=free)
+
+activites:
+    - titre: Enfants 8-11 ans
+      section: Voile légère
+      icone: fa-child-reaching
+      lien: /voile-legere/jeunes.html
+
+    - titre: Ados 12-17 ans
+      section: Voile légère
+      icone: fa-wind
+      lien: /voile-legere/adolescents.html
+
+    - titre: Adultes
+      section: Voile légère
+      icone: fa-sailboat
+      lien: /voile-legere/adultes.html
+
+    - titre: Compétition
+      section: Voile légère
+      icone: fa-medal
+      lien: /voile-legere/competition.html
+
+    - titre: Croisières
+      section: Habitable
+      icone: fa-compass
+      lien: /habitable/croisieres.html
+
+    - titre: Régates
+      section: Habitable
+      icone: fa-flag-checkered
+      lien: /habitable/regates.html
+
+    - titre: Défi Pilours-Sablaire
+      section: Habitable
+      icone: fa-stopwatch
+      lien: /habitable/defi-pilours-sablaire.html
+
+    - titre: Femmes à la barre
+      section: Régate
+      icone: fa-venus
+      lien: /habitable/regates/femmes-a-la-barre.html
