@@ -3,6 +3,67 @@
     --cvgv-red: #df0d1d;
 }
 
+/* Liens aux couleurs du club, bien contrastés sur fond blanc comme sur les encadrés colorés */
+:root {
+    --bs-link-color: var(--cvgv-blue);
+    --bs-link-hover-color: var(--cvgv-red);
+}
+
+.alert a:not(.btn) {
+    color: var(--cvgv-blue);
+    font-weight: 600;
+}
+
+/* Accessibilité */
+
+/* Lien « Aller au contenu », visible seulement au clavier */
+.lien-evitement {
+    position: absolute;
+    top: -100px;
+    left: 1rem;
+    z-index: 1100;
+    padding: 0.75rem 1rem;
+    border-radius: 0 0 0.5rem 0.5rem;
+    background-color: #fff;
+    color: var(--cvgv-blue);
+    font-weight: bold;
+}
+
+.lien-evitement:focus {
+    top: 0;
+}
+
+/* Contour de focus clavier bien visible, sur fond clair comme sur fond bleu */
+:focus-visible {
+    outline: 3px solid var(--cvgv-blue);
+    outline-offset: 2px;
+}
+
+#banner :focus-visible,
+.page-banner :focus-visible {
+    outline-color: #fff;
+}
+
+main:focus {
+    outline: none;
+}
+
+/* Texte plus lisible que gris clair de Bootstrap (contraste ≥ 4,5:1) */
+.text-muted {
+    color: #5f6b76 !important;
+}
+
+/* Réduire les animations si le visiteur l'a demandé à son système */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
 /* Bandeau */
 
 #banner {
@@ -19,7 +80,8 @@
     border-radius: 50%;
 }
 
-#banner h1 {
+#banner .site-titre {
+    line-height: 1.2;
     color: #fff;
     text-shadow: rgba(0, 0, 0, 0.5) 1px 1px 2px;
     font-size: clamp(1rem, 5vw, 1.5rem);
@@ -32,7 +94,7 @@
         height: 110px;
     }
 
-    #banner h1 {
+    #banner .site-titre {
         font-size: 2.5rem;
     }
 }
@@ -49,6 +111,19 @@
 
 #menu .nav-link {
     font-weight: 500;
+}
+
+/* Intitulé de section du menu mobile (non cliquable) */
+#menu .nav-section {
+    color: #5f6b76;
+    font-size: 0.85rem;
+    font-weight: bold;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+#menu .nav-section.active {
+    color: var(--cvgv-red);
 }
 
 #menu .navbar-toggler {
@@ -199,18 +274,18 @@
     max-height: 120px;
 }
 
-#banner h1 {
+#banner .site-titre {
     font-weight: bold;
 }
 
 /* Bandeau de page (Défi, Régates…) */
 
 .page-banner {
-    background: linear-gradient(135deg, #024e82, #3180c2);
+    background: linear-gradient(135deg, #024e82, #1a64a0);
     color: #fff;
 }
 
-.page-banner h2 {
+.page-banner h1 {
     font-weight: bold;
 }
 
@@ -218,7 +293,6 @@
     text-transform: uppercase;
     letter-spacing: 0.08em;
     font-size: 0.85rem;
-    opacity: 0.85;
 }
 
 .page-countdown {
@@ -241,7 +315,6 @@
 .defi-stats dt {
     font-weight: normal;
     font-size: 0.8rem;
-    opacity: 0.85;
 }
 
 .defi-stats dd {
@@ -388,16 +461,20 @@
     border-radius: 50rem;
 }
 
-/* Régate terminée : estompée */
-.regate-passee .regate-date,
+/* Régate terminée : atténuée, en gardant un contraste suffisant */
+.regate-passee .regate-date {
+    background-color: #eceff1;
+    color: #4a5560;
+}
+
 .regate-passee .regate-nom,
-.regate-passee .regate-liens {
-    opacity: 0.55;
+.regate-passee .regate-nom a {
+    color: #4a5560;
 }
 
 .regate-passee .regate-statut {
     background-color: #eceff1;
-    color: #5f6b76;
+    color: #4a5560;
 }
 
 /* Sur mobile, les régates terminées restent compactes pour atteindre vite la prochaine */
@@ -448,13 +525,11 @@
     margin-bottom: 0.75rem;
     font-size: 0.9rem;
     color: #fff;
-    opacity: 0.85;
     text-decoration: none;
 }
 
 .regate-retour:hover {
     color: #fff;
-    opacity: 1;
     text-decoration: underline;
 }
 
@@ -518,13 +593,12 @@
     font-size: 0.8rem;
 }
 
-.regate-banner h2 {
+.regate-banner h1 {
     font-size: clamp(1.25rem, 5vw, 2rem);
+    font-weight: bold;
 }
 
-.regate-sous-titre {
-    opacity: 0.9;
-}
+
 
 .regate-quand-ou li {
     margin-bottom: 0.15rem;
@@ -569,7 +643,7 @@
     scroll-margin-top: 5rem;
 }
 
-.tableau-officiel h3 {
+.tableau-officiel h2 {
     font-weight: bold;
     color: var(--cvgv-blue);
 }
@@ -666,5 +740,5 @@
 
 .tableau-document-indisponible .tableau-icone,
 .tableau-document-indisponible .tableau-titre {
-    opacity: 0.5;
+    color: #5f6b76;
 }

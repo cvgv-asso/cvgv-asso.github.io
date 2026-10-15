@@ -14,7 +14,7 @@ order: 3
         <p class="page-banner-kicker mb-1">
             <i class="fa-solid fa-sailboat"></i> Saison {{ calendrier.saison }}
         </p>
-        <h2 class="mb-3">Régates habitables</h2>
+        <h1 class="h2 mb-3">Régates habitables</h1>
         <div class="d-flex flex-wrap gap-2">
             <a class="btn btn-light" href="{{ calendrier.inscription.saison }}">
                 <i class="fa-solid fa-pen-to-square"></i> S'inscrire à la saison
@@ -23,7 +23,7 @@ order: 3
                 S'inscrire à une régate
             </a>
         </div>
-        <p class="small mt-2 mb-0 opacity-75">
+        <p class="small mt-2 mb-0">
             L'inscription à la saison complète est réservée aux membres du CVGV.
         </p>
         <p
@@ -38,7 +38,7 @@ order: 3
         </p>
     </section>
 
-    <h3 class="mb-3">Calendrier</h3>
+    <h2 class="h3 mb-3">Calendrier</h2>
     <ol class="regates list-unstyled mb-5">
         {% for regate in regates %}
             {% assign debut = regate.debut | date: "%Y-%m-%d" %}
@@ -58,13 +58,13 @@ order: 3
                     <span class="regate-mois">{{ mois[index_mois] }}</span>
                 </div>
                 <div class="regate-contenu">
-                    <h4 class="regate-nom">
+                    <h3 class="regate-nom">
                         {% if regate.page %}
                             <a href="{{ regate.page }}"{% if externe %} rel="external"{% endif %}>{{ regate.nom }}</a>
                         {% else %}
                             {{ regate.nom }}
                         {% endif %}
-                    </h4>
+                    </h3>
                     <p class="regate-infos">
                         <span class="text-muted"><i class="fa-regular fa-calendar"></i> {{ regate.dates }}</span>
                         {% if regate.lieu %}
@@ -84,7 +84,7 @@ order: 3
                         <div class="regate-liens">
                             {% for document in regate.documents %}
                                 <a class="btn btn-sm btn-doc" href="{{ document.lien }}">
-                                    <i class="fa-regular fa-file-pdf"></i> {{ document.titre }}
+                                    <i class="fa-regular fa-file-pdf"></i> {{ document.titre }}<span class="visually-hidden"> (PDF)</span>
                                 </a>
                             {% endfor %}
                             {% if regate.resultats %}
@@ -94,7 +94,7 @@ order: 3
                             {% endif %}
                             {% if regate.page %}
                                 <a class="btn btn-sm btn-doc" href="{{ regate.page }}"{% if externe %} rel="external"{% endif %}>
-                                    {% if externe %}Site officiel <i class="fa-solid fa-arrow-up-right-from-square"></i>{% else %}Page dédiée <i class="fa-solid fa-chevron-right"></i>{% endif %}
+                                    {% if externe %}Site officiel<span class="visually-hidden"> (site externe)</span> <i class="fa-solid fa-arrow-up-right-from-square"></i>{% else %}Page dédiée <i class="fa-solid fa-chevron-right"></i>{% endif %}
                                 </a>
                             {% endif %}
                         </div>

@@ -19,7 +19,7 @@ layout: default
                 <p class="page-banner-kicker mb-1">
                     <i class="fa-solid fa-stopwatch"></i> Résultats {{ page.year }}
                 </p>
-                <h2 class="mb-3">Défi Pilours-Sablaire</h2>
+                <h1 class="h2 mb-3">Défi Pilours-Sablaire</h1>
             </div>
             {% if result_pages.size > 1 %}
                 <nav class="d-flex flex-wrap gap-2 mb-3" aria-label="Années">
@@ -70,9 +70,10 @@ layout: default
     {% if results.size > 0 %}
         <div class="table-responsive mb-4">
             <table class="table align-middle defi-results">
+                <caption class="visually-hidden">Classement {{ page.year }}, du meilleur temps compensé au moins bon</caption>
                 <thead>
                     <tr>
-                        <th scope="col" class="text-center">#</th>
+                        <th scope="col" class="text-center"><span aria-hidden="true">#</span><span class="visually-hidden">Rang</span></th>
                         <th scope="col">Bateau</th>
                         <th scope="col" class="d-none d-md-table-cell">Sens</th>
                         <th scope="col" class="d-none d-md-table-cell">Date</th>
@@ -97,7 +98,7 @@ layout: default
                         <tr{% if forloop.first %} class="defi-winner"{% endif %}>
                             <td class="text-center defi-rank">
                                 {% if forloop.first %}
-                                    <i class="fa-solid fa-trophy defi-gold" title="1er"></i>
+                                    <i class="fa-solid fa-trophy defi-gold" title="1er"></i><span class="visually-hidden">1</span>
                                 {% else %}
                                     {{ forloop.index }}
                                 {% endif %}
@@ -108,12 +109,12 @@ layout: default
                                     <span class="text-muted">{{ result.modele }}</span>
                                 {% endif %}
                                 <div class="small text-muted d-md-none">
-                                    <span class="text-nowrap"><i class="fa-solid {{ arrow }}" title="{{ from }} → {{ to }}"></i> {{ result.date }}</span>
-                                    · <span class="text-nowrap">réel {{ result.temps_reel }}</span>
+                                    <span class="text-nowrap"><i class="fa-solid {{ arrow }}" title="{{ from }} → {{ to }}"></i><span class="visually-hidden">De {{ from }} à {{ to }}, le</span> {{ result.date }}</span>
+                                    <span aria-hidden="true">·</span> <span class="text-nowrap">réel {{ result.temps_reel }}</span>
                                 </div>
                             </td>
                             <td class="d-none d-md-table-cell text-nowrap">
-                                {{ from }} <i class="fa-solid fa-arrow-right-long text-muted mx-1"></i> {{ to }}
+                                {{ from }} <i class="fa-solid fa-arrow-right-long text-muted mx-1"></i><span class="visually-hidden">vers</span> {{ to }}
                             </td>
                             <td class="d-none d-md-table-cell">{{ result.date }}</td>
                             <td class="d-none d-md-table-cell">{{ result.temps_reel }}</td>
@@ -137,11 +138,11 @@ layout: default
             />
         </div>
         <div class="col-lg-8">
-            <h3>Règlement</h3>
+            <h2 class="h3">Règlement</h2>
             <div class="accordion" id="reglement">
                 {% for rule in site.data["defi-pilours-sablaire-reglement"] %}
                     <div class="accordion-item">
-                        <h4 class="accordion-header" id="reglement-titre-{{ forloop.index }}">
+                        <h3 class="accordion-header" id="reglement-titre-{{ forloop.index }}">
                             <button
                                 class="accordion-button collapsed"
                                 type="button"
@@ -152,7 +153,7 @@ layout: default
                             >
                                 {{ forloop.index }}. {{ rule.titre }}
                             </button>
-                        </h4>
+                        </h3>
                         <div
                             id="reglement-{{ forloop.index }}"
                             class="accordion-collapse collapse"

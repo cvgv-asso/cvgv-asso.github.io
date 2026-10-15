@@ -46,7 +46,7 @@ layout: default
                 <a
                     class="regate-affiche"
                     href="{{ page.affiche }}"
-                    title="Agrandir l'affiche"
+                    aria-label="Agrandir l'affiche"
                     data-bs-toggle="modal"
                     data-bs-target="#affiche-apercu"
                 >
@@ -55,7 +55,7 @@ layout: default
                 </a>
             {% endif %}
             <div class="regate-banner-texte">
-                <h2 class="mb-1">{{ page.title }}</h2>
+                <h1 class="h2 mb-1">{{ page.title }}</h1>
                 {% if page.sous_titre %}
                     <p class="regate-sous-titre mb-2">{{ page.sous_titre }}</p>
                 {% endif %}
@@ -105,7 +105,7 @@ layout: default
             <div class="modal-dialog modal-dialog-centered modal-lg modal-fullscreen-sm-down">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="affiche-apercu-titre">{{ page.title }}</h5>
+                        <h2 class="modal-title h5" id="affiche-apercu-titre">Affiche : {{ page.title }}</h2>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
                     </div>
                     <div class="modal-body text-center">
@@ -113,7 +113,7 @@ layout: default
                     </div>
                     <div class="modal-footer">
                         <a class="btn btn-doc" href="{{ page.affiche }}" target="_blank" rel="noopener">
-                            <i class="fa-solid fa-up-right-and-down-left-from-center"></i> Ouvrir en grand
+                            <i class="fa-solid fa-up-right-and-down-left-from-center"></i> Ouvrir en grand<span class="visually-hidden"> (nouvel onglet)</span>
                         </a>
                         <button type="button" class="btn btn-boutique" data-bs-dismiss="modal">Fermer</button>
                     </div>
@@ -130,7 +130,7 @@ layout: default
 
     <section class="tableau-officiel mb-5" id="tableau-officiel">
         <div class="d-flex flex-wrap align-items-baseline justify-content-between gap-2 mb-3">
-            <h3 class="mb-0"><i class="fa-solid fa-clipboard-list"></i> Tableau officiel</h3>
+            <h2 class="h3 mb-0"><i class="fa-solid fa-clipboard-list"></i> Tableau officiel</h2>
             {% if derniere_publication %}
                 <p class="tableau-maj mb-0">
                     Mis à jour le {{ derniere_publication | date: "%d/%m à %Hh%M" }}
@@ -138,7 +138,7 @@ layout: default
             {% endif %}
         </div>
 
-        <h4 class="tableau-rubrique">Communications du comité de course (Avenants, …)</h4>
+        <h3 class="tableau-rubrique">Communications du comité de course (Avenants, …)</h3>
         {% if page.communications.size > 0 %}
             {% comment %}
                 Plus récente en premier. On trie sur une clé normalisée car « publie »
@@ -161,7 +161,7 @@ layout: default
         {% endif %}
 
         {% for rubrique in page.tableau %}
-            <h4 class="tableau-rubrique">{{ rubrique.rubrique }}</h4>
+            <h3 class="tableau-rubrique">{{ rubrique.rubrique }}</h3>
             {% include tableau-documents.html documents=rubrique.documents %}
         {% endfor %}
     </section>

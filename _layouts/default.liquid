@@ -8,7 +8,7 @@
             name="description"
             content="Club de voile situé à Saint-Gilles-Croix-de-Vie (85)"
         />
-        <title>Club de Voile de Saint-Gilles-Croix-de-Vie</title>
+        <title>{% if page.title and page.url != "/" %}{{ page.title }} | {% endif %}Club de Voile de Saint-Gilles-Croix-de-Vie</title>
 
         <!-- Favicon -->
         <link
@@ -82,19 +82,26 @@
     </head>
 
     <body>
+        <a class="lien-evitement" href="#contenu">Aller au contenu</a>
+
         <header id="banner">
             <div class="container py-2 py-md-3">
                 <a
                     href="/"
                     class="d-flex align-items-center gap-3 gap-md-4 text-decoration-none"
                 >
-                    <img src="/assets/logo.svg" alt="Logo du CVGV" />
-                    <h1 class="mb-0">Club de Voile de<br /> Saint‑Gilles‑Croix‑de‑Vie</h1>
+                    <img src="/assets/logo.svg" alt="" />
+                    {% comment %} Le nom du club n'est le titre principal que sur l'accueil ; ailleurs, c'est le titre de la page. {% endcomment %}
+                    {% if page.url == "/" %}
+                        <h1 class="site-titre mb-0">Club de Voile de<br /> Saint‑Gilles‑Croix‑de‑Vie</h1>
+                    {% else %}
+                        <p class="site-titre mb-0">Club de Voile de<br /> Saint‑Gilles‑Croix‑de‑Vie</p>
+                    {% endif %}
                 </a>
             </div>
         </header>
 
-        <nav class="navbar navbar-expand-lg sticky-top mb-4" id="menu">
+        <nav class="navbar navbar-expand-lg sticky-top mb-4" id="menu" aria-label="Menu principal">
             <div class="container">
                 <button
                     class="navbar-toggler"
@@ -103,9 +110,8 @@
                     data-bs-target="#navbarNav"
                     aria-controls="navbarNav"
                     aria-expanded="false"
-                    aria-label="Ouvrir le menu"
                 >
-                    <span class="navbar-toggler-icon"></span>
+                    <span class="navbar-toggler-icon" aria-hidden="true"></span>
                     <span class="ms-1 align-middle">Menu</span>
                 </button>
                 {% include annonce.html %}
@@ -129,15 +135,15 @@
                                     </a>
                                     <ul class="dropdown-menu">
                                         {% for child in item.children %}
-                                            <li><a class="dropdown-item{% if page.url == child.url %} active{% endif %}" href="{{ child.url }}">{{ child.title }}</a></li>
+                                            <li><a class="dropdown-item{% if page.url == child.url %} active{% endif %}"{% if page.url == child.url %} aria-current="page"{% endif %} href="{{ child.url }}">{{ child.title }}</a></li>
                                         {% endfor %}
                                     </ul>
                                 </li>
 
-                                <li class="nav-item d-bock d-lg-none">
-                                    <a class="nav-link{% if page.url contains item.url %} active{% endif %}" href="#">
+                                <li class="nav-item d-block d-lg-none">
+                                    <span class="nav-link nav-section{% if page.url contains item.url %} active{% endif %}">
                                         {{ item.title }}
-                                    </a>
+                                    </span>
                                     <ul>
                                         {% for child in item.children %}
                                         <li class="nav-item">
@@ -156,7 +162,7 @@
                         {% endfor %}
                         <li class="nav-item">
                             <a class="nav-link" href="/assets/calendrier-2026.pdf">
-                                <i class="fa-regular fa-calendar"></i>&nbsp;Calendrier 2026
+                                <i class="fa-regular fa-calendar"></i>&nbsp;Calendrier 2026<span class="visually-hidden"> (PDF)</span>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -174,7 +180,9 @@
             </div>
         </nav>
 
-        {{ content }}
+        <main id="contenu" tabindex="-1">
+            {{ content }}
+        </main>
 
         <div class="container">
             <footer

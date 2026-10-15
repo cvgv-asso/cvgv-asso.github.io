@@ -33,7 +33,7 @@
                 </span>
                 {% if document.lien %}
                     <span class="tableau-format">
-                        {% if lien contains ".pdf" %}PDF{% endif %}
+                        {% if lien contains ".pdf" %}PDF{% elsif lien contains "://" %}<span class="visually-hidden">site externe</span>{% endif %}
                         <i class="fa-solid {% if lien contains '://' %}fa-arrow-up-right-from-square{% else %}fa-chevron-right{% endif %}"></i>
                     </span>
                 {% else %}

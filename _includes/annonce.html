@@ -19,7 +19,7 @@
             <{{ tag }}
                 class="annonce annonce-{{ couleur }} order-lg-last rounded-pill"
                 id="annonce"
-                {% if annonce.lien %}href="{{ annonce.lien }}"{% else %}type="button"{% endif %}
+                {% if annonce.lien %}href="{{ annonce.lien }}"{% else %}type="button" aria-expanded="false"{% endif %}
                 title="{{ annonce.message }}"
                 {% if annonce.fin %}data-fin="{{ fin }}"{% endif %}
             >
@@ -48,7 +48,8 @@
                     // Sans lien, un appui affiche le message en entier s'il est tronqué.
                     if (annonce.tagName === "BUTTON") {
                         annonce.addEventListener("click", function () {
-                            annonce.classList.toggle("annonce-ouverte");
+                            var ouverte = annonce.classList.toggle("annonce-ouverte");
+                            annonce.setAttribute("aria-expanded", ouverte);
                         });
                     }
                 })();
