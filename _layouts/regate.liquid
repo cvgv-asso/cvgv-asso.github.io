@@ -1,0 +1,190 @@
+---
+layout: default
+---
+
+{% comment %}
+    Page dédiée à une régate. Tout le contenu vient de l'en-tête de la page :
+    title, sous_titre, dates, debut, fin, lieu, affiche, note,
+    inscriptions, communications et tableau (voir les pages de habitable/regates/).
+{% endcomment %}
+{% assign debut = page.debut | date: "%Y-%m-%d" %}
+{% if page.fin %}
+    {% assign fin = page.fin | date: "%Y-%m-%d" %}
+{% else %}
+    {% assign fin = debut %}
+{% endif %}
+
+{% comment %} Date de mise à jour : le document publié le plus récemment. {% endcomment %}
+{% assign publications = "" | split: "" %}
+{% for document in page.communications %}
+    {% if document.publie %}
+        {% assign publications = publications | push: document.publie %}
+    {% endif %}
+{% endfor %}
+{% for rubrique in page.tableau %}
+    {% for document in rubrique.documents %}
+        {% if document.publie %}
+            {% assign publications = publications | push: document.publie %}
+        {% endif %}
+    {% endfor %}
+{% endfor %}
+{% assign derniere_publication = nil %}
+{% for publie in publications %}
+    {% assign iso = publie | date: "%Y-%m-%dT%H:%M" %}
+    {% if derniere_publication == nil or iso > derniere_publication %}
+        {% assign derniere_publication = iso %}
+    {% endif %}
+{% endfor %}
+
+<div class="container">
+    <section class="page-banner regate-banner rounded-3 p-3 p-md-4 mb-4">
+        <a class="regate-retour" href="/habitable/regates.html">
+            <i class="fa-solid fa-arrow-left"></i> Calendrier des régates
+        </a>
+        <div class="regate-banner-corps{% unless page.affiche %} regate-sans-affiche{% endunless %}">
+            {% if page.affiche %}
+                <a class="regate-affiche" href="{{ page.affiche }}" title="Agrandir l'affiche">
+                    <img src="{{ page.affiche }}" alt="Affiche : {{ page.title }}" />
+                    <span class="regate-affiche-zoom"><i class="fa-solid fa-magnifying-glass-plus"></i></span>
+                </a>
+            {% endif %}
+            <div class="regate-banner-texte">
+                <h2 class="mb-1">{{ page.title }}</h2>
+                {% if page.sous_titre %}
+                    <p class="regate-sous-titre mb-2">{{ page.sous_titre }}</p>
+                {% endif %}
+                <ul class="regate-quand-ou list-unstyled mb-0">
+                    <li><i class="fa-regular fa-calendar"></i> {{ page.dates }}</li>
+                    {% if page.lieu %}
+                        <li><i class="fa-solid fa-location-dot"></i> {{ page.lieu }}</li>
+                    {% endif %}
+                </ul>
+            </div>
+            <div class="regate-actions">
+                <div class="d-flex flex-wrap gap-2">
+                    {% for inscription in page.inscriptions %}
+                        <a class="btn btn-light" href="{{ inscription.lien }}">
+                            <i class="fa-solid fa-pen-to-square"></i> {{ inscription.titre | default: "S'inscrire" }}
+                        </a>
+                    {% endfor %}
+                    <a class="btn btn-outline-light" href="#tableau-officiel">
+                        <i class="fa-solid fa-clipboard-list"></i> Tableau officiel
+                    </a>
+                </div>
+                <p
+                    class="page-countdown d-none align-items-center gap-2 rounded-pill px-3 py-1 mt-3 mb-0"
+                    id="regate-countdown"
+                    data-debut="{{ debut }}T00:00"
+                    data-fin="{{ fin }}"
+                >
+                    <i class="fa-solid fa-hourglass-half"></i>
+                    <span>
+                        <span class="regate-countdown-label"></span>
+                        <strong class="page-countdown-time"></strong>
+                    </span>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    {% if page.note %}
+        <p class="regate-note">
+            <i class="fa-solid fa-circle-info"></i> {{ page.note }}
+        </p>
+    {% endif %}
+
+    <section class="tableau-officiel mb-5" id="tableau-officiel">
+        <div class="d-flex flex-wrap align-items-baseline justify-content-between gap-2 mb-3">
+            <h3 class="mb-0"><i class="fa-solid fa-clipboard-list"></i> Tableau officiel</h3>
+            {% if derniere_publication %}
+                <p class="tableau-maj mb-0">
+                    Mis à jour le {{ derniere_publication | date: "%d/%m à %Hh%M" }}
+                </p>
+            {% endif %}
+        </div>
+
+        <h4 class="tableau-rubrique">Communications du comité de course</h4>
+        {% if page.communications.size > 0 %}
+            {% comment %}
+                Plus récente en premier. On trie sur une clé normalisée car « publie »
+                peut être une date seule ou une date avec heure.
+            {% endcomment %}
+            {% assign cles = "" | split: "" %}
+            {% for document in page.communications %}
+                {% capture cle %}{{ document.publie | date: "%Y-%m-%dT%H:%M" }}|{{ forloop.index0 }}{% endcapture %}
+                {% assign cles = cles | push: cle %}
+            {% endfor %}
+            {% assign cles = cles | sort | reverse %}
+            {% assign communications = "" | split: "" %}
+            {% for cle in cles %}
+                {% assign index = cle | split: "|" | last | plus: 0 %}
+                {% assign communications = communications | push: page.communications[index] %}
+            {% endfor %}
+            {% include tableau-documents.html documents=communications %}
+        {% else %}
+            <p class="tableau-vide">Aucune communication pour le moment.</p>
+        {% endif %}
+
+        {% for rubrique in page.tableau %}
+            <h4 class="tableau-rubrique">{{ rubrique.rubrique }}</h4>
+            {% include tableau-documents.html documents=rubrique.documents %}
+        {% endfor %}
+    </section>
+</div>
+
+<script>
+    (function () {
+        function pad(n) {
+            return String(n).padStart(2, "0");
+        }
+
+        // Badge « Nouveau » pendant 48 h après la publication.
+        var now = new Date();
+        document.querySelectorAll(".tableau-document[data-publie]").forEach(function (el) {
+            var publie = new Date(el.dataset.publie);
+            if (now - publie >= 0 && now - publie < 48 * 3600 * 1000) {
+                el.classList.add("tableau-document-nouveau");
+            }
+        });
+
+        // Compte à rebours jusqu'au jour de la régate, à minuit.
+        var countdown = document.getElementById("regate-countdown");
+        var label = countdown.querySelector(".regate-countdown-label");
+        var time = countdown.querySelector(".page-countdown-time");
+        var debut = new Date(countdown.dataset.debut);
+        var today = now.getFullYear() + "-" + pad(now.getMonth() + 1) + "-" + pad(now.getDate());
+
+        if (today > countdown.dataset.fin) {
+            return;
+        }
+
+        function update() {
+            var s = Math.floor((debut - new Date()) / 1000);
+            if (s <= 0) {
+                label.textContent = "Régate en cours, bon vent !";
+                time.textContent = "";
+                return false;
+            }
+            var days = Math.floor(s / 86400);
+            label.textContent = "Départ dans";
+            time.textContent =
+                (days > 0 ? days + " j " : "") +
+                pad(Math.floor((s % 86400) / 3600)) +
+                "h" +
+                pad(Math.floor((s % 3600) / 60)) +
+                "m" +
+                pad(s % 60) +
+                "s";
+            return true;
+        }
+
+        if (update()) {
+            var timer = setInterval(function () {
+                if (!update()) {
+                    clearInterval(timer);
+                }
+            }, 1000);
+        }
+        countdown.classList.replace("d-none", "d-inline-flex");
+    })();
+</script>

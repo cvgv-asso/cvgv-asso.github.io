@@ -1,0 +1,45 @@
+{% comment %}
+    Liste de documents du tableau officiel.
+    Chaque document : titre, lien (facultatif), publie (facultatif), icone (facultatif).
+{% endcomment %}
+<ul class="tableau-documents list-unstyled">
+    {% for document in include.documents %}
+        {% assign lien = document.lien | downcase %}
+        {% if document.icone %}
+            {% assign icone = document.icone %}
+        {% elsif lien contains ".pdf" %}
+            {% assign icone = "fa-regular fa-file-pdf" %}
+        {% elsif lien contains "helloasso" %}
+            {% assign icone = "fa-solid fa-pen-to-square" %}
+        {% elsif lien contains "://" %}
+            {% assign icone = "fa-solid fa-link" %}
+        {% else %}
+            {% assign icone = "fa-regular fa-file-lines" %}
+        {% endif %}
+        <li
+            class="tableau-document{% unless document.lien %} tableau-document-indisponible{% endunless %}"
+            {% if document.publie %}data-publie="{{ document.publie | date: '%Y-%m-%dT%H:%M' }}"{% endif %}
+        >
+            {% if document.lien %}<a href="{{ document.lien }}"{% if lien contains "://" %} rel="external"{% endif %}>{% else %}<span>{% endif %}
+                <i class="tableau-icone {{ icone }}"></i>
+                <span class="tableau-titre">
+                    {{ document.titre }}
+                    <span class="tableau-nouveau">Nouveau</span>
+                    {% if document.publie %}
+                        <small class="tableau-date">
+                            Publié le {{ document.publie | date: "%d/%m/%Y" }}{% assign heure = document.publie | date: "%H:%M" %}{% if heure != "00:00" %} à {{ document.publie | date: "%Hh%M" }}{% endif %}
+                        </small>
+                    {% endif %}
+                </span>
+                {% if document.lien %}
+                    <span class="tableau-format">
+                        {% if lien contains ".pdf" %}PDF{% endif %}
+                        <i class="fa-solid {% if lien contains '://' %}fa-arrow-up-right-from-square{% else %}fa-chevron-right{% endif %}"></i>
+                    </span>
+                {% else %}
+                    <span class="tableau-format">Bientôt disponible</span>
+                {% endif %}
+            {% if document.lien %}</a>{% else %}</span>{% endif %}
+        </li>
+    {% endfor %}
+</ul>

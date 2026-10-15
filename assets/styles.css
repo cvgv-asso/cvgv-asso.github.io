@@ -440,3 +440,224 @@
 .regate-passee + .regate-en-cours .regate-contenu {
     border-left-color: var(--cvgv-red);
 }
+
+/* Page dédiée d'une régate */
+
+.regate-retour {
+    display: inline-block;
+    margin-bottom: 0.75rem;
+    font-size: 0.9rem;
+    color: #fff;
+    opacity: 0.85;
+    text-decoration: none;
+}
+
+.regate-retour:hover {
+    color: #fff;
+    opacity: 1;
+    text-decoration: underline;
+}
+
+/* Mobile : affiche et titre côte à côte, boutons en pleine largeur dessous.
+   Desktop : boutons sous le titre, à droite de l'affiche. */
+.regate-banner-corps {
+    display: grid;
+    grid-template-columns: 88px 1fr;
+    grid-template-areas:
+        "affiche texte"
+        "actions actions";
+    gap: 1rem;
+    align-items: start;
+}
+
+.regate-sans-affiche {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+        "texte"
+        "actions";
+}
+
+.regate-banner-texte {
+    grid-area: texte;
+    min-width: 0;
+}
+
+.regate-actions {
+    grid-area: actions;
+    min-width: 0;
+}
+
+.regate-affiche {
+    grid-area: affiche;
+    position: relative;
+    width: 100%;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+    background-color: #fff;
+}
+
+.regate-affiche img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.regate-affiche-zoom {
+    position: absolute;
+    right: 0.35rem;
+    bottom: 0.35rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 50%;
+    background-color: rgba(2, 78, 130, 0.85);
+    color: #fff;
+    font-size: 0.8rem;
+}
+
+.regate-banner h2 {
+    font-size: clamp(1.25rem, 5vw, 2rem);
+}
+
+.regate-sous-titre {
+    opacity: 0.9;
+}
+
+.regate-quand-ou li {
+    margin-bottom: 0.15rem;
+}
+
+@media (min-width: 768px) {
+    .regate-banner-corps {
+        grid-template-columns: 220px 1fr;
+        grid-template-rows: auto 1fr;
+        grid-template-areas:
+            "affiche texte"
+            "affiche actions";
+        gap: 1rem 2rem;
+    }
+
+    .regate-sans-affiche {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "texte"
+            "actions";
+    }
+}
+
+.regate-note {
+    padding: 0.75rem 1rem;
+    border-left: 4px solid var(--cvgv-blue);
+    border-radius: 0.25rem;
+    background-color: #e7f0f8;
+}
+
+/* Tableau officiel */
+
+.tableau-officiel {
+    /* L'ancre « Tableau officiel » ne passe pas sous le menu fixe */
+    scroll-margin-top: 5rem;
+}
+
+.tableau-officiel h3 {
+    font-weight: bold;
+    color: var(--cvgv-blue);
+}
+
+.tableau-maj {
+    font-size: 0.9rem;
+    color: #5f6b76;
+}
+
+.tableau-rubrique {
+    margin: 1.5rem 0 0.5rem;
+    font-size: 0.85rem;
+    font-weight: bold;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #5f6b76;
+}
+
+.tableau-vide {
+    color: #5f6b76;
+    font-style: italic;
+}
+
+.tableau-documents {
+    margin: 0;
+    border: 1px solid #dbe5ef;
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+.tableau-document + .tableau-document {
+    border-top: 1px solid #dbe5ef;
+}
+
+.tableau-document > a,
+.tableau-document > span {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 0.85rem 1rem;
+    color: #212529;
+    text-decoration: none;
+}
+
+.tableau-document > a:hover,
+.tableau-document > a:focus-visible {
+    background-color: #f2f7fb;
+}
+
+.tableau-icone {
+    width: 1.25rem;
+    font-size: 1.15rem;
+    text-align: center;
+    color: var(--cvgv-blue);
+}
+
+.tableau-titre {
+    flex: 1 1 auto;
+    min-width: 0;
+    font-weight: 500;
+}
+
+.tableau-date {
+    display: block;
+    font-weight: normal;
+    color: #5f6b76;
+}
+
+.tableau-format {
+    flex-shrink: 0;
+    font-size: 0.8rem;
+    color: #5f6b76;
+}
+
+.tableau-nouveau {
+    display: none;
+    margin-left: 0.35rem;
+    padding: 0.05rem 0.5rem;
+    border-radius: 50rem;
+    font-size: 0.75rem;
+    font-weight: bold;
+    vertical-align: middle;
+    color: #fff;
+    background-color: var(--cvgv-red);
+}
+
+.tableau-document-nouveau .tableau-nouveau {
+    display: inline-block;
+}
+
+.tableau-document-nouveau > a {
+    background-color: #fff5f5;
+}
+
+.tableau-document-indisponible .tableau-icone,
+.tableau-document-indisponible .tableau-titre {
+    opacity: 0.5;
+}
