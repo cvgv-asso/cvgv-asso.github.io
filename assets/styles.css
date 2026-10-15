@@ -85,6 +85,16 @@
     white-space: nowrap;
 }
 
+.defi-countdown {
+    background-color: rgba(255, 255, 255, 0.15);
+    font-size: 0.9rem;
+}
+
+.defi-countdown-time {
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+}
+
 .defi-results .defi-rank {
     width: 3rem;
     font-weight: bold;

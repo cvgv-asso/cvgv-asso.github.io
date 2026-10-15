@@ -49,6 +49,22 @@ layout: default
                 </div>
             </dl>
         {% endif %}
+        {% comment %} Période du défi : du 1er février au 31 octobre inclus. {% endcomment %}
+        <p
+            class="defi-countdown d-none align-items-center gap-2 rounded-pill px-3 py-1 mt-3 mb-0"
+            id="defi-countdown"
+            data-start-month="2"
+            data-start-day="1"
+            data-end-month="10"
+            data-end-day="31"
+        >
+            <i class="fa-solid fa-hourglass-half"></i>
+            <span>
+                <span class="defi-countdown-label d-none d-sm-inline"></span>
+                <span class="defi-countdown-label-short d-sm-none"></span>
+                <strong class="defi-countdown-time"></strong>
+            </span>
+        </p>
     </section>
 
     {% if results.size > 0 %}
@@ -150,3 +166,60 @@ layout: default
         </div>
     </div>
 </div>
+
+<script>
+    (function () {
+        var el = document.getElementById("defi-countdown");
+        var label = el.querySelector(".defi-countdown-label");
+        var shortLabel = el.querySelector(".defi-countdown-label-short");
+        var time = el.querySelector(".defi-countdown-time");
+        var d = el.dataset;
+
+        function start(year) {
+            return new Date(year, d.startMonth - 1, d.startDay);
+        }
+
+        // Le défi se termine à la fin du dernier jour (minuit le lendemain).
+        function end(year) {
+            return new Date(year, d.endMonth - 1, Number(d.endDay) + 1);
+        }
+
+        function pad(n) {
+            return String(n).padStart(2, "0");
+        }
+
+        function update() {
+            var now = new Date();
+            var year = now.getFullYear();
+            var target, step;
+            if (now < start(year)) {
+                target = start(year);
+                step = "Début";
+            } else if (now < end(year)) {
+                target = end(year);
+                step = "Fin";
+            } else {
+                year += 1;
+                target = start(year);
+                step = "Début";
+            }
+            label.textContent = step + " du défi " + year + " dans";
+            shortLabel.textContent = step + " " + year + " dans";
+
+            var s = Math.floor((target - now) / 1000);
+            var days = Math.floor(s / 86400);
+            time.textContent =
+                (days > 0 ? days + "j " : "") +
+                pad(Math.floor((s % 86400) / 3600)) +
+                "h " +
+                pad(Math.floor((s % 3600) / 60)) +
+                "m " +
+                pad(s % 60) +
+                "s";
+        }
+
+        update();
+        el.classList.replace("d-none", "d-inline-flex");
+        setInterval(update, 1000);
+    })();
+</script>
