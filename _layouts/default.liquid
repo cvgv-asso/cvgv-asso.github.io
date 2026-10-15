@@ -36,7 +36,8 @@
             integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
             crossorigin="anonymous"
         />
-        <link href="/assets/styles.css" rel="stylesheet" />
+        <!-- Change à chaque build pour forcer le rechargement des styles -->
+        <link href="/assets/styles.css?v={{ site.time | date: '%s' }}" rel="stylesheet" />
 
         <!-- Matomo -->
         <script>
