@@ -11,11 +11,7 @@
 #   documents : liste de { titre, lien } (facultatif)
 #   resultats : lien vers les résultats (facultatif)
 
-saison: 2026
-
-inscription:
-    saison: https://www.helloasso.com/associations/club-de-voile-de-saint-gilles-croix-de-vie/adhesions/inscription-annuelle-regate-habitable-reservee-aux-membres-du-cvgv
-    regate: https://www.helloasso.com/associations/club-de-voile-de-saint-gilles-croix-de-vie/adhesions/inscription-a-une-regate
+# Saison et liens d'inscription : voir _data/club.yml.
 
 documents_entrainement: &documents_entrainement
     - titre: Avis de course

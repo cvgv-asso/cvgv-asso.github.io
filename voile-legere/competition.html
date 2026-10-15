@@ -23,10 +23,8 @@ description: "Groupes compétition Optimist, Open Skiff et Laser du CVGV, le mer
             <div class="card text-center">
                 <h2 class="card-header h5">Tarif</h2>
                 <div class="card-body">
-                    <p class="card-text">Année scolaire 2025-2026</p>
-                    <p class="lead">
-                        63 € + mise à disposition du matériel compétition
-                    </p>
+                    <p class="card-text">Année scolaire {{ site.data.club.annee_scolaire }}</p>
+                    <p class="lead">{{ site.data.club.voile_legere.competition.tarif }}</p>
                 </div>
             </div>
         </div>
@@ -35,8 +33,7 @@ description: "Groupes compétition Optimist, Open Skiff et Laser du CVGV, le mer
                 <h2 class="card-header h5">Les séances</h2>
                 <div class="card-body">
                     <p class="card-text">
-                        Du 10 septembre au 19 novembre<br /><br />
-                        De mars à fin juin<br /><br />
+                        {{ site.data.club.voile_legere.competition.seances | join: "<br /><br />" }}<br /><br />
                         (hors vacances scolaires)
                     </p>
                 </div>
@@ -47,7 +44,7 @@ description: "Groupes compétition Optimist, Open Skiff et Laser du CVGV, le mer
         <div class="col-md-6 d-grid">
             <a
                 class="btn btn-lg btn-primary"
-                href="https://www.helloasso.com/associations/club-de-voile-de-saint-gilles-croix-de-vie/adhesions/adhesion-cvgv-jeunes-moins-de-19-ans"
+                href="{{ site.data.club.liens.adhesion_jeunes }}"
             >
                 <i class="fa-solid fa-sailboat"></i>&nbsp;Inscription moins de
                 19 ans
@@ -56,7 +53,7 @@ description: "Groupes compétition Optimist, Open Skiff et Laser du CVGV, le mer
         <div class="col-md-6 d-grid">
             <a
                 class="btn btn-lg btn-primary"
-                href="https://www.helloasso.com/associations/club-de-voile-de-saint-gilles-croix-de-vie/adhesions/adhesion-cvgv-adulte"
+                href="{{ site.data.club.liens.adhesion_adulte }}"
             >
                 <i class="fa-solid fa-sailboat"></i>&nbsp;Inscription adulte
             </a>

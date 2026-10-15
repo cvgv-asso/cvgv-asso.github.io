@@ -26,10 +26,10 @@ description: "Club de voile à Saint-Gilles-Croix-de-Vie (Vendée) : voile lég�
             trouverez votre place au CVGV&nbsp;!
         </p>
         <div class="d-flex flex-wrap gap-2 mb-3">
-            <a class="btn btn-light btn-lg" href="https://www.helloasso.com/associations/club-de-voile-de-saint-gilles-croix-de-vie/adhesions/adhesion-cvgv-adulte">
+            <a class="btn btn-light btn-lg" href="{{ site.data.club.liens.adhesion_adulte }}">
                 <i class="fa-solid fa-sailboat"></i> Adhésion adulte
             </a>
-            <a class="btn btn-outline-light btn-lg" href="https://www.helloasso.com/associations/club-de-voile-de-saint-gilles-croix-de-vie/adhesions/adhesion-cvgv-jeunes-moins-de-19-ans">
+            <a class="btn btn-outline-light btn-lg" href="{{ site.data.club.liens.adhesion_jeunes }}">
                 Adhésion moins de 19 ans
             </a>
         </div>
@@ -114,10 +114,10 @@ description: "Club de voile à Saint-Gilles-Croix-de-Vie (Vendée) : voile lég�
                     <b>Instagram</b>.
                 </p>
                 <div class="d-flex flex-wrap gap-2">
-                    <a href="https://www.facebook.com/clubvoilesaintgilles/" class="btn btn-doc">
+                    <a href="{{ site.data.club.reseaux.facebook }}" class="btn btn-doc">
                         <i class="fa-brands fa-facebook"></i> Facebook
                     </a>
-                    <a href="https://www.instagram.com/clubvoile_stgillesxdevie/" class="btn btn-doc">
+                    <a href="{{ site.data.club.reseaux.instagram }}" class="btn btn-doc">
                         <i class="fa-brands fa-instagram"></i> Instagram
                     </a>
                 </div>
@@ -137,7 +137,7 @@ description: "Club de voile à Saint-Gilles-Croix-de-Vie (Vendée) : voile lég�
                     territoire&nbsp;!
                 </p>
                 <div class="d-flex flex-wrap gap-2">
-                    <a href="mailto:contact@cvgv.org?subject=Partenariat" class="btn btn-doc">
+                    <a href="mailto:{{ site.data.club.email }}?subject=Partenariat" class="btn btn-doc">
                         <i class="fa-regular fa-envelope"></i> Nous contacter
                     </a>
                     <a href="/assets/flyer partenariat 2023.pdf" class="btn btn-doc">

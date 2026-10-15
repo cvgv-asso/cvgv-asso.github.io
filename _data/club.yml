@@ -1,0 +1,72 @@
+# Informations du club utilisées sur tout le site.
+#
+# La première partie est à revoir en début de chaque année.
+# La seconde regroupe les informations qui changent rarement.
+#
+# Mettre les textes entre guillemets.
+
+# ==========================================================================
+# À METTRE À JOUR CHAQUE ANNÉE
+# ==========================================================================
+
+# Année scolaire (voile légère jeunes) et année civile (adultes, régates).
+annee_scolaire: "2025-2026"
+annee_civile: 2026
+
+# Calendrier des activités, lien « Calendrier » du menu.
+calendrier_pdf: /assets/calendrier-2026.pdf
+
+# Voile légère : tarifs et séances de chaque groupe.
+# « seances » : une période par ligne.
+voile_legere:
+    enfants:
+        tarif: "63 €"
+        seances:
+            - "Du 10 septembre au 19 novembre"
+            - "De mi-mars à fin juin"
+
+    ados:
+        tarif: "63 €"
+        seances:
+            - "Du 10 septembre au 19 novembre"
+            - "De mi-mars à fin juin"
+
+    competition:
+        tarif: "63 € + mise à disposition du matériel compétition"
+        seances:
+            - "Du 10 septembre au 19 novembre"
+            - "De mars à fin juin"
+
+    adultes:
+        periode: "Printemps et Automne"
+        tarif_nautisme: "168 €"
+        tarif_cvgv: "112 €"
+        seances:
+            - "Reprise fin-avril jusqu'à fin-juin"
+
+# ==========================================================================
+# INFORMATIONS PERMANENTES
+# ==========================================================================
+
+nom: "Club de Voile de Saint-Gilles-Croix-de-Vie"
+sigle: "CVGV"
+email: contact@cvgv.org
+
+adresse:
+    rue: "Forum Port la Vie, Boulevard de l'Egalité"
+    code_postal: "85800"
+    ville: "Saint-Gilles-Croix-de-Vie"
+
+reseaux:
+    facebook: https://www.facebook.com/clubvoilesaintgilles/
+    instagram: https://www.instagram.com/clubvoile_stgillesxdevie/
+
+# Liens HelloAsso utilisés sur plusieurs pages.
+liens:
+    adhesion_adulte: https://www.helloasso.com/associations/club-de-voile-de-saint-gilles-croix-de-vie/adhesions/adhesion-cvgv-adulte
+    adhesion_jeunes: https://www.helloasso.com/associations/club-de-voile-de-saint-gilles-croix-de-vie/adhesions/adhesion-cvgv-jeunes-moins-de-19-ans
+    regates_saison: https://www.helloasso.com/associations/club-de-voile-de-saint-gilles-croix-de-vie/adhesions/inscription-annuelle-regate-habitable-reservee-aux-membres-du-cvgv
+    regate_unique: https://www.helloasso.com/associations/club-de-voile-de-saint-gilles-croix-de-vie/adhesions/inscription-a-une-regate
+    licence_1_jour: https://www.helloasso.com/associations/club-de-voile-de-saint-gilles-croix-de-vie/evenements/licence-temporaire
+    licence_plusieurs_jours: https://www.helloasso.com/associations/club-de-voile-de-saint-gilles-croix-de-vie/evenements/licence-temporaire-sur-plusieurs-jours
+    boutique: https://www.helloasso.com/associations/club-de-voile-de-saint-gilles-croix-de-vie/boutiques/85-a-l-ouest

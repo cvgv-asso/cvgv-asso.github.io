@@ -4,23 +4,23 @@
 {% endcomment %}
 {% capture club %}{
     "@type": "SportsOrganization",
-    "name": "Club de Voile de Saint-Gilles-Croix-de-Vie",
-    "alternateName": "CVGV",
+    "name": {{ site.data.club.nom | jsonify }},
+    "alternateName": {{ site.data.club.sigle | jsonify }},
     "sport": "Voile",
     "url": "{{ site.url }}/",
     "logo": "{{ site.url }}/android-chrome-512x512.png",
-    "email": "contact@cvgv.org",
+    "email": {{ site.data.club.email | jsonify }},
     "address": {
         "@type": "PostalAddress",
-        "streetAddress": "Forum Port la Vie, Boulevard de l'Egalité",
-        "addressLocality": "Saint-Gilles-Croix-de-Vie",
-        "postalCode": "85800",
+        "streetAddress": {{ site.data.club.adresse.rue | jsonify }},
+        "addressLocality": {{ site.data.club.adresse.ville | jsonify }},
+        "postalCode": {{ site.data.club.adresse.code_postal | jsonify }},
         "addressRegion": "Vendée",
         "addressCountry": "FR"
     },
     "sameAs": [
-        "https://www.facebook.com/clubvoilesaintgilles/",
-        "https://www.instagram.com/clubvoile_stgillesxdevie/"
+        {{ site.data.club.reseaux.facebook | jsonify }},
+        {{ site.data.club.reseaux.instagram | jsonify }}
     ]
 }{% endcapture %}
 

@@ -9,7 +9,7 @@
             Une page peut définir « description » dans son en-tête ; sinon on en
             construit une à partir de ses données (Défi, régates) ou on prend celle du club.
         {% endcomment %}
-        {% assign nom_club = "Club de Voile de Saint-Gilles-Croix-de-Vie" %}
+        {% assign nom_club = site.data.club.nom %}
         {% if page.url == "/" %}
             {% assign titre_seo = nom_club | append: " (CVGV) : voile légère et habitable" %}
         {% elsif page.title %}
@@ -206,15 +206,15 @@
                             {% endif %}
                         {% endfor %}
                         <li class="nav-item">
-                            <a class="nav-link" href="/assets/calendrier-2026.pdf">
-                                <i class="fa-regular fa-calendar"></i>&nbsp;Calendrier 2026<span class="visually-hidden"> (PDF)</span>
+                            <a class="nav-link" href="{{ site.data.club.calendrier_pdf }}">
+                                <i class="fa-regular fa-calendar"></i>&nbsp;Calendrier {{ site.data.club.annee_civile }}<span class="visually-hidden"> (PDF)</span>
                             </a>
                         </li>
                         <li class="nav-item">
                             <div class="d-grid">
                                 <a
                                     class="btn btn-boutique"
-                                    href="https://www.helloasso.com/associations/club-de-voile-de-saint-gilles-croix-de-vie/boutiques/85-a-l-ouest"
+                                    href="{{ site.data.club.liens.boutique }}"
                                 >
                                         <i class="fa-solid fa-basket-shopping"></i>&nbsp;Boutique
                                 </a>
@@ -242,7 +242,7 @@
                 <ul class="nav col-md-4 justify-content-end">
                     <li class="nav-item">
                         <a
-                            href="mailto:contact@cvgv.org"
+                            href="mailto:{{ site.data.club.email }}"
                             class="nav-link px-2 text-muted"
                             >Contact</a
                         >

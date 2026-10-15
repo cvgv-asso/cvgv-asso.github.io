@@ -13,14 +13,14 @@ description: "Calendrier des régates habitables du CVGV et du championnat de Ve
 <div class="container">
     <section class="page-banner rounded-3 p-3 p-md-4 mb-4">
         <p class="page-banner-kicker mb-1">
-            <i class="fa-solid fa-sailboat"></i> Saison {{ calendrier.saison }}
+            <i class="fa-solid fa-sailboat"></i> Saison {{ site.data.club.annee_civile }}
         </p>
         <h1 class="h2 mb-3">Régates habitables</h1>
         <div class="d-flex flex-wrap gap-2">
-            <a class="btn btn-light" href="{{ calendrier.inscription.saison }}">
+            <a class="btn btn-light" href="{{ site.data.club.liens.regates_saison }}">
                 <i class="fa-solid fa-pen-to-square"></i> S'inscrire à la saison
             </a>
-            <a class="btn btn-outline-light" href="{{ calendrier.inscription.regate }}">
+            <a class="btn btn-outline-light" href="{{ site.data.club.liens.regate_unique }}">
                 S'inscrire à une régate
             </a>
         </div>

@@ -58,13 +58,13 @@ description: "Voile légère loisir pour adultes, le samedi après-midi à la ba
     <div class="row mt-3">
         <div class="col-md-4">
             <div class="card text-center">
-                <h2 class="card-header h5">Tarif 2026</h2>
+                <h2 class="card-header h5">Tarif {{ site.data.club.annee_civile }}</h2>
                 <div class="card-body">
-                    <p class="card-text">Printemps et Automne</p>
+                    <p class="card-text">{{ site.data.club.voile_legere.adultes.periode }}</p>
                     <p class="lead">
-                        168 € Saint-Gilles-Croix-de-Vie Nautisme (à régler sur place)
+                        {{ site.data.club.voile_legere.adultes.tarif_nautisme }} Saint-Gilles-Croix-de-Vie Nautisme (à régler sur place)
                         <br />+<br />
-                        112 € CVGV (Adhésion + Licence FFV)
+                        {{ site.data.club.voile_legere.adultes.tarif_cvgv }} CVGV (Adhésion + Licence FFV)
                     </p>
                 </div>
             </div>
@@ -74,8 +74,9 @@ description: "Voile légère loisir pour adultes, le samedi après-midi à la ba
                 <h2 class="card-header h5">Les séances</h2>
                 <div class="card-body">
                     <p class="card-text">
-                        <strong>2026 :</strong> Reprise fin-avril jusqu'à
-                        fin-juin (hors vacances scolaires)
+                        <strong>{{ site.data.club.annee_civile }} :</strong>
+                        {{ site.data.club.voile_legere.adultes.seances | join: "<br />" }}
+                        (hors vacances scolaires)
                     </p>
                 </div>
             </div>
@@ -96,7 +97,7 @@ description: "Voile légère loisir pour adultes, le samedi après-midi à la ba
     <div class="row mt-3">
         <a
             class="btn btn-lg btn-primary"
-            href="https://www.helloasso.com/associations/club-de-voile-de-saint-gilles-croix-de-vie/adhesions/adhesion-cvgv-adulte"
+            href="{{ site.data.club.liens.adhesion_adulte }}"
         >
             <i class="fa-solid fa-sailboat"></i>&nbsp;Inscription</a
         >

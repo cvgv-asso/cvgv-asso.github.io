@@ -1,0 +1,12 @@
+{%- comment -%}
+    Adresse d'un lien. « club:nom » renvoie au lien « nom » de _data/club.yml
+    (ex. club:licence_1_jour) ; toute autre valeur est utilisée telle quelle.
+    Usage : {% capture url %}{% include lien.html lien=document.lien %}{% endcapture %}
+{%- endcomment -%}
+{%- assign lien_brut = include.lien | append: "" -%}
+{%- if lien_brut contains "club:" -%}
+    {%- assign cle = lien_brut | remove_first: "club:" -%}
+    {{- site.data.club.liens[cle] -}}
+{%- else -%}
+    {{- lien_brut -}}
+{%- endif -%}

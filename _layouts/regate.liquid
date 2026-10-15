@@ -69,7 +69,8 @@ layout: default
             <div class="regate-actions">
                 <div class="d-flex flex-wrap gap-2">
                     {% for inscription in page.inscriptions %}
-                        <a class="btn btn-light" href="{{ inscription.lien }}">
+                        {% capture url %}{% include lien.html lien=inscription.lien %}{% endcapture %}
+                        <a class="btn btn-light" href="{{ url }}">
                             <i class="fa-solid fa-pen-to-square"></i> {{ inscription.titre | default: "S'inscrire" }}
                         </a>
                     {% endfor %}

@@ -25,8 +25,8 @@ description: "Voile légère loisir pour les enfants de 8 à 11 ans, le mercredi
             <div class="card text-center">
                 <h2 class="card-header h5">Tarif</h2>
                 <div class="card-body">
-                    <p class="card-text">Année scolaire 2025-2026</p>
-                    <p class="lead">63 €</p>
+                    <p class="card-text">Année scolaire {{ site.data.club.annee_scolaire }}</p>
+                    <p class="lead">{{ site.data.club.voile_legere.enfants.tarif }}</p>
                 </div>
             </div>
         </div>
@@ -35,8 +35,7 @@ description: "Voile légère loisir pour les enfants de 8 à 11 ans, le mercredi
                 <h2 class="card-header h5">Les séances</h2>
                 <div class="card-body">
                     <p class="card-text">
-                        Du 10 septembre au 19 novembre<br /><br />
-                        De mi-mars à fin juin<br /><br />
+                        {{ site.data.club.voile_legere.enfants.seances | join: "<br /><br />" }}<br /><br />
                         (hors vacances scolaires)
                     </p>
                 </div>
@@ -56,7 +55,7 @@ description: "Voile légère loisir pour les enfants de 8 à 11 ans, le mercredi
     <div class="row mt-3">
         <a
             class="btn btn-lg btn-primary"
-            href="https://www.helloasso.com/associations/club-de-voile-de-saint-gilles-croix-de-vie/adhesions/adhesion-cvgv-jeunes-moins-de-19-ans"
+            href="{{ site.data.club.liens.adhesion_jeunes }}"
         >
             <i class="fa-solid fa-sailboat"></i>&nbsp;Inscription</a
         >

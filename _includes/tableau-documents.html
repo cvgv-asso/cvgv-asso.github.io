@@ -1,10 +1,12 @@
 {% comment %}
     Liste de documents du tableau officiel.
     Chaque document : titre, lien (facultatif), publie (facultatif), icone (facultatif).
+    Le lien peut renvoyer à _data/club.yml avec « club:nom » (ex. club:licence_1_jour).
 {% endcomment %}
 <ul class="tableau-documents list-unstyled">
     {% for document in include.documents %}
-        {% assign lien = document.lien | downcase %}
+        {% capture url %}{% include lien.html lien=document.lien %}{% endcapture %}
+        {% assign lien = url | downcase %}
         {% if document.icone %}
             {% assign icone = document.icone %}
         {% elsif lien contains ".pdf" %}
@@ -20,7 +22,7 @@
             class="tableau-document{% unless document.lien %} tableau-document-indisponible{% endunless %}"
             {% if document.publie %}data-publie="{{ document.publie | date: '%Y-%m-%dT%H:%M' }}"{% endif %}
         >
-            {% if document.lien %}<a href="{{ document.lien }}"{% if lien contains "://" %} rel="external"{% endif %}>{% else %}<span>{% endif %}
+            {% if document.lien %}<a href="{{ url }}"{% if lien contains "://" %} rel="external"{% endif %}>{% else %}<span>{% endif %}
                 <i class="tableau-icone {{ icone }}"></i>
                 <span class="tableau-titre">
                     {{ document.titre }}
