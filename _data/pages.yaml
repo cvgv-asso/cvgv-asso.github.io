@@ -1,4 +1,7 @@
 toc:
+    - title: Accueil
+      url: /
+
     - title: Voile Légère
       url: /voile-legere
       children:
