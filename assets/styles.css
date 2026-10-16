@@ -1044,3 +1044,39 @@ main:focus {
 .alerte-annulation + .alerte-maintenue {
     margin-top: -0.75rem;
 }
+
+/* Voile légère */
+
+.voile-accroche {
+    font-size: clamp(1.05rem, 3vw, 1.2rem);
+    max-width: 46rem;
+}
+
+.voile-infos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.voile-infos li {
+    padding: 0.25rem 0.85rem;
+    border-radius: 50rem;
+    background-color: rgba(255, 255, 255, 0.15);
+    font-size: 0.9rem;
+}
+
+.voile-tarif {
+    color: var(--cvgv-blue);
+}
+
+.voile-seances li + li {
+    margin-top: 0.35rem;
+}
+
+.voile-photo {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    /* Garde le bas de la photo (coques, équipages) et rogne le haut des voiles */
+    object-position: bottom;
+}

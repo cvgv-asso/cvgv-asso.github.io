@@ -1,0 +1,158 @@
+---
+layout: default
+---
+
+{% comment %}
+    Page d'un groupe de voile légère.
+    Tarifs et séances lus depuis _data/club.yml (voile_legere.<page.donnees>),
+    le reste depuis l'en-tête de la page.
+{% endcomment %}
+{% assign donnees = site.data.club.voile_legere[page.donnees] %}
+{% if page.annee == "civile" %}
+    {% capture periode %}Année civile {{ site.data.club.annee_civile }}{% endcapture %}
+{% else %}
+    {% capture periode %}Année scolaire {{ site.data.club.annee_scolaire }}{% endcapture %}
+{% endif %}
+
+<div class="container">
+    <section class="page-banner rounded-3 p-3 p-md-4 mb-4">
+        <p class="page-banner-kicker mb-1">
+            <i class="fa-solid {{ page.icone }}"></i> Voile légère · {{ page.formule }}
+        </p>
+        <h1 class="h2 mb-2">{{ page.titre }}</h1>
+        {% if page.accroche %}
+            <p class="voile-accroche mb-3">{{ page.accroche }}</p>
+        {% endif %}
+        <ul class="voile-infos list-unstyled mb-3">
+            <li><i class="fa-regular fa-clock"></i> {{ page.horaire }}</li>
+            <li><i class="fa-solid fa-location-dot"></i> {{ page.lieu }}</li>
+            {% if page.supports %}
+                <li><i class="fa-solid fa-sailboat"></i> {{ page.supports | join: " · " }}</li>
+            {% endif %}
+        </ul>
+        <div class="d-flex flex-wrap gap-2">
+            {% for inscription in page.inscriptions %}
+                <a
+                    class="btn {% if forloop.first %}btn-light{% else %}btn-outline-light{% endif %}"
+                    href="{{ site.data.club.liens[inscription.lien] }}"
+                >
+                    {% if forloop.first %}<i class="fa-solid fa-pen-to-square"></i> {% endif %}{{ inscription.titre }}
+                </a>
+            {% endfor %}
+        </div>
+        <p class="small mt-2 mb-0">
+            Séances selon les conditions météorologiques{% if page.annee != "civile" %} et les choix pédagogiques{% endif %}.
+        </p>
+    </section>
+
+    {% if page.contact %}
+        <div class="carte-info d-md-flex align-items-center justify-content-between gap-3 mb-4">
+            <p class="mb-2 mb-md-0">
+                <i class="fa-solid fa-circle-info"></i>
+                Informations et inscriptions auprès de <strong>{{ page.contact.nom }}</strong>.
+            </p>
+            <div class="d-flex flex-wrap gap-2 flex-shrink-0">
+                <a class="btn btn-doc" href="mailto:{{ page.contact.email }}">
+                    <i class="fa-regular fa-envelope"></i> {{ page.contact.email }}
+                </a>
+                <a class="btn btn-doc" href="tel:{{ page.contact.telephone | remove: ' ' }}">
+                    <i class="fa-solid fa-phone"></i> {{ page.contact.telephone | replace: " ", "&nbsp;" }}
+                </a>
+            </div>
+        </div>
+    {% endif %}
+
+    <section class="mb-5" aria-labelledby="pratique-titre">
+        <h2 class="accueil-section-titre" id="pratique-titre">En pratique</h2>
+        <div class="row g-3">
+            <div class="col-md">
+                <article class="carte-une h-100">
+                    <h3 class="carte-une-surtitre"><i class="fa-solid fa-euro-sign"></i> Tarif</h3>
+                    {% if donnees.tarif_nautisme %}
+                        <p class="carte-une-titre voile-tarif">
+                            {{ donnees.tarif_nautisme }} + {{ donnees.tarif_cvgv }}
+                        </p>
+                        <ul class="list-unstyled mb-2">
+                            <li><strong>{{ donnees.tarif_nautisme }}</strong> Saint-Gilles-Croix-de-Vie Nautisme, à régler sur place</li>
+                            <li><strong>{{ donnees.tarif_cvgv }}</strong> CVGV : adhésion + licence FFVoile</li>
+                        </ul>
+                    {% else %}
+                        <p class="carte-une-titre voile-tarif">{{ donnees.tarif }}</p>
+                    {% endif %}
+                    <p class="carte-une-infos mb-0">
+                        {{ periode }}{% if donnees.periode %} · {{ donnees.periode }}{% endif %}
+                    </p>
+                </article>
+            </div>
+            <div class="col-md">
+                <article class="carte-une h-100">
+                    <h3 class="carte-une-surtitre"><i class="fa-regular fa-calendar"></i> Les séances</h3>
+                    <ul class="voile-seances list-unstyled mb-2">
+                        {% for seance in donnees.seances %}
+                            <li>{{ seance }}</li>
+                        {% endfor %}
+                    </ul>
+                    <p class="carte-une-infos mb-0">Hors vacances scolaires</p>
+                </article>
+            </div>
+            {% if page.groupes %}
+                <div class="col-md">
+                    <article class="carte-une h-100">
+                        <h3 class="carte-une-surtitre"><i class="fa-solid fa-users"></i> Les groupes</h3>
+                        <ul class="voile-seances list-unstyled mb-0">
+                            {% for groupe in page.groupes %}
+                                <li><strong>{{ groupe.nom }}</strong> {{ groupe.age }}</li>
+                            {% endfor %}
+                        </ul>
+                    </article>
+                </div>
+            {% endif %}
+            {% if page.plus %}
+                <div class="col-md">
+                    <article class="carte-une carte-une-defi h-100">
+                        <h3 class="carte-une-surtitre"><i class="fa-solid fa-plus"></i> Les +</h3>
+                        <p class="mb-0">{{ page.plus }}</p>
+                    </article>
+                </div>
+            {% endif %}
+        </div>
+    </section>
+
+    {% if page.photos %}
+        <div class="row g-3 mb-5">
+            {% for photo in page.photos %}
+                <div class="col-md-4{% unless forloop.first %} d-none d-md-block{% endunless %}">
+                    <img
+                        loading="lazy"
+                        class="voile-photo rounded-3 shadow-sm"
+                        src="{{ photo.src }}"
+                        alt="{{ photo.alt }}"
+                    />
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <section class="mb-4" aria-labelledby="autres-groupes-titre">
+        <h2 class="accueil-section-titre" id="autres-groupes-titre">Les autres groupes</h2>
+        <ul class="list-unstyled row g-3">
+            {% assign activites = site.data.accueil.activites | where: "section", "Voile légère" %}
+            {% for activite in activites %}
+                {% if activite.lien != page.url %}
+                    <li class="col-6 col-lg-3">
+                        <a class="activite h-100" href="{{ activite.lien }}">
+                            <span class="activite-icone"><i class="fa-solid {{ activite.icone }}"></i></span>
+                            <span class="activite-titre">{{ activite.titre }}</span>
+                        </a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+            <li class="col-6 col-lg-3">
+                <a class="activite h-100" href="/voile-legere/regates.html">
+                    <span class="activite-icone"><i class="fa-solid fa-flag-checkered"></i></span>
+                    <span class="activite-titre">Régates</span>
+                </a>
+            </li>
+        </ul>
+    </section>
+</div>

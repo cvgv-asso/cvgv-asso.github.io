@@ -1,63 +1,17 @@
 ---
-layout: default
+layout: voile-legere
 title: Voile légère Enfants 8-11 ans
 description: "Voile légère loisir pour les enfants de 8 à 11 ans, le mercredi après-midi à Saint-Gilles-Croix-de-Vie : catamaran et optimist. Tarif, séances et inscription."
+titre: Enfants 8-11 ans
+formule: Loisir
+icone: fa-child-reaching
+donnees: enfants
+accroche: "Découverte de la navigation : j'apprends à diriger mon bateau et à régler ma voile aux différentes allures."
+horaire: Mercredi, 14h - 16h30
+lieu: Base nautique de Boisvinet ou plan d'eau des Vallées
+supports: [Catamaran, Optimist]
+plus: Possibilité d'évoluer vers le groupe Compétition.
+inscriptions:
+    - titre: Inscription
+      lien: adhesion_jeunes
 ---
-
-<div class="container">
-    <div class="row py-5">
-        <h1 class="display-4">Voile légère Loisir Enfants 8-11 ans</h1>
-        <p class="lead text-center">
-            Objectifs : Découverte de la navigation, j'apprends à diriger mon
-            bateau et le réglage de voile aux différentes allures.
-        </p>
-        <p class="lead text-center">Supports : Catamaran / Optimist</p>
-        <p>
-            Le <strong>Mercredi après-midi de 14h à 16h30</strong> à la
-            <strong
-                >Base nautique de Boisvinet ou au plan d'eau des Vallées</strong
-            >
-            (selon conditions météorologiques et choix pédagogiques).
-        </p>
-    </div>
-    <div class="row">
-        <div class="col-md-4">
-            <div class="card text-center">
-                <h2 class="card-header h5">Tarif</h2>
-                <div class="card-body">
-                    <p class="card-text">Année scolaire {{ site.data.club.annee_scolaire }}</p>
-                    <p class="lead">{{ site.data.club.voile_legere.enfants.tarif }}</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card text-center">
-                <h2 class="card-header h5">Les séances</h2>
-                <div class="card-body">
-                    <p class="card-text">
-                        {{ site.data.club.voile_legere.enfants.seances | join: "<br /><br />" }}<br /><br />
-                        (hors vacances scolaires)
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card text-center">
-                <h2 class="card-header h5">Les +</h2>
-                <div class="card-body">
-                    <p class="card-text">
-                        Possibilité d'évolution vers le groupe "Compétition"
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row mt-3">
-        <a
-            class="btn btn-lg btn-primary"
-            href="{{ site.data.club.liens.adhesion_jeunes }}"
-        >
-            <i class="fa-solid fa-sailboat"></i>&nbsp;Inscription</a
-        >
-    </div>
-</div>

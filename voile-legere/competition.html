@@ -1,62 +1,24 @@
 ---
-layout: default
+layout: voile-legere
 title: Voile légère compétition
 description: "Groupes compétition Optimist, Open Skiff et Laser du CVGV, le mercredi après-midi à Saint-Gilles-Croix-de-Vie : tarif, séances et inscription."
+titre: Compétition
+formule: Compétition
+icone: fa-medal
+donnees: competition
+accroche: "Entraînements en Optimist, Open Skiff et Laser pour progresser et participer aux régates."
+horaire: Mercredi, 14h - 17h
+lieu: Base nautique de Boisvinet ou plan d'eau des Vallées
+groupes:
+    - nom: Optimist
+      age: 9 - 13 ans
+    - nom: Open Skiff
+      age: 12 - 15 ans
+    - nom: Laser
+      age: à partir de 15 ans
+inscriptions:
+    - titre: Inscription moins de 19 ans
+      lien: adhesion_jeunes
+    - titre: Inscription adulte
+      lien: adhesion_adulte
 ---
-
-<div class="container">
-    <div class="row py-5">
-        <h1 class="display-4">Voile légère compétition</h1>
-        <p class="lead text-center">Groupe OPTIMIST : 9 - 13 ans</p>
-        <p class="lead text-center">Groupe OPENSKIFF : 12 - 15 ans</p>
-        <p class="lead text-center">Groupe LASER : à partir de 15 ans</p>
-        <p>
-            Le <strong>Mercredi après-midi de 14h à 17h</strong> à la
-            <strong
-                >Base nautique de Boisvinet ou au plan d'eau des Vallées</strong
-            >
-            (selon conditions météorologiques et choix pédagogiques).
-        </p>
-    </div>
-    <div class="row">
-        <div class="col-md-8">
-            <div class="card text-center">
-                <h2 class="card-header h5">Tarif</h2>
-                <div class="card-body">
-                    <p class="card-text">Année scolaire {{ site.data.club.annee_scolaire }}</p>
-                    <p class="lead">{{ site.data.club.voile_legere.competition.tarif }}</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card text-center">
-                <h2 class="card-header h5">Les séances</h2>
-                <div class="card-body">
-                    <p class="card-text">
-                        {{ site.data.club.voile_legere.competition.seances | join: "<br /><br />" }}<br /><br />
-                        (hors vacances scolaires)
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row mt-3">
-        <div class="col-md-6 d-grid">
-            <a
-                class="btn btn-lg btn-primary"
-                href="{{ site.data.club.liens.adhesion_jeunes }}"
-            >
-                <i class="fa-solid fa-sailboat"></i>&nbsp;Inscription moins de
-                19 ans
-            </a>
-        </div>
-        <div class="col-md-6 d-grid">
-            <a
-                class="btn btn-lg btn-primary"
-                href="{{ site.data.club.liens.adhesion_adulte }}"
-            >
-                <i class="fa-solid fa-sailboat"></i>&nbsp;Inscription adulte
-            </a>
-        </div>
-    </div>
-</div>
