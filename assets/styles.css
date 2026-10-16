@@ -791,9 +791,12 @@ main:focus {
     }
 }
 
-@media (prefers-reduced-motion: no-preference) {
+/* Rotation réservée aux grands écrans : sur mobile, le calque animé (rogné
+   par les coins arrondis du bandeau) ralentissait le défilement. */
+@media (prefers-reduced-motion: no-preference) and (min-width: 768px) {
     .accueil-hero-decor {
         animation: rose-des-vents 60s linear infinite;
+        will-change: transform;
     }
 
     @keyframes rose-des-vents {
