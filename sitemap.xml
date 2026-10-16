@@ -3,9 +3,13 @@ layout: null
 sitemap: false
 ---
 <?xml version="1.0" encoding="UTF-8"?>
-{% comment %} Plan du site pour les moteurs de recherche : toutes les pages HTML, sauf celles marquées « sitemap: false ». {% endcomment %}
+{% comment %} Plan du site pour les moteurs de recherche : toutes les pages HTML et les actualités, sauf celles marquées « sitemap: false ». {% endcomment %}
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 {% for page in site.pages %}{% if page.url contains ".html" or page.url == "/" %}{% unless page.sitemap == false or page.noindex %}  <url>
     <loc>{{ page.url | replace: "index.html", "" | prepend: site.url }}</loc>
   </url>
-{% endunless %}{% endif %}{% endfor %}</urlset>
+{% endunless %}{% endif %}{% endfor %}{% for article in site.posts %}  <url>
+    <loc>{{ article.url | prepend: site.url }}</loc>
+    <lastmod>{{ article.date | date_to_xmlschema }}</lastmod>
+  </url>
+{% endfor %}</urlset>

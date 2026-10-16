@@ -1,0 +1,250 @@
+{% comment %}
+    Carnet de bord d'une saison : carte des photos géolocalisées, frise des étapes
+    avec leurs photos, et visionneuse plein écran.
+    Les photos de chaque étape sont présentées façon polaroïd.
+    Paramètre : carnet (dossier, port, etapes), voir l'en-tête de l'article.
+{% endcomment %}
+{% assign carnet = include.carnet %}
+{% assign mois_longs = "janvier,février,mars,avril,mai,juin,juillet,août,septembre,octobre,novembre,décembre" | split: "," %}
+{% assign couleurs = "#024e82,#3a86c8,#d98a1c,#7a4fa3,#c2551b,#d6336c,#12866f" | split: "," %}
+
+{% assign nb_photos = 0 %}
+{% for etape in carnet.etapes %}
+    {% assign nb_photos = nb_photos | plus: etape.photos.size %}
+{% endfor %}
+
+<section class="mb-5" aria-labelledby="carte-titre">
+    <h2 class="accueil-section-titre" id="carte-titre">La saison sur la carte</h2>
+    <div class="carnet-carte-cadre">
+        <div id="carnet-carte" class="carnet-carte" role="region" aria-label="Carte des photos géolocalisées"></div>
+        <ul class="carnet-releve list-unstyled mb-0">
+            <li><strong>{{ carnet.etapes.size }}</strong> rendez-vous sur l'eau</li>
+            <li><strong>{{ nb_photos }}</strong> photos</li>
+            <li><i class="fa-solid fa-anchor"></i> Port d'attache&nbsp;: {{ carnet.port.nom }}</li>
+        </ul>
+    </div>
+    <p class="small text-muted mt-2 mb-0">
+        Chaque point est une photo, à l'endroit où elle a été prise. Cliquez dessus pour la voir.
+    </p>
+</section>
+
+<section class="mb-5" aria-labelledby="carnet-titre">
+    <h2 class="accueil-section-titre" id="carnet-titre">Le carnet de bord</h2>
+    <ol class="carnet-etapes list-unstyled mb-0">
+        {% for etape in carnet.etapes %}
+            {% assign couleur = couleurs[forloop.index0] | default: "#024e82" %}
+            <li class="carnet-etape{% if etape.photos == nil %} carnet-etape-sans-photo{% endif %}" id="etape-{{ forloop.index }}" style="--etape: {{ couleur }}">
+                <div class="carnet-etape-numero" aria-hidden="true">{{ forloop.index }}</div>
+                <div class="carnet-etape-contenu">
+                    <p class="carnet-etape-dates mb-1">
+                        <i class="fa-solid {{ etape.icone | default: 'fa-sailboat' }}"></i> {{ etape.dates }}
+                        {% if etape.lieu %}<span class="carnet-etape-lieu"><i class="fa-solid fa-location-dot"></i> {{ etape.lieu }}</span>{% endif %}
+                    </p>
+                    <h3 class="carnet-etape-titre">{{ etape.titre }}</h3>
+                    {% if etape.texte %}<p class="mb-2">{{ etape.texte }}</p>{% endif %}
+                    {% if etape.photos %}
+                        <ul class="carnet-photos list-unstyled">
+                            {% for photo in etape.photos %}
+                                {% assign infos = "" %}
+                                {% if photo.date %}
+                                    {% assign index_mois = photo.date | date: "%-m" | minus: 1 %}
+                                    {% capture infos %}{{ photo.date | date: "%-d" }} {{ mois_longs[index_mois] }} {{ photo.date | date: "%Y" }}{% endcapture %}
+                                {% endif %}
+                                {% assign coords = "" %}
+                                {% if photo.lat %}
+                                    {% assign lat_deg = photo.lat | floor %}
+                                    {% assign lat_min = photo.lat | minus: lat_deg | times: 60 | floor %}
+                                    {% assign lon = photo.lon | abs %}
+                                    {% assign lon_deg = lon | floor %}
+                                    {% assign lon_min = lon | minus: lon_deg | times: 60 | floor %}
+                                    {% capture coords %}{{ lat_deg }}°{% if lat_min < 10 %}0{% endif %}{{ lat_min }}′ N · {{ lon_deg }}°{% if lon_min < 10 %}0{% endif %}{{ lon_min }}′ {% if photo.lon < 0 %}O{% else %}E{% endif %}{% endcapture %}
+                                {% endif %}
+                                <li class="carnet-photo-item">
+                                    <figure class="carnet-polaroid mb-0">
+                                        <button
+                                            type="button"
+                                            class="carnet-photo"
+                                            data-photo="{{ carnet.dossier }}{{ photo.fichier }}.webp"
+                                            data-legende="{{ photo.legende | escape }}"
+                                            data-infos="{% if photo.archive %}Archives {{ photo.archive }}{% else %}{{ infos }}{% endif %}{% if coords != '' %} · {{ coords }}{% endif %}"
+                                            {% if photo.lat %}id="photo-{{ photo.fichier }}"{% endif %}
+                                        >
+                                            <img src="{{ carnet.dossier }}{{ photo.fichier }}-640.webp" alt="{{ photo.legende | strip_html }}" loading="lazy" />
+                                            {% if coords != "" %}<span class="carnet-photo-coords" aria-hidden="true"><i class="fa-solid fa-location-crosshairs"></i> {{ coords }}</span>{% endif %}
+                                            {% if photo.archive %}<span class="carnet-photo-archive">Archives {{ photo.archive }}</span>{% endif %}
+                                            <span class="visually-hidden">(agrandir la photo)</span>
+                                        </button>
+                                        <figcaption>
+                                            {{ photo.legende }}
+                                            {% if infos != "" and photo.archive == nil %}<span class="carnet-photo-date">{{ infos }}</span>{% endif %}
+                                        </figcaption>
+                                    </figure>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+            </li>
+        {% endfor %}
+    </ol>
+</section>
+
+<dialog class="carnet-visionneuse" id="carnet-visionneuse" aria-label="Photo agrandie">
+    <figure class="mb-0">
+        <img alt="" />
+        <figcaption>
+            <span class="carnet-visionneuse-legende"></span>
+            <span class="carnet-visionneuse-infos"></span>
+        </figcaption>
+    </figure>
+    <button type="button" class="carnet-visionneuse-bouton carnet-visionneuse-fermer" aria-label="Fermer"><i class="fa-solid fa-xmark"></i></button>
+    <button type="button" class="carnet-visionneuse-bouton carnet-visionneuse-precedente" aria-label="Photo précédente"><i class="fa-solid fa-chevron-left"></i></button>
+    <button type="button" class="carnet-visionneuse-bouton carnet-visionneuse-suivante" aria-label="Photo suivante"><i class="fa-solid fa-chevron-right"></i></button>
+</dialog>
+
+{% comment %} Points de la carte : photos géolocalisées, avec la couleur et le numéro de leur étape. {% endcomment %}
+<script type="application/json" id="carnet-points">
+{
+    "port": {"nom": {{ carnet.port.nom | jsonify }}, "lat": {{ carnet.port.lat }}, "lon": {{ carnet.port.lon }}},
+    "points": [{% assign premier = true %}{% for etape in carnet.etapes %}{% assign couleur = couleurs[forloop.index0] | default: "#024e82" %}{% for photo in etape.photos %}{% if photo.lat %}{% unless premier %},{% endunless %}{% assign premier = false %}
+        {"lat": {{ photo.lat }}, "lon": {{ photo.lon }}, "etape": {{ forloop.parentloop.index }}, "titre": {{ etape.titre | jsonify }}, "couleur": "{{ couleur }}", "photo": "{{ photo.fichier }}", "vignette": "{{ carnet.dossier }}{{ photo.fichier }}-640.webp", "legende": {{ photo.legende | strip_html | jsonify }}}{% endif %}{% endfor %}{% endfor %}
+    ]
+}
+</script>
+
+<link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin="anonymous"
+/>
+<script
+    src="https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin="anonymous"
+></script>
+<script>
+    (function () {
+        // Visionneuse : toutes les photos de la page, dans l'ordre du carnet.
+        var visionneuse = document.getElementById("carnet-visionneuse");
+        var image = visionneuse.querySelector("img");
+        var legende = visionneuse.querySelector(".carnet-visionneuse-legende");
+        var infos = visionneuse.querySelector(".carnet-visionneuse-infos");
+        var photos = [];
+        var courante = 0;
+
+        function afficher(index) {
+            courante = (index + photos.length) % photos.length;
+            var photo = photos[courante];
+            image.src = photo.dataset.photo;
+            image.alt = photo.dataset.legende;
+            legende.textContent = photo.dataset.legende;
+            infos.textContent = photo.dataset.infos;
+        }
+
+        function ouvrir(bouton) {
+            photos = Array.prototype.slice.call(document.querySelectorAll(".carnet-photo"));
+            afficher(photos.indexOf(bouton));
+            visionneuse.showModal();
+        }
+
+        document.addEventListener("click", function (event) {
+            var bouton = event.target.closest(".carnet-photo");
+            if (bouton) {
+                ouvrir(bouton);
+            }
+        });
+        visionneuse.querySelector(".carnet-visionneuse-fermer").addEventListener("click", function () {
+            visionneuse.close();
+        });
+        visionneuse.querySelector(".carnet-visionneuse-precedente").addEventListener("click", function () {
+            afficher(courante - 1);
+        });
+        visionneuse.querySelector(".carnet-visionneuse-suivante").addEventListener("click", function () {
+            afficher(courante + 1);
+        });
+        // Clic en dehors de la photo : on ferme.
+        visionneuse.addEventListener("click", function (event) {
+            if (event.target === visionneuse) {
+                visionneuse.close();
+            }
+        });
+        visionneuse.addEventListener("keydown", function (event) {
+            if (event.key === "ArrowLeft") {
+                afficher(courante - 1);
+            } else if (event.key === "ArrowRight") {
+                afficher(courante + 1);
+            }
+        });
+        // Retour au focus sur la photo d'origine à la fermeture.
+        visionneuse.addEventListener("close", function () {
+            if (photos[courante]) {
+                photos[courante].focus();
+            }
+        });
+
+        // Carte : un point numéroté par photo géolocalisée, l'ancre pour le port d'attache.
+        if (!window.L) {
+            return;
+        }
+        var donnees = JSON.parse(document.getElementById("carnet-points").textContent);
+        var carte = L.map("carnet-carte", { scrollWheelZoom: false, zoomSnap: 0.25 });
+        L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+            maxZoom: 15,
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+        }).addTo(carte);
+
+        var limites = [[donnees.port.lat, donnees.port.lon]];
+        L.marker([donnees.port.lat, donnees.port.lon], {
+            icon: L.divIcon({
+                className: "carnet-repere carnet-repere-port",
+                html: '<i class="fa-solid fa-anchor"></i>',
+                iconSize: [32, 32],
+            }),
+            title: donnees.port.nom,
+        })
+            .bindPopup("<strong>" + donnees.port.nom + "</strong><br />Port d'attache du CVGV")
+            .addTo(carte);
+
+        donnees.points.forEach(function (point) {
+            limites.push([point.lat, point.lon]);
+            var popup = document.createElement("div");
+            popup.className = "carnet-popup";
+            var vignette = document.createElement("img");
+            vignette.src = point.vignette;
+            vignette.alt = "";
+            var titre = document.createElement("strong");
+            titre.textContent = point.etape + ". " + point.titre;
+            var texte = document.createElement("span");
+            texte.textContent = point.legende;
+            var voir = document.createElement("button");
+            voir.type = "button";
+            voir.className = "btn btn-doc btn-sm";
+            voir.textContent = "Voir la photo";
+            voir.addEventListener("click", function () {
+                ouvrir(document.getElementById("photo-" + point.photo));
+            });
+            popup.append(vignette, titre, texte, voir);
+
+            L.marker([point.lat, point.lon], {
+                icon: L.divIcon({
+                    className: "carnet-repere",
+                    html: '<span style="background-color:' + point.couleur + '">' + point.etape + "</span>",
+                    iconSize: [28, 28],
+                }),
+                title: point.legende,
+            })
+                .bindPopup(popup, { maxWidth: 240 })
+                .addTo(carte);
+        });
+        // Recadrage dès que la carte change de taille (chargement, rotation du téléphone).
+        function recadrer() {
+            carte.invalidateSize();
+            carte.fitBounds(limites, { padding: [40, 40] });
+        }
+        recadrer();
+        if (window.ResizeObserver) {
+            new ResizeObserver(recadrer).observe(document.getElementById("carnet-carte"));
+        }
+    })();
+</script>

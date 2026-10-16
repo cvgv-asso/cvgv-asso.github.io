@@ -71,6 +71,15 @@ description: "Croisières en flottille avec la section habitable du CVGV : parta
         </ol>
     </section>
 
+    {% comment %} Dernier article de la section Croisière (actualités). {% endcomment %}
+    {% assign articles_croisiere = site.posts | where: "section", "Croisière" %}
+    {% if articles_croisiere.size > 0 %}
+        <section class="mb-5" aria-labelledby="retour-titre">
+            <h2 class="accueil-section-titre" id="retour-titre">Articles</h2>
+            {% include carte-actualite.html article=articles_croisiere.first large=true %}
+        </section>
+    {% endif %}
+
     <section class="mb-5" aria-labelledby="flottille-titre">
         <h2 class="accueil-section-titre" id="flottille-titre">Pourquoi rejoindre notre flottille&nbsp;?</h2>
         <ul class="list-unstyled row g-3">

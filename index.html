@@ -88,6 +88,20 @@ description: "Club de voile à Saint-Gilles-Croix-de-Vie (Vendée) : voile lég�
         </div>
     </section>
 
+    {% comment %} Dernières actualités : la plus récente en grand, puis les deux suivantes. {% endcomment %}
+    {% if site.posts.size > 0 %}
+        <section class="mb-5" aria-labelledby="dernieres-actualites-titre">
+            <h2 class="accueil-section-titre" id="dernieres-actualites-titre">Actualités</h2>
+            <ul class="list-unstyled row g-3 mb-0">
+                {% for article in site.posts limit: 3 %}
+                    <li class="{% if forloop.first %}col-12{% else %}col-md-6{% endif %}">
+                        {% include carte-actualite.html article=article large=forloop.first %}
+                    </li>
+                {% endfor %}
+            </ul>
+        </section>
+    {% endif %}
+
     {% comment %} Boutique : article vedette et vignettes, lus depuis _data/boutique.yml. {% endcomment %}
     {% assign articles = site.data.boutique.articles %}
     {% assign vedette = articles | where: "vedette", true | first | default: articles.first %}

@@ -1234,3 +1234,424 @@ main:focus {
         flex: 1 1 55%;
     }
 }
+
+/* Actualités */
+
+.carte-actualite {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid #dbe5ef;
+    border-radius: 0.75rem;
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(2, 78, 130, 0.08);
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.carte-actualite:hover,
+.carte-actualite:focus-within {
+    box-shadow: 0 6px 18px rgba(2, 78, 130, 0.15);
+    transform: translateY(-3px);
+}
+
+.carte-actualite-image {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+}
+
+.carte-actualite-corps {
+    padding: 1.25rem 1.5rem;
+}
+
+@media (min-width: 768px) {
+    .carte-actualite-large {
+        flex-direction: row;
+    }
+
+    .carte-actualite-large .carte-actualite-image {
+        width: 45%;
+        aspect-ratio: auto;
+        min-height: 15rem;
+    }
+
+    .carte-actualite-large .carte-actualite-corps {
+        align-self: center;
+        padding: 2rem;
+    }
+}
+
+/* Bandeau d'article : la photo de couverture apparaît sous le dégradé bleu */
+.article-banner {
+    display: flex;
+    align-items: flex-end;
+    min-height: 14rem;
+    background-image:
+        linear-gradient(100deg, rgba(2, 78, 130, 0.96) 35%, rgba(2, 78, 130, 0.25)),
+        var(--article-image, none);
+    background-position: center;
+    background-size: cover;
+}
+
+.article-banner-texte {
+    max-width: 44rem;
+}
+
+@media (min-width: 768px) {
+    .article-banner {
+        min-height: 20rem;
+    }
+}
+
+.article-chapo {
+    max-width: 46rem;
+    margin-bottom: 2rem;
+    font-size: 1.2rem;
+}
+
+/* Carnet de bord : carte de la saison */
+
+.carnet-carte-cadre {
+    overflow: hidden;
+    border: 1px solid #dbe5ef;
+    border-radius: 0.75rem;
+    box-shadow: 0 2px 8px rgba(2, 78, 130, 0.08);
+}
+
+.carnet-carte {
+    height: 26rem;
+    background-color: #aad3df;
+}
+
+@media (min-width: 992px) {
+    .carnet-carte {
+        height: 32rem;
+    }
+}
+
+/* Relevé façon livre de bord, sous la carte */
+.carnet-releve {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 1.5rem;
+    padding: 0.75rem 1.25rem;
+    border-top: 1px solid #dbe5ef;
+    background-color: #f2f7fb;
+    color: var(--cvgv-blue);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.85rem;
+}
+
+.carnet-releve strong {
+    font-size: 1.1rem;
+}
+
+.carnet-repere {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.carnet-repere span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border: 3px solid #fff;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 0.8rem;
+    font-weight: bold;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+}
+
+.carnet-repere-port {
+    border: 3px solid #fff;
+    border-radius: 50%;
+    background-color: var(--cvgv-red);
+    color: #fff;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+}
+
+.carnet-popup {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    width: 200px;
+}
+
+.carnet-popup img {
+    width: 100%;
+    max-height: 150px;
+    object-fit: cover;
+    border-radius: 0.35rem;
+}
+
+.carnet-popup strong {
+    color: var(--cvgv-blue);
+}
+
+/* Carnet de bord : frise des étapes */
+
+.carnet-etape {
+    --etape: var(--cvgv-blue);
+    display: grid;
+    grid-template-columns: 2.75rem 1fr;
+    gap: 0 1rem;
+}
+
+.carnet-etape-numero {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 50%;
+    background-color: var(--etape);
+    color: #fff;
+    font-size: 1.25rem;
+    font-weight: bold;
+    box-shadow: 0 0 0 4px #fff, 0 0 0 6px var(--etape);
+}
+
+.carnet-etape-contenu {
+    min-width: 0;
+    margin-left: -2.4rem;
+    padding: 0.4rem 0 2.5rem 3.4rem;
+    border-left: 3px dashed #c6d6e6;
+}
+
+.carnet-etape:last-child .carnet-etape-contenu {
+    border-left-color: transparent;
+    padding-bottom: 0;
+}
+
+.carnet-etape-dates {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.25rem 1rem;
+    color: var(--etape);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.85rem;
+    font-weight: bold;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.carnet-etape-lieu {
+    color: #5f6b76;
+}
+
+.carnet-etape-titre {
+    margin-bottom: 0.75rem;
+    font-size: 1.35rem;
+    font-weight: bold;
+    color: var(--cvgv-blue);
+}
+
+.carnet-etape-sans-photo .carnet-etape-titre {
+    font-size: 1.1rem;
+}
+
+.carnet-etape-sans-photo .carnet-etape-numero {
+    background-color: #fff;
+    color: var(--etape);
+}
+
+/* Photos façon polaroïd, en colonnes pour garder leur format */
+.carnet-photos {
+    columns: 2 7rem;
+    column-gap: 0.75rem;
+    margin-bottom: 0;
+}
+
+@media (min-width: 768px) {
+    .carnet-photos {
+        columns: 3 12rem;
+        column-gap: 1.25rem;
+    }
+}
+
+.carnet-photo-item {
+    break-inside: avoid;
+    margin-bottom: 1.25rem;
+}
+
+.carnet-polaroid {
+    padding: 0.5rem 0.5rem 0.65rem;
+    background-color: #fff;
+    box-shadow: 0 3px 10px rgba(2, 30, 60, 0.18);
+    transform: rotate(-1.2deg);
+    transition: transform 0.2s ease;
+}
+
+.carnet-photo-item:nth-child(2n) .carnet-polaroid {
+    transform: rotate(1deg);
+}
+
+.carnet-photo-item:nth-child(3n) .carnet-polaroid {
+    transform: rotate(-0.4deg);
+}
+
+.carnet-photo-item .carnet-polaroid:hover,
+.carnet-photo-item .carnet-polaroid:focus-within {
+    transform: rotate(0) scale(1.03);
+}
+
+.carnet-photo {
+    position: relative;
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: zoom-in;
+}
+
+.carnet-photo img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.carnet-photo-coords,
+.carnet-photo-archive {
+    position: absolute;
+    left: 0.4rem;
+    bottom: 0.4rem;
+    padding: 0.1rem 0.45rem;
+    border-radius: 0.25rem;
+    background-color: rgba(2, 40, 70, 0.75);
+    color: #fff;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.7rem;
+    white-space: nowrap;
+}
+
+@media (max-width: 575.98px) {
+    .carnet-photo-coords {
+        display: none;
+    }
+}
+
+.carnet-photo-archive {
+    top: 0.4rem;
+    bottom: auto;
+    background-color: #fff4e5;
+    color: #6b4200;
+    font-weight: bold;
+}
+
+.carnet-polaroid figcaption {
+    padding-top: 0.5rem;
+    font-size: 0.9rem;
+    line-height: 1.3;
+}
+
+.carnet-photo-date {
+    display: block;
+    margin-top: 0.15rem;
+    color: #5f6b76;
+    font-size: 0.8rem;
+}
+
+/* Visionneuse plein écran */
+.carnet-visionneuse {
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    max-height: 100%;
+    padding: 1rem 3.5rem;
+    border: 0;
+    background-color: transparent;
+}
+
+.carnet-visionneuse[open] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.carnet-visionneuse::backdrop {
+    background-color: rgba(1, 20, 35, 0.92);
+}
+
+.carnet-visionneuse figure {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-height: 100%;
+}
+
+.carnet-visionneuse img {
+    max-width: 100%;
+    max-height: calc(100vh - 7rem);
+    object-fit: contain;
+    border: 0.5rem solid #fff;
+}
+
+.carnet-visionneuse figcaption {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 0.75rem;
+    color: #fff;
+    text-align: center;
+}
+
+.carnet-visionneuse-infos {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.8rem;
+    opacity: 0.8;
+}
+
+.carnet-visionneuse-bouton {
+    position: absolute;
+    width: 2.75rem;
+    height: 2.75rem;
+    border: 0;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.15);
+    color: #fff;
+    font-size: 1.2rem;
+}
+
+.carnet-visionneuse-bouton:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.carnet-visionneuse-bouton:focus-visible {
+    outline-color: #fff;
+}
+
+.carnet-visionneuse-fermer {
+    top: 1rem;
+    right: 1rem;
+}
+
+.carnet-visionneuse-precedente,
+.carnet-visionneuse-suivante {
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.carnet-visionneuse-precedente {
+    left: 0.5rem;
+}
+
+.carnet-visionneuse-suivante {
+    right: 0.5rem;
+}
+
+/* Bloc « Prochain cap » en fin d'article */
+.carnet-cap {
+    background: linear-gradient(135deg, #024e82, #1a64a0);
+    color: #fff;
+}

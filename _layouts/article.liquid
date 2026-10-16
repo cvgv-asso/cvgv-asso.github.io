@@ -1,0 +1,35 @@
+---
+layout: default
+---
+
+{% comment %}
+    Article des actualités (fichiers de _posts/).
+    En-tête : title, section, icone, description, resume, vignette, affiche.
+{% endcomment %}
+{% assign mois_longs = "janvier,février,mars,avril,mai,juin,juillet,août,septembre,octobre,novembre,décembre" | split: "," %}
+{% assign index_mois = page.date | date: "%-m" | minus: 1 %}
+
+<div class="container">
+    <article>
+        <header class="page-banner article-banner rounded-3 mb-4"{% if page.affiche %} style="--article-image: url('{{ page.affiche }}')"{% endif %}>
+            <div class="article-banner-texte p-3 p-md-4">
+                <p class="page-banner-kicker mb-1">
+                    <i class="fa-solid {{ page.icone | default: 'fa-newspaper' }}"></i> Actualités{% if page.section %} · {{ page.section }}{% endif %}
+                </p>
+                <h1 class="h2 mb-2">{{ page.title }}</h1>
+                <p class="mb-0">
+                    <i class="fa-regular fa-calendar"></i>
+                    Publié le <time datetime="{{ page.date | date: '%Y-%m-%d' }}">{{ page.date | date: "%-d" }} {{ mois_longs[index_mois] }} {{ page.date | date: "%Y" }}</time>
+                </p>
+            </div>
+        </header>
+
+        {{ content }}
+
+        <p class="mt-4">
+            <a class="regate-retour" href="/">
+                <i class="fa-solid fa-chevron-left"></i> Retour à l'accueil
+            </a>
+        </p>
+    </article>
+</div>

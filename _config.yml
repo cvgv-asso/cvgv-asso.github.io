@@ -4,3 +4,12 @@ exclude:
     - Gemfile
     - Gemfile.lock
     - vendor
+
+# Actualités : un fichier par article dans _posts/ (AAAA-MM-JJ-titre.html ou .md),
+# publié sur /actualites/AAAA/titre.html avec la mise en page « article ».
+permalink: /actualites/:year/:title.html
+defaults:
+    - scope:
+          type: posts
+      values:
+          layout: article

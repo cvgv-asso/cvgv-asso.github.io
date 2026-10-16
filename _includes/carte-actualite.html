@@ -1,0 +1,21 @@
+{% comment %}
+    Carte d'une actualité, pour les listes (accueil, page Actualités, pages de section).
+    Paramètres : article (un élément de site.posts), large (photo à gauche sur grand écran).
+{% endcomment %}
+{% assign article = include.article %}
+{% assign mois_longs = "janvier,février,mars,avril,mai,juin,juillet,août,septembre,octobre,novembre,décembre" | split: "," %}
+{% assign index_mois = article.date | date: "%-m" | minus: 1 %}
+<article class="carte-actualite{% if include.large %} carte-actualite-large{% endif %} h-100">
+    {% if article.vignette %}
+        <img class="carte-actualite-image" src="{{ article.vignette }}" alt="" loading="lazy" />
+    {% endif %}
+    <div class="carte-actualite-corps">
+        <p class="carte-une-surtitre">
+            <i class="fa-solid {{ article.icone | default: 'fa-newspaper' }}"></i>
+            {{ article.section | default: "Club" }} ·
+            <time datetime="{{ article.date | date: '%Y-%m-%d' }}">{{ article.date | date: "%-d" }} {{ mois_longs[index_mois] }} {{ article.date | date: "%Y" }}</time>
+        </p>
+        <h3 class="carte-une-titre"><a class="stretched-link" href="{{ article.url }}">{{ article.title }}</a></h3>
+        {% if article.resume %}<p class="mb-0">{{ article.resume }}</p>{% endif %}
+    </div>
+</article>
