@@ -4,61 +4,175 @@ title: Croisières
 description: "Croisières en flottille avec la section habitable du CVGV : partage d'expérience, entraide et convivialité, des côtes de Charente à la Bretagne Nord."
 ---
 
+{% assign contact = "https://form.jotform.com/252184458636364" %}
+{% comment %} Calendrier lu depuis _data/croisieres.yml. {% endcomment %}
+{% assign croisieres = site.data.croisieres.croisieres | sort: "debut" %}
+{% assign mois = "janv.,févr.,mars,avr.,mai,juin,juil.,août,sept.,oct.,nov.,déc." | split: "," %}
+
 <div class="container">
-    <div class="row mt-5">
-        <div class="col-md-12">
-            <h1 class="display-4">Croisières</h1>
+    <section class="page-banner rounded-3 p-3 p-md-4 mb-4">
+        <p class="page-banner-kicker mb-1">
+            <i class="fa-solid fa-compass"></i> Habitable · Flottille
+        </p>
+        <h1 class="h2 mb-2">Croisières</h1>
+        <p class="voile-accroche mb-3">
+            Vous êtes propriétaire ou locataire d'un voilier habitable&nbsp;?
+            Vous recherchez un embarquement en tant qu'équipier ou
+            équipière&nbsp;? Vous souhaitez vivre votre passion entre amies et
+            amis, dans de bonnes conditions de sécurité et de convivialité&nbsp;?
+        </p>
+        <ul class="voile-infos list-unstyled mb-3">
+            <li><i class="fa-solid fa-route"></i> 3 à 4 croisières par an</li>
+            <li><i class="fa-solid fa-location-dot"></i> Des côtes de Charente à la Bretagne Nord</li>
+            <li><i class="fa-solid fa-ship"></i> Sorties vers Yeu toute l'année</li>
+        </ul>
+        <div class="d-flex flex-wrap gap-2">
+            <a class="btn btn-light" href="{{ contact }}">
+                <i class="fa-solid fa-sailboat"></i> Rejoindre la flottille
+            </a>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <p class="lead text-center">
-                Vous êtes propriétaire ou locataire d'un voilier habitable ?
-                Vous recherchez un embarquement en tant qu'équipier ou
-                équipière ? Vous souhaitez vivre votre passion entre amies et
-                amis, dans de bonnes conditions de sécurité et de
-                convivialité ?
-            </p>
-            <div class="alert alert-info" role="alert">
-                Nous vous proposons de rejoindre notre flottille :
-                <ul>
-                    <li>
-                        Partager son expérience et ses compétences : navigation,
-                        mouillage, météo, communication, mécanique,
-                        électronique, ...
-                    </li>
-                    <li>S'entraider en toutes circonstances</li>
-                    <li>Partager des moments de convivialité inoubliables</li>
-                    <li>Vivre entre amies et amis sa passion commune de la mer</li>
-                    <li>
-                        3 croisières par an des Côtes de Charente jusqu’en
-                        Bretagne Nord
-                    </li>
-                    <li>Sortie vers Yeu toute l'année</li>
-                    <li>Formations, météo, navigation, ...</li>
-                    <li>
+    </section>
+
+    <section class="mb-5" aria-labelledby="calendrier-titre">
+        <h2 class="accueil-section-titre" id="calendrier-titre">Calendrier</h2>
+        {% comment %} Même frise que le calendrier des régates habitables. {% endcomment %}
+        <ol class="regates list-unstyled mb-0">
+            {% for croisiere in croisieres %}
+                {% assign debut = croisiere.debut | date: "%Y-%m-%d" %}
+                {% assign fin = croisiere.fin | default: croisiere.debut | date: "%Y-%m-%d" %}
+                {% assign index_mois = croisiere.debut | date: "%-m" | minus: 1 %}
+                <li class="regate{% if croisiere.annulee %} regate-annulee{% endif %}" data-debut="{{ debut }}" data-fin="{{ fin }}"{% if croisiere.annulee %} data-annulee="true"{% endif %}>
+                    <div class="regate-date" aria-hidden="true">
+                        <span class="regate-jour">{{ croisiere.debut | date: "%-d" }}</span>
+                        <span class="regate-mois">{{ mois[index_mois] }}</span>
+                    </div>
+                    <div class="regate-contenu">
+                        <h3 class="regate-nom">{{ croisiere.nom }}</h3>
+                        <p class="regate-infos">
+                            <span class="text-muted"><i class="fa-regular fa-calendar"></i> {{ croisiere.dates }}</span>
+                            {% if croisiere.dates_initiales %}
+                                <span class="text-muted"><s><span class="visually-hidden">Dates initiales : </span>{{ croisiere.dates_initiales }}</s></span>
+                            {% endif %}
+                            {% if croisiere.lieu %}
+                                <span class="text-muted"><i class="fa-solid fa-location-dot"></i> {{ croisiere.lieu }}</span>
+                            {% endif %}
+                            {% if croisiere.annulee %}
+                                <span class="badge-annulee"><i class="fa-solid fa-ban"></i> Annulée</span>
+                            {% else %}
+                                <span class="regate-statut"></span>
+                            {% endif %}
+                        </p>
+                        {% if croisiere.annulee and croisiere.motif %}
+                            <p class="regate-motif">{{ croisiere.motif }}</p>
+                        {% endif %}
+                    </div>
+                </li>
+            {% endfor %}
+        </ol>
+    </section>
+
+    <section class="mb-5" aria-labelledby="flottille-titre">
+        <h2 class="accueil-section-titre" id="flottille-titre">Pourquoi rejoindre notre flottille&nbsp;?</h2>
+        <ul class="list-unstyled row g-3">
+            <li class="col-md-6 col-lg-4">
+                <div class="carte-info h-100">
+                    <h3 class="carte-info-titre"><i class="fa-solid fa-graduation-cap"></i> Partager</h3>
+                    <p class="mb-0">
+                        Son expérience et ses compétences : navigation, mouillage,
+                        météo, communication, mécanique, électronique…
+                    </p>
+                </div>
+            </li>
+            <li class="col-md-6 col-lg-4">
+                <div class="carte-info h-100">
+                    <h3 class="carte-info-titre"><i class="fa-solid fa-life-ring"></i> S'entraider</h3>
+                    <p class="mb-0">En toutes circonstances, à terre comme en mer.</p>
+                </div>
+            </li>
+            <li class="col-md-6 col-lg-4">
+                <div class="carte-info h-100">
+                    <h3 class="carte-info-titre"><i class="fa-solid fa-champagne-glasses"></i> Se retrouver</h3>
+                    <p class="mb-0">
+                        Des moments de convivialité inoubliables, entre amies et
+                        amis qui partagent la passion de la mer.
+                    </p>
+                </div>
+            </li>
+            <li class="col-md-6 col-lg-4">
+                <div class="carte-info h-100">
+                    <h3 class="carte-info-titre"><i class="fa-solid fa-map-location-dot"></i> Naviguer</h3>
+                    <p class="mb-0">
+                        3 à 4 croisières par an des côtes de Charente jusqu'en
+                        Bretagne Nord, et des sorties vers Yeu toute l'année.
+                    </p>
+                </div>
+            </li>
+            <li class="col-md-6 col-lg-4">
+                <div class="carte-info h-100">
+                    <h3 class="carte-info-titre"><i class="fa-solid fa-cloud-sun"></i> Se former</h3>
+                    <p class="mb-0">Formations météo, navigation…</p>
+                </div>
+            </li>
+            <li class="col-md-6 col-lg-4">
+                <div class="carte-info h-100">
+                    <h3 class="carte-info-titre"><i class="fa-solid fa-people-arrows"></i> Transmettre</h3>
+                    <p class="mb-0">
                         Sortie intergénérationnelle avec les jeunes de la voile
-                        légère
+                        légère.
+                    </p>
+                </div>
+            </li>
+        </ul>
+    </section>
+
+    <section class="mb-4" aria-labelledby="autres-titre">
+        <h2 class="accueil-section-titre" id="autres-titre">Les autres activités habitables</h2>
+        <ul class="list-unstyled row g-3">
+            {% assign activites = site.data.accueil.activites | where: "section", "Habitable" %}
+            {% for activite in activites %}
+                {% if activite.lien != page.url %}
+                    <li class="col-6 col-lg-3">
+                        <a class="activite h-100" href="{{ activite.lien }}">
+                            <span class="activite-icone"><i class="fa-solid {{ activite.icone }}"></i></span>
+                            <span class="activite-titre">{{ activite.titre }}</span>
+                        </a>
                     </li>
-                </ul>
-            </div>
-            <div class="alert alert-warning">
-                Prochaine croisière à venir :
-                <ul>
-                    <li>
-                        <s><span class="visually-hidden">Dates initiales annulées : </span>Du 6 au 20 septembre</s>
-                        <span class="visually-hidden">Nouvelles dates : </span>Du 2 au 12 septembre 2025
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="row mt-3">
-        <a
-            class="btn btn-lg btn-primary"
-            href="https://form.jotform.com/252184458636364"
-        >
-            <i class="fa-solid fa-sailboat"></i>&nbsp;Contact</a
-        >
-    </div>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </section>
 </div>
+
+<script>
+    (function () {
+        function pad(n) {
+            return String(n).padStart(2, "0");
+        }
+
+        var now = new Date();
+        var today =
+            now.getFullYear() + "-" + pad(now.getMonth() + 1) + "-" + pad(now.getDate());
+
+        // Statut de chaque croisière, calculé dans le navigateur pour rester à jour
+        // sans reconstruire le site.
+        var prochaine = null;
+        document.querySelectorAll(".regate").forEach(function (croisiere) {
+            var statut = croisiere.querySelector(".regate-statut");
+            if (croisiere.dataset.annulee) {
+                return;
+            }
+            if (croisiere.dataset.fin < today) {
+                croisiere.classList.add("regate-passee");
+                statut.textContent = "Terminée";
+            } else if (croisiere.dataset.debut <= today) {
+                croisiere.classList.add("regate-en-cours");
+                statut.textContent = "En cours";
+                prochaine = prochaine || croisiere;
+            } else if (!prochaine) {
+                croisiere.classList.add("regate-prochaine");
+                statut.innerHTML = '<i class="fa-solid fa-star"></i> Prochaine';
+                prochaine = croisiere;
+            }
+        });
+    })();
+</script>
