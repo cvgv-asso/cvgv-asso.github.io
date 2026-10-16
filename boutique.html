@@ -1,0 +1,123 @@
+---
+layout: default
+title: Boutique
+description: "Sweat-shirts, polaires, polos, tee-shirts et drapeaux aux couleurs du Club de Voile de Saint-Gilles-Croix-de-Vie. Commande et paiement sécurisé sur HelloAsso."
+---
+
+{% comment %} Articles lus depuis _data/boutique.yml ; la commande se fait sur HelloAsso. {% endcomment %}
+{% assign boutique = site.data.boutique %}
+{% assign lien_commande = site.data.club.liens.boutique %}
+
+<div class="container">
+    <section class="page-banner rounded-3 p-3 p-md-4 mb-4">
+        <p class="page-banner-kicker mb-1">
+            <i class="fa-solid fa-basket-shopping"></i> Boutique · 85 à l'ouest
+        </p>
+        <h1 class="h2 mb-2">Portez les couleurs du club</h1>
+        <p class="voile-accroche mb-3">
+            Sur l'eau, au port ou en ville, affichez votre attachement au
+            CVGV. Chaque achat soutient directement l'association.
+        </p>
+        <ul class="voile-infos list-unstyled mb-3">
+            <li><i class="fa-solid fa-shirt"></i> {{ boutique.marquage }}</li>
+            <li><i class="fa-solid fa-lock"></i> Paiement sécurisé sur HelloAsso</li>
+        </ul>
+        <div class="d-flex flex-wrap gap-2">
+            <a class="btn btn-light" href="{{ lien_commande }}">
+                <i class="fa-solid fa-basket-shopping"></i> Commander
+            </a>
+        </div>
+    </section>
+
+    <section class="mb-5" aria-labelledby="articles-titre">
+        <h2 class="accueil-section-titre" id="articles-titre">Nos articles</h2>
+        <ul class="list-unstyled row g-3">
+            {% for article in boutique.articles %}
+                <li class="col-sm-6 col-lg-4">
+                    <article class="article-boutique h-100">
+                        <div class="article-boutique-visuel">
+                            {% if article.variantes %}
+                                {% assign premiere = article.variantes.first %}
+                                <img
+                                    class="article-boutique-image"
+                                    src="{{ premiere.image }}"
+                                    alt="{{ article.nom }}, {{ premiere.libelle | downcase }}"
+                                    width="600"
+                                    height="600"
+                                    loading="lazy"
+                                />
+                            {% else %}
+                                <i class="fa-solid {{ article.icone | default: 'fa-shirt' }}" aria-hidden="true"></i>
+                            {% endif %}
+                            <span class="article-boutique-prix">{{ article.prix }}&nbsp;€</span>
+                        </div>
+                        <div class="article-boutique-corps">
+                            <h3 class="article-boutique-nom">{{ article.nom }}</h3>
+                            {% if article.coupe %}
+                                <p class="article-boutique-coupe">{{ article.coupe }}</p>
+                            {% endif %}
+                            {% if article.variantes.size > 1 %}
+                                <div class="article-boutique-variantes" role="group" aria-label="Voir les modèles : {{ article.nom }}">
+                                    {% for variante in article.variantes %}
+                                        <button
+                                            type="button"
+                                            class="article-boutique-variante"
+                                            data-image="{{ variante.image }}"
+                                            data-alt="{{ article.nom }}, {{ variante.libelle | downcase }}"
+                                            aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}"
+                                        >{{ variante.libelle }}</button>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                            <p class="mb-2">{{ article.description }}</p>
+                            {% if article.remarque %}
+                                <p class="article-boutique-remarque">
+                                    <i class="fa-solid fa-circle-info"></i> {{ article.remarque }}
+                                </p>
+                            {% endif %}
+                            <a class="btn btn-boutique mt-auto" href="{{ lien_commande }}">
+                                Commander<span class="visually-hidden"> : {{ article.nom }}</span>
+                            </a>
+                        </div>
+                    </article>
+                </li>
+            {% endfor %}
+        </ul>
+    </section>
+
+    <section class="carte-info mb-4" aria-labelledby="commander-titre">
+        <h2 class="carte-info-titre" id="commander-titre">
+            <i class="fa-solid fa-circle-question"></i> Comment commander&nbsp;?
+        </h2>
+        <ol class="mb-3">
+            <li>Choisissez vos articles ici : coupe femme ou homme, logo blanc ou couleur.</li>
+            <li>Sur HelloAsso, tous les articles sont sur la même page : indiquez les quantités, puis la taille à l'étape suivante.</li>
+            <li>Renseignez vos coordonnées et payez en ligne, en toute sécurité.</li>
+        </ol>
+        <div class="d-flex flex-wrap gap-2">
+            <a class="btn btn-boutique" href="{{ lien_commande }}">
+                <i class="fa-solid fa-basket-shopping"></i> Commander sur HelloAsso
+            </a>
+            <a class="btn btn-doc" href="mailto:{{ site.data.club.email }}?subject=Boutique">
+                <i class="fa-regular fa-envelope"></i> Une question&nbsp;?
+            </a>
+        </div>
+    </section>
+</div>
+
+<script>
+    // Bascule de la photo d'un article selon le modèle choisi (coupe, logo).
+    document.querySelectorAll(".article-boutique").forEach(function (article) {
+        var image = article.querySelector(".article-boutique-image");
+        var boutons = article.querySelectorAll(".article-boutique-variante");
+        boutons.forEach(function (bouton) {
+            bouton.addEventListener("click", function () {
+                image.src = bouton.dataset.image;
+                image.alt = bouton.dataset.alt;
+                boutons.forEach(function (autre) {
+                    autre.setAttribute("aria-pressed", autre === bouton ? "true" : "false");
+                });
+            });
+        });
+    });
+</script>

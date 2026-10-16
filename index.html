@@ -88,6 +88,48 @@ description: "Club de voile à Saint-Gilles-Croix-de-Vie (Vendée) : voile lég�
         </div>
     </section>
 
+    {% comment %} Boutique : article vedette et vignettes, lus depuis _data/boutique.yml. {% endcomment %}
+    {% assign articles = site.data.boutique.articles %}
+    {% assign vedette = articles | where: "vedette", true | first | default: articles.first %}
+    <section class="mb-5" aria-labelledby="boutique-titre">
+        <h2 class="accueil-section-titre" id="boutique-titre">La boutique du club</h2>
+        <div class="boutique-accueil">
+            <div class="boutique-accueil-texte">
+                <p class="carte-une-surtitre"><i class="fa-solid fa-basket-shopping"></i> 85 à l'ouest</p>
+                <h3 class="carte-une-titre">
+                    <a href="/boutique.html">Portez les couleurs du CVGV</a>
+                </h3>
+                <p>
+                    Sweat-shirts, polaires, polos, tee-shirts et drapeaux.
+                    Coup de cœur&nbsp;: <strong>{{ vedette.nom }}</strong>
+                    à {{ vedette.prix }}&nbsp;€. Chaque achat soutient le club&nbsp;!
+                </p>
+                <a class="btn btn-boutique" href="/boutique.html">
+                    <i class="fa-solid fa-basket-shopping"></i> Voir les articles
+                </a>
+            </div>
+            <ul class="boutique-accueil-vignettes list-unstyled mb-0">
+                {% assign nb_vignettes = 0 %}
+                {% for article in articles %}
+                    {% if article.variantes and nb_vignettes < 4 %}
+                        {% assign nb_vignettes = nb_vignettes | plus: 1 %}
+                        <li>
+                            <a href="/boutique.html" title="{{ article.nom }} – {{ article.prix }} €">
+                                <img
+                                    src="{{ article.variantes.first.image }}"
+                                    alt="{{ article.nom }}, {{ article.prix }} €"
+                                    width="600"
+                                    height="600"
+                                    loading="lazy"
+                                />
+                            </a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    </section>
+
     <section class="mb-5" aria-labelledby="activites-titre">
         <h2 class="accueil-section-titre" id="activites-titre">Nos activités</h2>
         <ul class="activites list-unstyled row g-3">

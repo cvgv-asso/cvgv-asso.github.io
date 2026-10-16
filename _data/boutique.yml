@@ -1,0 +1,80 @@
+# Articles de la boutique « 85 à l'ouest » (page /boutique.html et carte de l'accueil).
+# La commande et le paiement se font sur HelloAsso (lien « boutique » de _data/club.yml).
+#
+# prix : en euros, entre guillemets avec une virgule (ex. "26,90").
+# variantes : une photo par coupe et par logo ; la première est affichée par défaut.
+# vedette : true pour mettre l'article en avant sur la page d'accueil (le premier trouvé).
+# remarque : conseil de taille ou délai, affiché en évidence sous la description.
+
+marquage: Logo CVGV sur la poitrine, marquage « 85 à l'ouest » sur la manche droite.
+
+articles:
+    - nom: Sweat-shirt zippé premium
+      prix: "44,90"
+      coupe: Unisexe
+      vedette: true
+      description: Bleu marine, 330 g, capuche contrastée, qualité premium.
+      variantes:
+          - libelle: Logo couleur
+            image: /assets/boutique/sweat-logo-couleur.webp
+          - libelle: Logo blanc
+            image: /assets/boutique/sweat-logo-blanc.webp
+
+    - nom: Veste polaire
+      prix: "26,90"
+      coupe: Femme · Homme
+      description: >-
+          Micropolaire 280 en polyester 100 % recyclé, poches latérales zippées,
+          biais élastique aux poignets et au bas de la veste.
+      variantes:
+          - libelle: Femme · logo couleur
+            image: /assets/boutique/polaire-femme-logo-couleur.webp
+          - libelle: Femme · logo blanc
+            image: /assets/boutique/polaire-femme-logo-blanc.webp
+          - libelle: Homme · logo couleur
+            image: /assets/boutique/polaire-homme-logo-couleur.webp
+          - libelle: Homme · logo blanc
+            image: /assets/boutique/polaire-homme-logo-blanc.webp
+
+    - nom: Polo premium
+      prix: "22,90"
+      coupe: Femme · Homme
+      description: >-
+          Bleu marine, 100 % coton maille piquée 215, patte de boutonnage
+          cachée, col et bas de manches en bord côte.
+      remarque: Le modèle femme taille petit.
+      variantes:
+          - libelle: Femme · logo couleur
+            image: /assets/boutique/polo-femme-logo-couleur.webp
+          - libelle: Femme · logo blanc
+            image: /assets/boutique/polo-femme-logo-blanc.webp
+          - libelle: Homme · logo couleur
+            image: /assets/boutique/polo-homme-logo-couleur.webp
+          - libelle: Homme · logo blanc
+            image: /assets/boutique/polo-homme-logo-blanc.webp
+
+    - nom: Tee-shirt
+      prix: "11,90"
+      coupe: Femme · Homme
+      description: Bleu marine, 100 % coton semi-peigné, col rond. Coupe cintrée pour le modèle femme.
+      remarque: "Modèle femme : prendre 1 à 2 tailles au-dessus de votre taille habituelle."
+      variantes:
+          - libelle: Femme · logo couleur
+            image: /assets/boutique/tee-shirt-femme-logo-couleur.webp
+          - libelle: Femme · logo blanc
+            image: /assets/boutique/tee-shirt-femme-logo-blanc.webp
+          - libelle: Homme · logo couleur
+            image: /assets/boutique/tee-shirt-homme-logo-couleur.webp
+          - libelle: Homme · logo blanc
+            image: /assets/boutique/tee-shirt-homme-logo-blanc.webp
+
+    - nom: Drapeau CVGV 20 × 30 cm
+      prix: "24,90"
+      description: >-
+          Pour arborer les couleurs du club à bord. Polyester 110 g, marquage
+          couleur CVGV, hampe sur le côté gauche.
+      remarque: Disponible 8 jours après la commande.
+      # Illustration générée à partir de assets/logo.svg (pas de photo sur HelloAsso).
+      variantes:
+          - libelle: Marquage couleur
+            image: /assets/boutique/drapeau.webp
