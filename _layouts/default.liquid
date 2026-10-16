@@ -161,13 +161,16 @@
                 </button>
                 {% include annonce.html %}
                 <div class="collapse navbar-collapse" id="navbarNav">
+                    {% comment %} Les pages sont publiées sans « .html » dans page.url (permalink du _config.yml) : on compare sans l'extension. {% endcomment %}
+                    {% assign url_page = page.url | remove: ".html" %}
                     <ul class="navbar-nav">
                         {% for item in site.data.pages.toc %}
                             {% if item.children == null %}
+                                {% assign url_lien = item.url | remove: ".html" %}
                                 <li class="nav-item">
                                     <a
-                                        class="nav-link{% if page.url == item.url %} active{% endif %}"
-                                        {% if page.url == item.url %} aria-current="page"{% endif %}
+                                        class="nav-link{% if url_page == url_lien %} active{% endif %}"
+                                        {% if url_page == url_lien %} aria-current="page"{% endif %}
                                         href="{{ item.url }}"
                                         >
                                             {{ item.title }}
@@ -180,7 +183,8 @@
                                     </a>
                                     <ul class="dropdown-menu">
                                         {% for child in item.children %}
-                                            <li><a class="dropdown-item{% if page.url == child.url %} active{% endif %}"{% if page.url == child.url %} aria-current="page"{% endif %} href="{{ child.url }}">{{ child.title }}</a></li>
+                                            {% assign url_lien = child.url | remove: ".html" %}
+                                            <li><a class="dropdown-item{% if url_page == url_lien %} active{% endif %}"{% if url_page == url_lien %} aria-current="page"{% endif %} href="{{ child.url }}">{{ child.title }}</a></li>
                                         {% endfor %}
                                     </ul>
                                 </li>
@@ -191,10 +195,11 @@
                                     </span>
                                     <ul>
                                         {% for child in item.children %}
+                                        {% assign url_lien = child.url | remove: ".html" %}
                                         <li class="nav-item">
                                             <a
-                                                class="nav-link{% if page.url == child.url %} active{% endif %}"
-                                                {% if page.url == child.url %} aria-current="page"{% endif %}
+                                                class="nav-link{% if url_page == url_lien %} active{% endif %}"
+                                                {% if url_page == url_lien %} aria-current="page"{% endif %}
                                                 href="{{ child.url }}"
                                                 >
                                                     {{ child.title }}
@@ -212,8 +217,8 @@
                         </li>
                         <li class="nav-item">
                             <a
-                                class="nav-link nav-boutique{% if page.url == "/boutique.html" %} active{% endif %}"
-                                {% if page.url == "/boutique.html" %} aria-current="page"{% endif %}
+                                class="nav-link nav-boutique{% if url_page == "/boutique" %} active{% endif %}"
+                                {% if url_page == "/boutique" %} aria-current="page"{% endif %}
                                 href="/boutique.html"
                                 >
                                     <i class="fa-solid fa-basket-shopping"></i>&nbsp;Boutique
