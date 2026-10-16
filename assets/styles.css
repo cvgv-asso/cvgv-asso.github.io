@@ -774,9 +774,11 @@ main:focus {
     position: absolute;
     right: -3rem;
     bottom: -3rem;
-    font-size: 16rem;
-    color: rgba(255, 255, 255, 0.08);
+    width: 16rem;
+    height: 16rem;
+    fill: rgba(255, 255, 255, 0.08);
     transform: rotate(-15deg);
+    transform-origin: 50% 50%;
     pointer-events: none;
 }
 
@@ -788,7 +790,8 @@ main:focus {
     .accueil-hero-decor {
         right: 2rem;
         bottom: -4rem;
-        font-size: 22rem;
+        width: 22rem;
+        height: 22rem;
     }
 }
 
