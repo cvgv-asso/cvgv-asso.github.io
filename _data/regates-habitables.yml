@@ -2,7 +2,7 @@
 #
 # Pour chaque régate :
 #   nom       : nom affiché
-#   debut     : premier jour (AAAA-MM-JJ), sert au tri, au compte à rebours et au statut
+#   debut     : premier jour (AAAA-MM-JJ), sert au tri et au statut
 #   fin       : dernier jour (facultatif, sinon égal à debut)
 #   dates     : dates affichées en toutes lettres
 #   lieu      : port ou commune (facultatif)

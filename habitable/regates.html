@@ -27,16 +27,6 @@ description: "Calendrier des régates habitables du CVGV et du championnat de Ve
         <p class="small mt-2 mb-0">
             L'inscription à la saison complète est réservée aux membres du CVGV.
         </p>
-        <p
-            class="page-countdown d-none align-items-center gap-2 rounded-pill px-3 py-1 mt-3 mb-0"
-            id="regates-countdown"
-        >
-            <i class="fa-solid fa-hourglass-half"></i>
-            <span>
-                <span class="regates-countdown-label"></span>
-                <strong class="page-countdown-time"></strong>
-            </span>
-        </p>
     </section>
 
     <h2 class="h3 mb-3">Calendrier</h2>
@@ -145,34 +135,5 @@ description: "Calendrier des régates habitables du CVGV et du championnat de Ve
                 prochaine = regate;
             }
         });
-
-        var countdown = document.getElementById("regates-countdown");
-        var label = countdown.querySelector(".regates-countdown-label");
-        var time = countdown.querySelector(".page-countdown-time");
-
-        if (!prochaine) {
-            label.textContent = "Saison terminée, rendez-vous l'année prochaine !";
-        } else if (prochaine.classList.contains("regate-en-cours")) {
-            label.textContent = prochaine.dataset.nom + " : c'est aujourd'hui !";
-        } else {
-            var parts = prochaine.dataset.debut.split("-");
-            var debut = new Date(parts[0], parts[1] - 1, parts[2]);
-            label.textContent = "Prochaine régate dans";
-            var update = function () {
-                var s = Math.max(0, Math.floor((debut - new Date()) / 1000));
-                var days = Math.floor(s / 86400);
-                time.textContent =
-                    (days > 0 ? days + " j " : "") +
-                    pad(Math.floor((s % 86400) / 3600)) +
-                    "h" +
-                    pad(Math.floor((s % 3600) / 60)) +
-                    "m" +
-                    pad(s % 60) +
-                    "s";
-            };
-            update();
-            setInterval(update, 1000);
-        }
-        countdown.classList.replace("d-none", "d-inline-flex");
     })();
 </script>

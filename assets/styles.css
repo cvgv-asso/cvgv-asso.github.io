@@ -878,14 +878,6 @@ main:focus {
     color: #5f6b76;
 }
 
-.carte-une-compteur {
-    align-self: flex-start;
-    padding: 0.3rem 0.9rem;
-    border-radius: 50rem;
-    background-color: #e7f0f8;
-    color: var(--cvgv-blue);
-}
-
 .carte-une-plus {
     margin-top: auto;
     font-weight: 600;

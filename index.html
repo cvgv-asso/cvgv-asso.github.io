@@ -54,11 +54,6 @@ description: "Club de voile à Saint-Gilles-Croix-de-Vie (Vendée) : voile lég�
                         <li class="prochaine-regate-dates d-none"><i class="fa-regular fa-calendar"></i> <span></span></li>
                         <li class="prochaine-regate-lieu d-none"><i class="fa-solid fa-location-dot"></i> <span></span></li>
                     </ul>
-                    <p class="carte-une-compteur d-none">
-                        <i class="fa-solid fa-hourglass-half"></i>
-                        <span class="prochaine-regate-label">Départ dans</span>
-                        <strong class="page-countdown-time"></strong>
-                    </p>
                     <a class="carte-une-plus" href="/habitable/regates.html">
                         Tout le calendrier <i class="fa-solid fa-chevron-right"></i>
                     </a>
@@ -294,37 +289,5 @@ description: "Club de voile à Saint-Gilles-Croix-de-Vie (Vendée) : voile lég�
             carte.querySelector(".prochaine-regate-lieu span").textContent = regate.lieu;
             carte.querySelector(".prochaine-regate-lieu").classList.remove("d-none");
         }
-
-        var compteur = carte.querySelector(".carte-une-compteur");
-        var label = compteur.querySelector(".prochaine-regate-label");
-        var time = compteur.querySelector(".page-countdown-time");
-        var parts = regate.debut.split("-");
-        var debut = new Date(parts[0], parts[1] - 1, parts[2]);
-        function update() {
-            var s = Math.floor((debut - new Date()) / 1000);
-            if (s <= 0) {
-                label.textContent = "C'est aujourd'hui, bon vent !";
-                time.textContent = "";
-                return false;
-            }
-            var days = Math.floor(s / 86400);
-            time.textContent =
-                (days > 0 ? days + " j " : "") +
-                pad(Math.floor((s % 86400) / 3600)) +
-                "h" +
-                pad(Math.floor((s % 3600) / 60)) +
-                "m" +
-                pad(s % 60) +
-                "s";
-            return true;
-        }
-        if (update()) {
-            var timer = setInterval(function () {
-                if (!update()) {
-                    clearInterval(timer);
-                }
-            }, 1000);
-        }
-        compteur.classList.remove("d-none");
     })();
 </script>
