@@ -30,37 +30,46 @@ layout: default
                 <li><i class="fa-solid fa-sailboat"></i> {{ page.supports | join: " · " }}</li>
             {% endif %}
         </ul>
+        {% if page.contact %}
+            <p class="mb-2">
+                <i class="fa-solid fa-circle-info"></i>
+                Informations et inscriptions auprès de <strong>{{ page.contact.nom }}</strong>&nbsp;:
+            </p>
+        {% endif %}
         <div class="d-flex flex-wrap gap-2">
+            {% comment %}
+                lien: contact ouvre un mail de prise de contact au club,
+                sinon lien HelloAsso de _data/club.yml.
+            {% endcomment %}
             {% for inscription in page.inscriptions %}
+                {% if inscription.lien == "contact" %}
+                    {% capture sujet %}Inscription à {{ page.title }}{% endcapture %}
+                    {% capture url %}mailto:{{ site.data.club.email }}?subject={{ sujet | uri_escape }}{% endcapture %}
+                    {% assign icone = "fa-regular fa-envelope" %}
+                {% else %}
+                    {% assign url = site.data.club.liens[inscription.lien] %}
+                    {% assign icone = "fa-solid fa-pen-to-square" %}
+                {% endif %}
                 <a
                     class="btn {% if forloop.first %}btn-light{% else %}btn-outline-light{% endif %}"
-                    href="{{ site.data.club.liens[inscription.lien] }}"
+                    href="{{ url }}"
                 >
-                    {% if forloop.first %}<i class="fa-solid fa-pen-to-square"></i> {% endif %}{{ inscription.titre }}
+                    {% if forloop.first %}<i class="{{ icone }}"></i> {% endif %}{{ inscription.titre }}
                 </a>
             {% endfor %}
+            {% if page.contact %}
+                <a class="btn btn-light" href="mailto:{{ page.contact.email }}">
+                    <i class="fa-regular fa-envelope"></i> {{ page.contact.email }}
+                </a>
+                <a class="btn btn-outline-light" href="tel:{{ page.contact.telephone | remove: ' ' }}">
+                    <i class="fa-solid fa-phone"></i> {{ page.contact.telephone | replace: " ", "&nbsp;" }}
+                </a>
+            {% endif %}
         </div>
         <p class="small mt-2 mb-0">
             Séances selon les conditions météorologiques{% if page.annee != "civile" %} et les choix pédagogiques{% endif %}.
         </p>
     </section>
-
-    {% if page.contact %}
-        <div class="carte-info d-md-flex align-items-center justify-content-between gap-3 mb-4">
-            <p class="mb-2 mb-md-0">
-                <i class="fa-solid fa-circle-info"></i>
-                Informations et inscriptions auprès de <strong>{{ page.contact.nom }}</strong>.
-            </p>
-            <div class="d-flex flex-wrap gap-2 flex-shrink-0">
-                <a class="btn btn-doc" href="mailto:{{ page.contact.email }}">
-                    <i class="fa-regular fa-envelope"></i> {{ page.contact.email }}
-                </a>
-                <a class="btn btn-doc" href="tel:{{ page.contact.telephone | remove: ' ' }}">
-                    <i class="fa-solid fa-phone"></i> {{ page.contact.telephone | replace: " ", "&nbsp;" }}
-                </a>
-            </div>
-        </div>
-    {% endif %}
 
     <section class="mb-5" aria-labelledby="pratique-titre">
         <h2 class="accueil-section-titre" id="pratique-titre">En pratique</h2>
