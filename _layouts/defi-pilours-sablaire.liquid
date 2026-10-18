@@ -105,9 +105,7 @@ layout: default
                             </td>
                             <td>
                                 <span class="fw-semibold">{{ result.bateau }}</span>
-                                {% if result.modele %}
-                                    <span class="text-muted">{{ result.modele }}</span>
-                                {% endif %}
+                                <div class="small text-muted">{{ result.modele }}</div>
                                 <div class="small text-muted d-md-none">
                                     <span class="text-nowrap"><i class="fa-solid {{ arrow }}" title="{{ from }} → {{ to }}"></i><span class="visually-hidden">De {{ from }} à {{ to }}, le</span> {{ result.date }}</span>
                                     <span aria-hidden="true">·</span> <span class="text-nowrap">réel {{ result.temps_reel }}</span>
