@@ -1,7 +1,7 @@
 # Annonce affichée dans la barre de menu.
 
 # Mettre à false pour masquer l'annonce.
-actif: true
+actif: false
 
 message: "18 octobre 2026 : Finale du Championnat de Vendée Habitable"
 
