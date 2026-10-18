@@ -4,8 +4,25 @@
 #   depart : "Sablaire" ou "Pilours"
 #   temps  : au format "2h18m00s", entre guillemets (sert au classement)
 
+- bateau: "Peter Pan"
+  modele: "First 210"
+  rating_net: "11"
+  depart: "Sablaire"
+  date: "14/08/2026"
+  temps_reel: "2h20m22s"
+  temps_compense: "1h49m07s"
+
+- bateau: "Licopus"
+  modele: "Pogo 2"
+  rating_net: "19"
+  depart: "Sablaire"
+  date: "14/08/2026"
+  temps_reel: "1h58m52s"
+  temps_compense: "1h47m37s"
+
 - bateau: "Colibri"
   modele: "First 31.7"
+  rating_net: "20.5"
   depart: "Pilours"
   date: "04/10/2026"
   temps_reel: "2h03m53s"
@@ -13,6 +30,7 @@
 
 - bateau: "Soley"
   modele: "Ofcet 6.50"
+  rating_net: "20"
   depart: "Sablaire"
   date: "02/08/2026"
   temps_reel: "2h05m46s"
@@ -20,6 +38,7 @@
 
 - bateau: "Pilourson"
   modele: "First 29"
+  rating_net: "15.5"
   depart: "Pilours"
   date: "12/05/2026"
   temps_reel: "3h01m32s"
