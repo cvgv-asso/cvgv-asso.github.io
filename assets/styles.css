@@ -324,7 +324,7 @@ main:focus {
     bottom: -2.5rem;
     width: 16rem;
     height: auto;
-    opacity: 0.12;
+    opacity: 0.25;
     pointer-events: none;
 }
 
