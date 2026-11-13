@@ -57,22 +57,27 @@ layout: default
                 </div>
             </dl>
         {% endif %}
-        {% comment %} Période du défi : du 1er février au 31 octobre inclus. {% endcomment %}
-        <p
-            class="page-countdown d-none align-items-center gap-2 rounded-pill px-3 py-1 mt-3 mb-0"
-            id="defi-countdown"
-            data-start-month="2"
-            data-start-day="1"
-            data-end-month="10"
-            data-end-day="31"
-        >
-            <i class="fa-solid fa-hourglass-half"></i>
-            <span>
-                <span class="defi-countdown-label d-none d-sm-inline"></span>
-                <span class="defi-countdown-label-short d-sm-none"></span>
-                <strong class="page-countdown-time"></strong>
-            </span>
-        </p>
+        <div class="d-flex flex-wrap align-items-center gap-2 mt-3">
+            {% comment %} Période du défi : du 1er février au 31 octobre inclus. {% endcomment %}
+            <p
+                class="page-countdown d-none align-items-center gap-2 rounded-pill px-3 py-1 mb-0"
+                id="defi-countdown"
+                data-start-month="2"
+                data-start-day="1"
+                data-end-month="10"
+                data-end-day="31"
+            >
+                <i class="fa-solid fa-hourglass-half"></i>
+                <span>
+                    <span class="defi-countdown-label d-none d-sm-inline"></span>
+                    <span class="defi-countdown-label-short d-sm-none"></span>
+                    <strong class="page-countdown-time"></strong>
+                </span>
+            </p>
+            <a class="defi-lien-reglement d-inline-flex align-items-center gap-2 rounded-pill px-3 py-1" href="#le-reglement">
+                <i class="fa-solid fa-scale-balanced"></i> Règlement
+            </a>
+        </div>
     </section>
 
     {% if results.size > 0 %}
@@ -160,7 +165,7 @@ layout: default
             />
         </div>
         <div class="col-lg-8">
-            <h2 class="h3">Règlement</h2>
+            <h2 class="h3 defi-reglement-titre" id="le-reglement">Règlement</h2>
             <div class="accordion" id="reglement">
                 {% for rule in site.data["defi-pilours-sablaire-reglement"] %}
                     <div class="accordion-item">

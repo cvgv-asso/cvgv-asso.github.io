@@ -319,10 +319,6 @@ main:focus {
     justify-content: space-between;
 }
 
-.defi-banner > .page-countdown {
-    align-self: flex-start;
-}
-
 .defi-banner > :not(.defi-filigrane) {
     position: relative;
 }
@@ -422,6 +418,25 @@ main:focus {
 
 .defi-gold {
     color: #d4a017;
+}
+
+/* Lien « Règlement » du bandeau, assorti au compte à rebours */
+.defi-lien-reglement {
+    background-color: rgba(255, 255, 255, 0.15);
+    color: #fff;
+    font-size: 0.9rem;
+    text-decoration: none;
+}
+
+.defi-lien-reglement:hover,
+.defi-lien-reglement:focus-visible {
+    background-color: rgba(255, 255, 255, 0.3);
+    color: #fff;
+}
+
+/* L'ancre « Règlement » ne passe pas sous le menu fixe */
+.defi-reglement-titre {
+    scroll-margin-top: 5rem;
 }
 
 #reglement {
