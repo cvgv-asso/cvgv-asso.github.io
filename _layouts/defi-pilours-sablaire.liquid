@@ -8,7 +8,7 @@ layout: default
 {% endcomment %}
 {% assign year = page.year | append: "" %}
 {% assign results = site.data["defi-pilours-sablaire"][year] | sort: "temps_compense" %}
-{% assign result_pages = site.pages | where: "layout", "defi-pilours-sablaire" | sort: "year" | reverse %}
+{% assign result_pages = site.pages | where: "layout", "defi-pilours-sablaire" | sort: "year" %}
 
 {% assign boats = results | map: "bateau" | uniq %}
 
