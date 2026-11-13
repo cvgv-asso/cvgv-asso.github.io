@@ -312,7 +312,7 @@ main:focus {
 .defi-banner {
     position: relative;
     overflow: hidden;
-    min-height: 250px; /* évite que le logo passe sous les boutons d'années */
+    min-height: 290px; /* évite que le logo passe sous les boutons d'années */
     /* Titre, chiffres et compte à rebours répartis sur la hauteur. */
     display: flex;
     flex-direction: column;
@@ -327,20 +327,44 @@ main:focus {
     position: relative;
 }
 
+/* Mobile : le logo, en haut à droite, remplace le titre. */
 .defi-filigrane {
     position: absolute;
-    right: -3rem;
-    bottom: -2.5rem;
-    width: 16rem;
+    top: 0.2rem;
+    right: 0.2rem;
+    width: 13rem;
     height: auto;
-    opacity: 0.5;
+    opacity: 1;
     pointer-events: none;
+}
+
+@media (max-width: 767.98px) {
+    /* Titre masqué à l'écran mais lu par les lecteurs d'écran
+       (même technique que .visually-hidden de Bootstrap). */
+    .defi-banner-titre {
+        position: absolute !important;
+        width: 1px !important;
+        height: 1px !important;
+        padding: 0 !important;
+        margin: -1px !important;
+        overflow: hidden !important;
+        clip: rect(0, 0, 0, 0) !important;
+        white-space: nowrap !important;
+        border: 0 !important;
+    }
+
+    /* Réserve la hauteur du logo pour que les chiffres passent dessous. */
+    .defi-banner-entete {
+        min-height: 8rem;
+    }
 }
 
 @media (min-width: 768px) {
     .defi-filigrane {
+        top: auto;
+        opacity: 0.5;
         right: 1rem;
-        bottom: -3rem;
+        bottom: -1rem;
         width: 26rem;
     }
 }
@@ -360,6 +384,26 @@ main:focus {
     font-size: clamp(0.95rem, 4.5vw, 1.25rem);
     font-weight: bold;
     white-space: nowrap;
+}
+
+/* Desktop : chiffres plus grands et plus espacés, pour occuper la largeur
+   laissée libre entre le titre et le logo. */
+@media (min-width: 992px) {
+    .defi-stats > div {
+        padding-left: 0.75rem;
+    }
+
+    .defi-stats > div + div {
+        margin-left: 2rem;
+    }
+
+    .defi-stats dt {
+        font-size: 0.9rem;
+    }
+
+    .defi-stats dd {
+        font-size: 1.9rem;
+    }
 }
 
 .defi-results .defi-rank {
