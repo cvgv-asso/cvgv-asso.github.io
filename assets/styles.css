@@ -308,15 +308,31 @@ main:focus {
 
 /* Défi Pilours-Sablaire */
 
-.defi-logo {
-    width: 6rem;
+/* Logo en filigrane, en bas à droite du bandeau, légèrement rogné. */
+.defi-banner {
+    position: relative;
+    overflow: hidden;
+}
+
+.defi-banner > :not(.defi-filigrane) {
+    position: relative;
+}
+
+.defi-filigrane {
+    position: absolute;
+    right: -3rem;
+    bottom: -2.5rem;
+    width: 16rem;
     height: auto;
-    flex-shrink: 0;
+    opacity: 0.12;
+    pointer-events: none;
 }
 
 @media (min-width: 768px) {
-    .defi-logo {
-        width: 9rem;
+    .defi-filigrane {
+        right: 1rem;
+        bottom: -3rem;
+        width: 26rem;
     }
 }
 
