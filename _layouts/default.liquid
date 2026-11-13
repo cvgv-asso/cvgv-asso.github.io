@@ -31,6 +31,8 @@
 
         {% if page.affiche %}
             {% assign image_seo = page.affiche %}
+        {% elsif page.layout == "defi-pilours-sablaire" %}
+            {% assign image_seo = "/assets/defi-pilours-sablaire-partage.png" %}
         {% else %}
             {% assign image_seo = "/assets/partage.png" %}
         {% endif %}

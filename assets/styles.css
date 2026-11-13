@@ -308,6 +308,18 @@ main:focus {
 
 /* Défi Pilours-Sablaire */
 
+.defi-logo {
+    width: 6rem;
+    height: auto;
+    flex-shrink: 0;
+}
+
+@media (min-width: 768px) {
+    .defi-logo {
+        width: 9rem;
+    }
+}
+
 .defi-stats > div {
     border-left: 3px solid rgba(255, 255, 255, 0.4);
     padding-left: 0.5rem;

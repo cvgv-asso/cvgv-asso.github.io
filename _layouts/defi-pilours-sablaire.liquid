@@ -18,11 +18,14 @@ layout: default
 <div class="container">
     <section class="page-banner rounded-3 p-3 p-md-4 mb-3">
         <div class="d-md-flex justify-content-between align-items-start gap-3">
-            <div>
-                <p class="page-banner-kicker mb-1">
-                    <i class="fa-solid fa-stopwatch"></i> Résultats {{ page.year }}
-                </p>
-                <h1 class="h2 mb-3">Défi Pilours-Sablaire</h1>
+            <div class="d-flex align-items-center gap-3 mb-3">
+                <img src="/assets/defi-pilours-sablaire-logo-blanc.svg" alt="" class="defi-logo" width="809" height="521" />
+                <div>
+                    <p class="page-banner-kicker mb-1">
+                        <i class="fa-solid fa-stopwatch"></i> Résultats {{ page.year }}
+                    </p>
+                    <h1 class="h2 mb-0">Défi Pilours-Sablaire</h1>
+                </div>
             </div>
             {% if result_pages.size > 1 %}
                 <nav class="d-flex flex-wrap gap-2 mb-3" aria-label="Années">
@@ -147,6 +150,19 @@ layout: default
 
     <div class="row g-4 mb-4">
         <div class="col-lg-4 d-none d-lg-block">
+            <figure class="text-center mb-4">
+                <img
+                    src="/assets/defi-pilours-sablaire-logo.svg"
+                    alt="Logo du Défi Pilours-Sablaire"
+                    class="img-fluid"
+                    width="809"
+                    height="521"
+                    loading="lazy"
+                />
+                <figcaption class="small text-muted mt-2">
+                    2 marques cardinales à relier, un chrono pour témoin
+                </figcaption>
+            </figure>
             <img
                 src="/assets/defi-pilours-sablaire-trophee.webp"
                 alt="Trophée du Défi Pilours-Sablaire"
