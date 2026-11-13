@@ -312,7 +312,7 @@ main:focus {
 .defi-banner {
     position: relative;
     overflow: hidden;
-    min-height: 290px; /* évite que le logo passe sous les boutons d'années */
+    min-height: 250px; /* évite que le logo passe sous les boutons d'années */
     /* Titre, chiffres et compte à rebours répartis sur la hauteur. */
     display: flex;
     flex-direction: column;
@@ -327,30 +327,21 @@ main:focus {
     position: relative;
 }
 
-/* Sur petit écran, le logo passe derrière le texte : on l'estompe davantage. */
 .defi-filigrane {
     position: absolute;
-    right: -1rem;
-    bottom: -1rem;
+    right: -3rem;
+    bottom: -2.5rem;
     width: 16rem;
     height: auto;
-    opacity: 0.15;
+    opacity: 0.5;
     pointer-events: none;
 }
 
 @media (min-width: 768px) {
     .defi-filigrane {
-        right: 1.5rem;
-        bottom: 0.75rem;
-        width: 22rem;
-    }
-}
-
-/* Desktop : logo bien visible, décalé à gauche des boutons d'années. */
-@media (min-width: 992px) {
-    .defi-filigrane {
-        right: 9rem;
-        opacity: 0.5;
+        right: 1rem;
+        bottom: -3rem;
+        width: 26rem;
     }
 }
 
