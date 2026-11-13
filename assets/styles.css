@@ -313,6 +313,14 @@ main:focus {
     position: relative;
     overflow: hidden;
     min-height: 250px; /* évite que le logo passe sous les boutons d'années */
+    /* Titre, chiffres et compte à rebours répartis sur la hauteur. */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.defi-banner > .page-countdown {
+    align-self: flex-start;
 }
 
 .defi-banner > :not(.defi-filigrane) {
