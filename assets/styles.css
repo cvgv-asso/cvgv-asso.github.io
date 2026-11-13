@@ -327,6 +327,11 @@ main:focus {
     position: relative;
 }
 
+/* Le <picture> du logo ne doit pas compter dans la mise en page. */
+.defi-banner > picture {
+    display: contents;
+}
+
 /* Mobile : le logo, en haut à droite, remplace le titre. */
 .defi-filigrane {
     position: absolute;
