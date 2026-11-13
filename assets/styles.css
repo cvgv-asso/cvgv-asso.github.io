@@ -312,6 +312,7 @@ main:focus {
 .defi-banner {
     position: relative;
     overflow: hidden;
+    min-height: 250px; /* évite que le logo passe sous les boutons d'années */
 }
 
 .defi-banner > :not(.defi-filigrane) {
@@ -324,7 +325,7 @@ main:focus {
     bottom: -2.5rem;
     width: 16rem;
     height: auto;
-    opacity: 0.25;
+    opacity: 0.5;
     pointer-events: none;
 }
 
