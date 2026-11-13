@@ -328,6 +328,12 @@ main:focus {
     display: contents;
 }
 
+/* Sans quoi le <source> compte comme un élément vide en haut du bandeau
+   (n'influe pas sur le choix de l'image). */
+.defi-banner > picture > source {
+    display: none;
+}
+
 /* Mobile : le logo, en haut à droite, remplace le titre. */
 .defi-filigrane {
     position: absolute;
@@ -367,6 +373,12 @@ main:focus {
         right: 1rem;
         bottom: -1rem;
         width: 26rem;
+    }
+
+    /* Le logo est calé en bas : un bandeau plus haut descend l'accent du É
+       sous la rangée des boutons d'années, même avec 4 ou 5 années. */
+    .defi-banner {
+        min-height: 330px;
     }
 }
 
